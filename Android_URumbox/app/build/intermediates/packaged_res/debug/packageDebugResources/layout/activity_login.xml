@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/primario">
+
+    <!-- Sección superior: logo y título -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="38"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_bell"
+            app:tint="@color/white"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="URumbox"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guía inteligente de recorridos"
+            android:textColor="#B0C9E8"
+            android:textSize="14sp"
+            android:layout_marginTop="6dp" />
+
+    </LinearLayout>
+
+    <!-- Sección inferior: formulario de login -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="62"
+        app:cardCornerRadius="28dp"
+        app:cardBackgroundColor="@color/white"
+        app:strokeWidth="0dp"
+        app:cardElevation="12dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="28dp"
+                android:gravity="top">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Iniciar sesión"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/texto_general"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresa tus datos para continuar"
+                    android:textSize="13sp"
+                    android:textColor="@color/texto_opaco"
+                    android:layout_marginBottom="28dp" />
+
+                <!-- Campo nombre -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:textSize="12sp"
+                    android:textColor="@color/texto_opaco"
+                    android:layout_marginBottom="6dp" />
+
+                <EditText
+                    android:id="@+id/etLoginNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@drawable/bg_search"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:hint="Ej: María García"
+                    android:textColorHint="@color/texto_opaco"
+                    android:textColor="@color/texto_general"
+                    android:textSize="15sp"
+                    android:inputType="textPersonName"
+                    android:autofillHints="name"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Selección de rol -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rol"
+                    android:textSize="12sp"
+                    android:textColor="@color/texto_opaco"
+                    android:layout_marginBottom="10dp" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/toggleRol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    android:layout_marginBottom="32dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRolVisitante"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:text="Visitante"
+                        android:textSize="12sp"
+                        app:strokeColor="@color/primario" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRolOperador"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:text="Operador"
+                        android:textSize="12sp"
+                        app:strokeColor="@color/primario" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRolAdmin"
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:text="Admin"
+                        android:textSize="12sp"
+                        app:strokeColor="@color/primario" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <!-- Botón ingresar -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnIngresar"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Ingresar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="@color/primario"
+                    app:cornerRadius="14dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

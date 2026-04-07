@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">URumbox</string>
+    <string name="titulo_notificaciones">Notificaciones</string>
+    <string name="hint_buscar">Buscar aviso, zona o tipo…</string>
+    <string name="tab_todos">Todos</string>
+    <string name="tab_sin_leer">Sin ver</string>
+    <string name="tab_leidos">Vistos</string>
+    <string name="tab_eliminados">Archivados</string>
+    <string name="btn_ver_detalles">Ver detalles</string>
+    <string name="btn_resolver">Marcar resuelta</string>
+    <string name="btn_archivar">Archivar</string>
+    <string name="btn_aprobar">Aprobar</string>
+    <string name="btn_rechazar">Rechazar</string>
+    <string name="nav_home">Inicio</string>
+    <string name="nav_paquetes">Paquetes</string>
+    <string name="nav_acceso">Acceso</string>
+    <string name="nav_alertas">Alertas</string>
+    <string name="nuevo_aviso">Nuevo aviso de ruta</string>
+    <string name="publicar_aviso">Publicar aviso</string>
+</resources>
