@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5"
+    android:fitsSystemWindows="true">
+
+    <!-- ============================= -->
+    <!-- TOP APP BAR                   -->
+    <!-- ============================= -->
+    <include
+        android:id="@+id/topAppBar"
+        layout="@layout/component_topbar"/>
+
+    <!-- ============================= -->
+    <!-- MAIN CONTENT                  -->
+    <!-- ============================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar"
+        app:layout_constraintBottom_toTopOf="@+id/navbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- ========================= -->
+        <!-- FORM                      -->
+        <!-- ========================= -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardForm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <!-- Form Title -->
+                <TextView
+                    android:id="@+id/tvFormTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Solicita Acceso para\nun Visitante"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B3E"
+                    android:gravity="center"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- NOMBRES label -->
+                <TextView
+                    android:id="@+id/tvLabelNombres"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="NOMBRES"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B3E"
+                    android:letterSpacing="0.08"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFormTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvLabelApellidos" />
+
+                <!-- APELLIDOS label -->
+                <TextView
+                    android:id="@+id/tvLabelApellidos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="APELLIDOS"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B3E"
+                    android:letterSpacing="0.08"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintTop_toTopOf="@+id/tvLabelNombres"
+                    app:layout_constraintStart_toEndOf="@+id/tvLabelNombres"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- NOMBRES input -->
+                <EditText
+                    android:id="@+id/etNombres"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:hint="Karen Natalia"
+                    android:textSize="14sp"
+                    android:textColor="#212121"
+                    android:textColorHint="#AAAAAA"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:background="@drawable/input_background"
+                    android:inputType="textPersonName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelNombres"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/etApellidos" />
+
+                <!-- APELLIDOS input -->
+                <EditText
+                    android:id="@+id/etApellidos"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="12dp"
+                    android:hint="Gomez Rodriguez"
+                    android:textSize="14sp"
+                    android:textColor="#212121"
+                    android:textColorHint="#AAAAAA"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:background="@drawable/input_background"
+                    android:inputType="textPersonName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelApellidos"
+                    app:layout_constraintStart_toEndOf="@+id/etNombres"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- CORREO label -->
+                <TextView
+                    android:id="@+id/tvLabelCorreo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="CORREO"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B3E"
+                    android:letterSpacing="0.08"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/etNombres"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- CORREO input -->
+                <EditText
+                    android:id="@+id/etCorreo"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:hint="karennat.gomezrod89@gmail.com"
+                    android:textSize="14sp"
+                    android:textColor="#212121"
+                    android:textColorHint="#AAAAAA"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:background="@drawable/input_background"
+                    android:inputType="textEmailAddress"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelCorreo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- NÚMERO DE DOCUMENTO label -->
+                <TextView
+                    android:id="@+id/tvLabelDocumento"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="NÚMERO DE DOCUMENTO DE IDENTIDAD"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B3E"
+                    android:letterSpacing="0.08"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/etCorreo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- NÚMERO DE DOCUMENTO input -->
+                <EditText
+                    android:id="@+id/etDocumento"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:hint="1001254869"
+                    android:textSize="14sp"
+                    android:textColor="#212121"
+                    android:textColorHint="#AAAAAA"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:background="@drawable/input_background"
+                    android:inputType="number"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelDocumento"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- FECHA DE INGRESO label -->
+                <TextView
+                    android:id="@+id/tvLabelFecha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="FECHA DE INGRESO"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#0D1B3E"
+                    android:letterSpacing="0.08"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/etDocumento"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- FECHA DE INGRESO input con ícono -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/containerFecha"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/input_background"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelFecha"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <EditText
+                        android:id="@+id/etFecha"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="17/03/2026"
+                        android:textSize="14sp"
+                        android:textColor="#212121"
+                        android:textColorHint="#AAAAAA"
+                        android:paddingStart="12dp"
+                        android:background="@null"
+                        android:inputType="date"
+                        android:focusable="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnDatePicker"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/btnDatePicker"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="4dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_calendar"
+                        android:tint="#0D1B3E"
+                        android:contentDescription="Seleccionar fecha"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- FOTO DEL VISITANTE -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/containerFoto"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/foto_container_background"
+                    android:padding="12dp"
+                    app:layout_constraintTop_toBottomOf="@+id/containerFecha"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <!-- Foto placeholder box -->
+                    <FrameLayout
+                        android:id="@+id/fotoBox"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/foto_box_background"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_copy_all"
+                            android:tint="#0D1B3E"
+                            android:contentDescription="Subir foto" />
+
+                    </FrameLayout>
+
+                    <!-- Foto title -->
+                    <TextView
+                        android:id="@+id/tvFotoTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="FOTO DEL VISITANTE"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B3E"
+                        android:layout_marginStart="12dp"
+                        app:layout_constraintStart_toEndOf="@+id/fotoBox"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/fotoBox"
+                        app:layout_constraintBottom_toTopOf="@+id/tvFotoDesc" />
+
+                    <!-- Foto description -->
+                    <TextView
+                        android:id="@+id/tvFotoDesc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Por favor suba una foto del visitante para poder validar la identidad"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toEndOf="@+id/fotoBox"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvFotoTitle"
+                        app:layout_constraintBottom_toBottomOf="@+id/fotoBox" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- REGISTRAR SOLICITUD button -->
+                <Button
+                    android:id="@+id/btnRegistrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Registrar solicitud"
+                    android:textSize="15sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp"
+                    android:background="@drawable/button_primary_background"
+                    app:layout_constraintTop_toBottomOf="@+id/containerFoto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ============================= -->
+    <!-- BOTTOM NAVIGATION BAR         -->
+    <!-- ============================= -->
+    <com.example.urumbox.NavbarView
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@id/mainContent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
