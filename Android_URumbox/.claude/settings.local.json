@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(ls -1 /c/Users/felip/Documents/GitHub/Proyecto---Desarrollo-Movil/Android_URumbox/app/src/main/res/drawable/*.xml)",
-      "Bash(find C:UsersfelipDocumentsGitHubProyecto---Desarrollo-MovilAndroid_URumbox -name README* -type f)"
-    ]
-  }
-}
