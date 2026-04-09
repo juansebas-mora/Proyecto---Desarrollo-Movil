@@ -1,0 +1,234 @@
+[
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_help_circle.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_help_circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_search.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\layout_dialog_nueva_notificacion.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\layout\\dialog_nueva_notificacion.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_charger.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_charger.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_nav_item_selected.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_nav_item_selected.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_close.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_close.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_btn_ver_detalles.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_btn_ver_detalles.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_bell.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_bell.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_trash.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_trash.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_lock.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_lock.xml"
+    },
+    {
+        "merged": "com.example.urumbox.app-debug-35:/layout_activity_login.xml.flat",
+        "source": "com.example.urumbox.app-main-37:/layout/activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_warning.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_warning.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_check.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_check.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_icon_button.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_icon_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_add.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_add.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_icono_categoria.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_icono_categoria.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_nav_item.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_nav_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_avatar.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_avatar.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\layout_dialog_ver_detalles.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\layout\\dialog_ver_detalles.xml"
+    },
+    {
+        "merged": "com.example.urumbox.app-debug-35:/layout_dialog_nueva_notificacion.xml.flat",
+        "source": "com.example.urumbox.app-main-37:/layout/dialog_nueva_notificacion.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\layout_activity_notificaciones.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\layout\\activity_notificaciones.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\layout_item_notificacion.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\layout\\item_notificacion.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_person.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_person.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_details.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_details.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_item_notification.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\item_notification.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_dot_blue.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_dot_blue.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_tab_unselected.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_tab_unselected.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_forklift.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_forklift.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_badge_tipo.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_badge_tipo.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_btn_aceptar.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_btn_aceptar.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_icono_button.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_icono_button.xml"
+    },
+    {
+        "merged": "com.example.urumbox.app-debug-35:/layout_dialog_ver_detalles.xml.flat",
+        "source": "com.example.urumbox.app-main-37:/layout/dialog_ver_detalles.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_bottom_nav.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_bottom_nav.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_home.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_btn_rechazar.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_btn_rechazar.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_search.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_tab_selected.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_tab_selected.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_package.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_package.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_group.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_bg_header.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\bg_header.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\drawable_ic_restaurar.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\drawable\\ic_restaurar.xml"
+    },
+    {
+        "merged": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-debug-35:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\felip\\.gradle\\daemon\\9.1.0\\com.example.urumbox.app-main-37:\\layout\\activity_main.xml"
+    }
+]
