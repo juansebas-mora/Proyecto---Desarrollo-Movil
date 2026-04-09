@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="azul_ur">#1A3A5C</color>
+    <color name="azul_brillante">#0A73BF</color>
     <color name="rojo_ur">#B11830</color>
     <color name="blanco">#FFFFFF</color>
     <color name="fondo">#F4F7FB</color>
@@ -10,7 +11,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primario">#1A3A5C</color>
-    <color name="secundario">#0A7EBF</color>>
+    <color name="secundario">#0A7EBF</color>
     <color name="barra">#E8F0FE</color>
 </resources>
-

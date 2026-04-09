@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/azul_ur">
 
-    <!-- Header / TopBar -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -54,127 +53,148 @@
             app:layout_constraintTop_toTopOf="@+id/tvTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Content Area -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/bg_main_content"
+        android:background="#F4F7FB"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@+id/navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
-        <!-- Map Placeholder -->
-        <FrameLayout
-            android:id="@+id/mapPlaceholder"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardMap"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="16dp"
-            android:background="#F5F5F5"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_info"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#1A000000"
+            app:strokeWidth="1dp"
+            app:layout_constraintBottom_toTopOf="@+id/card_bottom_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_box"
-                android:alpha="0.1" />
+                android:background="#F5F5F5">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_box"
+                    android:alpha="0.1" />
 
-            <ImageButton
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="16dp"
-                android:background="@drawable/bg_icono_menu"
-                android:src="@drawable/ic_warning"
-                app:tint="@color/blanco" />
-        </FrameLayout>
+                <ImageButton
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/bg_button_blue_rounded"
+                    android:elevation="4dp"
+                    android:src="@drawable/ic_go_to_pasos"
+                    app:tint="@color/blanco" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.72" />
-
-        <LinearLayout
-            android:id="@+id/container_info_cards"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_bottom_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:weightSum="2"
-            app:layout_constraintTop_toBottomOf="@id/guideline_info">
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:id="@+id/layout_rooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="0dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="#1A000000"
+                    app:strokeWidth="1dp"
+                    app:cardBackgroundColor="@color/blanco">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dp"
+                        android:text="Sala 2172\nCASUR"
+                        android:textStyle="bold"
+                        android:textColor="@color/azul_ur" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="#1A000000"
+                    app:strokeWidth="1dp"
+                    app:cardBackgroundColor="@color/blanco">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dp"
+                        android:text="Reunión general de la\njunta de directivos..."
+                        android:textStyle="bold"
+                        android:textColor="@color/azul_ur"
+                        android:maxLines="2"
+                        android:ellipsize="end" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/blanco">
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:strokeColor="#1A000000"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="@color/blanco"
+                app:layout_constraintTop_toBottomOf="@id/layout_rooms">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="16dp"
-                    android:text="Sala 2172\nCASUR"
+                    android:padding="14dp"
+                    android:text="Faltan 15 min | 9:00 a.m."
                     android:textStyle="bold"
                     android:textColor="@color/azul_ur" />
             </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/blanco">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:text="Reunión general de la\njunta de directivos..."
-                    android:textStyle="bold"
-                    android:textColor="@color/azul_ur"
-                    android:maxLines="2"
-                    android:ellipsize="end" />
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/blanco"
-            app:layout_constraintTop_toBottomOf="@id/container_info_cards">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="14dp"
-                android:text="Faltan 15 min | 9:00 a.m."
-                android:textStyle="bold"
-                android:textColor="@color/azul_ur" />
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Navigation Bar -->
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:background="@drawable/bg_navbar_rounded"
+        android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
