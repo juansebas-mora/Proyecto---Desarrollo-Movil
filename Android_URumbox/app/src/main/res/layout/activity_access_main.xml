@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo"
+    android:fitsSystemWindows="true">
+
+    <!-- ======= -->
+    <!-- TOP APP BAR -->
+    <!-- ======= -->
+    <include
+        android:id="@+id/topAppBar"
+        layout="@layout/component_topbar"/>
+
+    <!-- ======= -->
+    <!-- CONTENT -->
+    <!-- ======= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/topAppBar"
+        app:layout_constraintBottom_toTopOf="@+id/navbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- ========================= -->
+            <!-- USER PROFILE CARD         -->
+            <!-- ========================= -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardUserProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/fondo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <!-- PHOTO -->
+                    <FrameLayout
+                        android:id="@+id/avatarContainer"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:background="@drawable/circle_avatar_background"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <ImageView
+                            android:id="@+id/ivUserAvatar"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_person_filled"
+                            android:tint="#0D1B3E"
+                            android:contentDescription="Avatar" />
+
+                    </FrameLayout>
+
+                    <!-- User Name -->
+                    <TextView
+                        android:id="@+id/tvUserName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Carlos Mendoza"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B3E"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintStart_toEndOf="@+id/avatarContainer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/avatarContainer"
+                        app:layout_constraintBottom_toTopOf="@+id/tvUserCC" />
+
+                    <!-- User CC -->
+                    <TextView
+                        android:id="@+id/tvUserCC"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="C.C: 1000000000"
+                        android:textSize="13sp"
+                        android:textColor="#666666"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toEndOf="@+id/avatarContainer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+                        app:layout_constraintBottom_toBottomOf="@+id/avatarContainer" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ========================= -->
+            <!-- ACCESS HISTORY CARD       -->
+            <!-- ========================= -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAccessHistory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/fondo"
+                app:layout_constraintTop_toBottomOf="@+id/cardUserProfile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <!-- Header Title -->
+                    <TextView
+                        android:id="@+id/tvHistoryTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Historial de accesos"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#0D1B3E"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnViewAllHistory" />
+
+                    <!-- Arrow button -->
+                    <ImageButton
+                        android:id="@+id/btnViewAllHistory"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_arrow_forward"
+                        android:tint="#0D1B3E"
+                        android:contentDescription="Ver todo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvHistoryTitle"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvHistoryTitle" />
+
+                    <!-- Divider -->
+                    <View
+                        android:id="@+id/dividerHistory"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="#E0E0E0"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintTop_toBottomOf="@+id/tvHistoryTitle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Row 1 -->
+                    <TextView
+                        android:id="@+id/tvBuilding1"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:text="Edificio El Tiempo"
+                        android:textSize="14sp"
+                        android:textColor="#212121"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/dividerHistory"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTime1" />
+
+                    <TextView
+                        android:id="@+id/tvTime1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="12:37"
+                        android:textSize="14sp"
+                        android:textColor="#666666"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tvBuilding1" />
+
+                    <View android:id="@+id/div1" android:layout_width="0dp" android:layout_height="1dp"
+                        android:background="#F0F0F0"
+                        app:layout_constraintTop_toBottomOf="@+id/tvBuilding1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Row 2 -->
+                    <TextView
+                        android:id="@+id/tvBuilding2"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:text="Edificio Cabal"
+                        android:textSize="14sp"
+                        android:textColor="#212121"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/div1"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTime2" />
+
+                    <TextView
+                        android:id="@+id/tvTime2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="14:38"
+                        android:textSize="14sp"
+                        android:textColor="#666666"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tvBuilding2" />
+
+                    <View android:id="@+id/div2" android:layout_width="0dp" android:layout_height="1dp"
+                        android:background="#F0F0F0"
+                        app:layout_constraintTop_toBottomOf="@+id/tvBuilding2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Row 3 -->
+                    <TextView
+                        android:id="@+id/tvBuilding3"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:text="Edificio Santa Fe"
+                        android:textSize="14sp"
+                        android:textColor="#212121"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/div2"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTime3" />
+
+                    <TextView
+                        android:id="@+id/tvTime3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="15:37"
+                        android:textSize="14sp"
+                        android:textColor="#666666"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tvBuilding3" />
+
+                    <View android:id="@+id/div3" android:layout_width="0dp" android:layout_height="1dp"
+                        android:background="#F0F0F0"
+                        app:layout_constraintTop_toBottomOf="@+id/tvBuilding3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Row 4 -->
+                    <TextView
+                        android:id="@+id/tvBuilding4"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:text="Edificio El Tiempo"
+                        android:textSize="14sp"
+                        android:textColor="#212121"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/div3"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTime4" />
+
+                    <TextView
+                        android:id="@+id/tvTime4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="16:58"
+                        android:textSize="14sp"
+                        android:textColor="#666666"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tvBuilding4" />
+
+                    <View android:id="@+id/div4" android:layout_width="0dp" android:layout_height="1dp"
+                        android:background="#F0F0F0"
+                        app:layout_constraintTop_toBottomOf="@+id/tvBuilding4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Row 5 -->
+                    <TextView
+                        android:id="@+id/tvBuilding5"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:text="Edificio El Tiempo"
+                        android:textSize="14sp"
+                        android:textColor="#212121"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/div4"
+                        app:layout_constraintEnd_toStartOf="@+id/tvTime5"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvTime5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="18:27"
+                        android:textSize="14sp"
+                        android:textColor="#666666"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tvBuilding5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ======================= -->
+            <!-- ROLE + ADD VISITOR + QR -->
+            <!-- ======================= -->
+            <ImageButton
+                android:id="@+id/btnCopyAccess"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/content_button"
+                android:src="@drawable/ic_add"
+                android:contentDescription="Copiar acceso"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardAccessHistory"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="#0D1B3E" />
+
+            <TextView
+                android:id="@+id/tvRoleBadge"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Estudiante"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#0D1B3E"
+                android:background="@drawable/content_button"
+                app:layout_constraintStart_toEndOf="@+id/btnCopyAccess"
+                app:layout_constraintEnd_toStartOf="@+id/btnQrCode"
+                app:layout_constraintTop_toBottomOf="@+id/cardAccessHistory"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btnQrCode"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/content_button"
+                android:src="@drawable/ic_qrcode"
+                android:contentDescription="Código QR"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardAccessHistory"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="#0D1B3E" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ============================= -->
+    <!-- BOTTOM NAVIGATION BAR         -->
+    <!-- ============================= -->
+    <com.example.urumbox.NavbarView
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/barra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
