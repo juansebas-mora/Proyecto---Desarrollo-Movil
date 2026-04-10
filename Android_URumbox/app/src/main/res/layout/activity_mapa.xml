@@ -30,11 +30,12 @@
 
         <ImageButton
             android:id="@+id/btnNotification"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/topbar_button_background"
             android:src="@drawable/ic_notifications"
+            android:contentDescription="@string/notifications_description"
             app:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
             app:layout_constraintEnd_toStartOf="@+id/btnProfile"
@@ -42,11 +43,12 @@
 
         <ImageButton
             android:id="@+id/btnProfile"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/topbar_button_background"
             android:src="@drawable/ic_profile"
+            android:contentDescription="@string/profile_description"
             app:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
             app:layout_constraintEnd_toEndOf="parent"
@@ -94,9 +96,10 @@
                     android:layout_height="48dp"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="16dp"
-                    android:background="@drawable/bg_button_blue_rounded"
+                    android:background="@color/secundario"
                     android:elevation="4dp"
                     android:src="@drawable/ic_go_to_pasos"
+                    android:contentDescription="@string/go_to_steps_description"
                     app:tint="@color/white" />
             </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
