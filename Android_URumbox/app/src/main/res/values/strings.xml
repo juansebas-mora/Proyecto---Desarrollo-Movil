@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">URumbox</string>
+    <string name="notifications_description">Notificaciones</string>
+    <string name="profile_description">Perfil</string>
+    <string name="go_to_steps_description">Ir a pasos</string>
+    <string name="go_to_maps_description">Ir a mapa</string>
 </resources>

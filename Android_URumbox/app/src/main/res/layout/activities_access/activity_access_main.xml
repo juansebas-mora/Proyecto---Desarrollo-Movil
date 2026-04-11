@@ -30,6 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">
@@ -70,7 +71,7 @@
                             android:layout_height="44dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_person_filled"
-                            android:tint="#0D1B3E"
+                            app:tint="#0D1B3E"
                             android:contentDescription="Avatar" />
 
                     </FrameLayout>
@@ -145,11 +146,11 @@
                     <!-- Arrow button -->
                     <ImageButton
                         android:id="@+id/btnViewAllHistory"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:background="@null"
                         android:src="@drawable/ic_arrow_forward"
-                        android:tint="#0D1B3E"
+                        app:tint="#0D1B3E"
                         android:contentDescription="Ver todo"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tvHistoryTitle"
