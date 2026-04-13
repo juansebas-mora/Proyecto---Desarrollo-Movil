@@ -1,0 +1,178 @@
+[
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_location_on.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_location_on.xml"
+    },
+    {
+        "merged": "com.example.emergencias.app-debug-30:/layout_activity_confirmacion_estado.xml.flat",
+        "source": "com.example.emergencias.app-main-32:/layout/activity_confirmacion_estado.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\layout_activity_puntos_encuentro.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\layout\\activity_puntos_encuentro.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\layout_activity_reportar_emergencia.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\layout\\activity_reportar_emergencia.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_bg_circle_green.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\bg_circle_green.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_notifications.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_notifications.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_home.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_local_hospital.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_local_hospital.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_shield.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_shield.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_check_circle.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_check_circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_directions_run.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_directions_run.xml"
+    },
+    {
+        "merged": "com.example.emergencias.app-debug-30:/layout_activity_ruta_evacuacion.xml.flat",
+        "source": "com.example.emergencias.app-main-32:/layout/activity_ruta_evacuacion.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_map_placeholder.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_map_placeholder.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_lock.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_lock.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_local_fire_department.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_local_fire_department.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_bg_circle_blue.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\bg_circle_blue.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_earthquake.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_earthquake.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_bg_sos.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\bg_sos.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_cube.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_cube.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\layout_activity_confirmacion.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\layout\\activity_confirmacion.xml"
+    },
+    {
+        "merged": "com.example.emergencias.app-debug-30:/layout_activity_estado_persona.xml.flat",
+        "source": "com.example.emergencias.app-main-32:/layout/activity_estado_persona.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_warning.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_warning.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.emergencias.app-debug-30:/layout_activity_confirmacion.xml.flat",
+        "source": "com.example.emergencias.app-main-32:/layout/activity_confirmacion.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_ic_account_circle.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\ic_account_circle.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\drawable_bg_button_pink.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\drawable\\bg_button_pink.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\layout_activity_ruta_evacuacion.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\layout\\activity_ruta_evacuacion.xml"
+    },
+    {
+        "merged": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-debug-30:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\saral\\.gradle\\daemon\\9.1.0\\com.example.emergencias.app-main-32:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.emergencias.app-debug-30:/layout_activity_main.xml.flat",
+        "source": "com.example.emergencias.app-main-32:/layout/activity_main.xml"
+    }
+]
