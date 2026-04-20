@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical">
+
+    <!-- TOP BAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="107dp"
+        android:background="#1B3E63"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Confirmacion de emergencia"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnNotification"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/topbar_button_background"
+            android:src="@drawable/ic_notifications"
+            android:contentDescription="@string/notifications_description"
+            app:tint="@color/blanco"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+            app:layout_constraintEnd_toStartOf="@+id/btnProfile"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+        <ImageButton
+            android:id="@+id/btnProfile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/topbar_button_background"
+            android:src="@drawable/ic_profile"
+            android:contentDescription="@string/profile_description"
+            app:tint="@color/blanco"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+    </LinearLayout>
+
+    <!-- SUBTITLE -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1B3E63"
+        android:paddingStart="16dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:text="Ubicación Actual: Edificio A – Piso 2"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <!-- CONTENT CENTERED -->
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+
+
+        <!-- STATUS -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirmación"
+            android:textColor="#000"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginBottom="2dp"
+            android:src="@drawable/ic_check_circle"
+            android:tint="#4CAF50" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado confirmado"
+            android:textColor="#000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+
+        </LinearLayout>
+
+        <!-- DESCRIPTION -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:gravity="center"
+            android:text="El estado ha sido enviado al\nsistema de emergencias."
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:text="Gracias por reportar."
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+        <!-- VOLVER AL INICIO BUTTON -->
+        <Button
+            android:id="@+id/btnVolverInicio"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/bg_button_rounded"
+            android:text="Volver al inicio"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:backgroundTint="#1B3E63" />
+
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/barra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnNavHome"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/nav_bar_button_background"
+            android:src="@drawable/ic_home"
+            app:tint="@color/fondo"
+            android:contentDescription="Inicio"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnNavBox"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnNavBox"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/nav_bar_button_background"
+            android:src="@drawable/ic_box"
+            app:tint="@color/fondo"
+            android:contentDescription="Objetos perdidos"
+            app:layout_constraintStart_toEndOf="@+id/btnNavHome"
+            app:layout_constraintEnd_toStartOf="@+id/btnNavAccess"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnNavAccess"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/nav_bar_button_background"
+            android:src="@drawable/icono_seguridad"
+            app:tint="@color/fondo"
+            android:contentDescription="Accesos"
+            app:layout_constraintStart_toEndOf="@+id/btnNavBox"
+            app:layout_constraintEnd_toStartOf="@+id/btnNavEmergency"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnNavEmergency"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/nav_bar_button_background"
+            android:src="@drawable/ic_warning"
+            app:tint="@color/fondo"
+            android:contentDescription="Emergencias"
+            app:layout_constraintStart_toEndOf="@+id/btnNavAccess"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+

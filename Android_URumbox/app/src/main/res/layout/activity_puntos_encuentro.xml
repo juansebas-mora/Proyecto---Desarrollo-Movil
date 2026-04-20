@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <!-- TOP BAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="107dp"
+        android:background="#1B3E63"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Puntos de encuentro"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnNotification"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/topbar_button_background"
+            android:src="@drawable/ic_notifications"
+            android:contentDescription="@string/notifications_description"
+            app:tint="@color/blanco"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+            app:layout_constraintEnd_toStartOf="@+id/btnProfile"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+        <ImageButton
+            android:id="@+id/btnProfile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/topbar_button_background"
+            android:src="@drawable/ic_profile"
+            android:contentDescription="@string/profile_description"
+            app:tint="@color/blanco"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+    </LinearLayout>
+
+    <!-- SUBTITLE -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1B3E63"
+        android:paddingStart="16dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:text="Ubicación Actual: Edificio A – Piso 2"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <!-- BOTTOM NAVIGATION -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- MAP PLACEHOLDER -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="4dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#E0E0E0">
+
+                    <ImageView
+                        android:id="@+id/imgMapPuntos"
+                        android:layout_width="match_parent"
+                        android:layout_height="201dp"
+                        android:scaleType="centerCrop"
+
+                        android:src="@drawable/mapa_puntos" />
+                </FrameLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- PUNTOS LIST -->
+            <!-- Punto A -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/bg_circle_blue"
+                    android:gravity="center"
+                    android:text="A"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-Plaza principal"
+                    android:textColor="#333333"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <!-- Punto B -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/bg_circle_blue"
+                    android:gravity="center"
+                    android:text="B"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-Parqueadero norte"
+                    android:textColor="#333333"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <!-- Punto C -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/bg_circle_blue"
+                    android:gravity="center"
+                    android:text="C"
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-Entrada principal"
+                    android:textColor="#333333"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <!-- VOLVER AL INICIO BUTTON -->
+            <Button
+                android:id="@+id/btnVolverInicio"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/bg_button_rounded"
+                android:text="Volver al inicio"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/barra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnNavHome"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/nav_bar_button_background"
+            android:src="@drawable/ic_home"
+            app:tint="@color/fondo"
+            android:contentDescription="Inicio"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnNavBox"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnNavBox"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/nav_bar_button_background"
+            android:src="@drawable/ic_box"
+            app:tint="@color/fondo"
+            android:contentDescription="Objetos perdidos"
+            app:layout_constraintStart_toEndOf="@+id/btnNavHome"
+            app:layout_constraintEnd_toStartOf="@+id/btnNavAccess"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnNavAccess"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/nav_bar_button_background"
+            android:src="@drawable/icono_seguridad"
+            app:tint="@color/fondo"
+            android:contentDescription="Accesos"
+            app:layout_constraintStart_toEndOf="@+id/btnNavBox"
+            app:layout_constraintEnd_toStartOf="@+id/btnNavEmergency"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnNavEmergency"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/nav_bar_button_background"
+            android:src="@drawable/ic_warning"
+            app:tint="@color/fondo"
+            android:contentDescription="Emergencias"
+            app:layout_constraintStart_toEndOf="@+id/btnNavAccess"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
