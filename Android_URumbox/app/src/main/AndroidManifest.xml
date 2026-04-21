@@ -21,29 +21,13 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ReportarEmergenciaActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".EstadoPersonaActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".RutaEvacuacionActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".PuntosEncuentroActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ConfirmacionActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ConfirmacionEstadoActivity"
-            android:exported="false" />
+        <activity android:name=".ReportarEmergenciaActivity" android:exported="false" />
+        <activity android:name=".EstadoPersonaActivity" android:exported="false" />
+        <activity android:name=".RutaEvacuacionActivity" android:exported="false" />
+        <activity android:name=".PuntosEncuentroActivity" android:exported="false" />
+        <activity android:name=".ConfirmacionActivity" android:exported="false" />
+        <activity android:name=".ConfirmacionEstadoActivity" android:exported="false" />
+        <activity android:name=".EstadoEnviadoActivity" android:exported="false" />
 
     </application>
 
