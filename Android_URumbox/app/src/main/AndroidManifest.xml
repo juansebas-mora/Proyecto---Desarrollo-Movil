@@ -7,19 +7,13 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="URumbox"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.URumbox">
 
-        <!-- ACTIVIDAD PRINCIPAL DEL PROYECTO (compañeros) -->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-
-        <!-- PANTALLA DE INICIO — abre la app -->
-        <activity
-            android:name=".useractivity.InicioActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,17 +21,29 @@
             </intent-filter>
         </activity>
 
-        <!-- ACTIVIDADES EN EL PAQUETE .useractivity -->
-        <activity android:name=".useractivity.LoginSActivity" />
-        <activity android:name=".useractivity.RegistroActivity" />
-        <activity android:name=".useractivity.PerfilActivity" />
-        <activity android:name=".useractivity.InfoPersonalActivity" />
-        <activity android:name=".useractivity.ConfiguracionActivity" />
-        <activity android:name=".useractivity.PermisosActivity" />
-        <activity android:name=".useractivity.CambiarContrasenaActivity" />
-        <activity android:name=".useractivity.ComentarioActivity" />
-        <activity android:name=".useractivity.ContactanosActivity" />
-        <activity android:name=".useractivity.VersionActivity" />
+        <activity
+            android:name=".ReportarEmergenciaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".EstadoPersonaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".RutaEvacuacionActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".PuntosEncuentroActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ConfirmacionActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ConfirmacionEstadoActivity"
+            android:exported="false" />
 
     </application>
 

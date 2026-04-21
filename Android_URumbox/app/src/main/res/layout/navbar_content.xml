@@ -7,10 +7,11 @@
 
     <ImageButton
         android:id="@+id/btnNavHome"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:background="@drawable/navbar_button_background"
         android:src="@drawable/ic_home"
+        android:elevation="4dp"
         app:tint="#F4F7FB"
         android:contentDescription="Inicio"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -21,10 +22,11 @@
 
     <ImageButton
         android:id="@+id/btnNavBox"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:background="@drawable/navbar_button_background"
         android:src="@drawable/ic_box"
+        android:elevation="4dp"
         app:tint="#F4F7FB"
         android:contentDescription="Objetos perdidos"
         app:layout_constraintStart_toEndOf="@+id/btnNavHome"
@@ -34,10 +36,11 @@
 
     <ImageButton
         android:id="@+id/btnNavAccess"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:background="@drawable/navbar_button_background"
         android:src="@drawable/ic_access"
+        android:elevation="4dp"
         app:tint="#F4F7FB"
         android:contentDescription="Accesos"
         app:layout_constraintStart_toEndOf="@+id/btnNavBox"
@@ -47,10 +50,11 @@
 
     <ImageButton
         android:id="@+id/btnNavEmergency"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:background="@drawable/navbar_button_background"
         android:src="@drawable/ic_emergency"
+        android:elevation="4dp"
         app:tint="#F4F7FB"
         android:contentDescription="Emergencias"
         app:layout_constraintStart_toEndOf="@+id/btnNavAccess"
