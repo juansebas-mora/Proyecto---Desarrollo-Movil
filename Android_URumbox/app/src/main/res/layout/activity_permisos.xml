@@ -27,7 +27,7 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_chevron_right"
             android:rotation="180"
-            android:tint="@color/blanco"
+            app:tint="@color/blanco"
             android:contentDescription="Volver" />
 
         <TextView

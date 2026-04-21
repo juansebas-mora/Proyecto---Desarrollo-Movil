@@ -150,10 +150,8 @@
                     android:layout_height="match_parent"
                     android:background="#E0E0E0">
 
-                    <!-- Replace with actual MapView or ImageView of map --><![CDATA[
-                    />
-
-                    ]]><!-- Route overlay marker -->
+                    <!-- Replace with actual MapView or ImageView of map -->
+                    <!-- Route overlay marker -->
 
                     <ImageView
                         android:id="@+id/imgMapPuntos"
@@ -306,3 +304,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+</LinearLayout>

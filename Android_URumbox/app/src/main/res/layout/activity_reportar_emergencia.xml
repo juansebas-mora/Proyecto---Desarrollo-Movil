@@ -128,7 +128,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/ic_local_fire_department"
-                            android:tint="#F44336"/>
+                            app:tint="#F44336"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/ic_earthquake"
-                            android:tint="#FF9800"/>
+                            app:tint="#FF9800"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/ic_local_hospital"
-                            android:tint="#4CAF50"/>
+                            app:tint="#4CAF50"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -237,7 +237,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:src="@drawable/ic_lock"
-                            android:tint="#9C27B0"/>
+                            app:tint="#9C27B0"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -254,7 +254,7 @@
 
             <!-- ENVIAR ALERTA BUTTON -->
             <Button
-                android:id="@+id/btnVolverInicio"
+                android:id="@+id/btnEnviarAlerta"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="90dp"
@@ -332,3 +332,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+</LinearLayout>

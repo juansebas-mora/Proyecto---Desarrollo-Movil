@@ -17,6 +17,9 @@
     <color name="text_bajo">#1B5E20</color>
     <color name="text_dark_blue">#1B3E63</color>
     <color name="bg_dark_blue_soft">#D0E4F7</color>
+    <color name="azul_brillante">#0288D1</color>
+    <color name="figma_dark_blue">#1B3E63</color>
+    <color name="figma_bg_gray">#F4F7FB</color>
 
 </resources>
 

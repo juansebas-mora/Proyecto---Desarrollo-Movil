@@ -83,7 +83,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="p"
+            android:layout_marginBottom="0dp"
             android:text="Confirmación"
             android:textColor="#000"
             android:textSize="50sp"
@@ -127,27 +127,24 @@
             app:backgroundTint="#C8E6C9"
             android:textColor="#000"
             android:textSize="30sp"
-            android:textStyle="bold" /><![CDATA[
+            android:textStyle="bold" />
 
-        android:textStyle="bold" />
-
-
-
-        ]]><!-- ENVIAR -->
+        <!-- ENVIAR -->
 
         <Button
-            android:id="@+id/btnBajo"
+            android:id="@+id/btnSalvo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="32dp"
-            app:backgroundTint="#E0E0E0"            android:background="@drawable/bg_button_salvo"
+            android:background="@drawable/bg_button_salvo"
             android:text="¡ESTOY A SALVO!"
             android:textColor="#000"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:backgroundTint="#E0E0E0" />
 
         <Button
-            android:id="@+id/btnVolverInicio"
+            android:id="@+id/btnEnviarEstado"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginBottom="40dp"
@@ -156,7 +153,7 @@
             android:textColor="#fff"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:backgroundTint="" />
+            app:backgroundTint="#1B3E63" />
 
     </LinearLayout>
 
@@ -225,3 +222,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+</LinearLayout>
