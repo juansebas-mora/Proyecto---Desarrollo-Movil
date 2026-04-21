@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/figma_bg_gray">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,8 +82,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="45dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="012dp"
                 app:cardCornerRadius="20dp"
+                android:id="@+id/btnReportarEmergencia"
                 app:cardBackgroundColor="#FFCDD2"
                 app:cardElevation="2dp">
 
@@ -131,6 +132,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="20dp"
+                android:id="@+id/btnComoTeEncuentras"
                 app:cardBackgroundColor="#FFE0B2">
 
 
@@ -186,6 +188,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="100dp"
+                    android:id="@+id/btnRutasEvacuacion"
                     android:layout_weight="1"
                     android:layout_marginEnd="12dp"
                     app:cardCornerRadius="16dp">
@@ -200,7 +203,7 @@
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:src="@drawable/ic_map_route"
-                            app:tint="@color/figma_dark_blue" />
+                            app:tint="#1B3E63" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -215,6 +218,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="100dp"
+                    android:id="@+id/btnPuntosEncuentro"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp">
                     <LinearLayout
@@ -226,7 +230,7 @@
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:src="@drawable/ic_location_pin"
-                            app:tint="@color/figma_dark_blue"/>
+                            app:tint="#1B3E63"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -314,5 +318,4 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </LinearLayout>

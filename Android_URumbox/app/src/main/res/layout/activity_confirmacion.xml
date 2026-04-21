@@ -93,7 +93,7 @@
             android:layout_height="170dp"
             android:layout_marginBottom="2dp"
             android:src="@drawable/ic_check_circle"
-            app:tint="#4CAF50" />
+            android:tint="#4CAF50" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -212,5 +212,4 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </LinearLayout>

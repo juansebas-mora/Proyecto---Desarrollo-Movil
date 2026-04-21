@@ -6,9 +6,6 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- TOP BAR -->
-
-    <!-- SUBTITLE -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="107dp"
@@ -35,10 +32,7 @@
             android:background="@drawable/topbar_button_background"
             android:src="@drawable/ic_notifications"
             android:contentDescription="@string/notifications_description"
-            app:tint="@color/blanco"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-            app:layout_constraintEnd_toStartOf="@+id/btnProfile"
-            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+            app:tint="@color/blanco" />
 
         <ImageButton
             android:id="@+id/btnProfile"
@@ -48,12 +42,8 @@
             android:background="@drawable/topbar_button_background"
             android:src="@drawable/ic_profile"
             android:contentDescription="@string/profile_description"
-            app:tint="@color/blanco"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+            app:tint="@color/blanco" />
     </LinearLayout>
-
 
     <TextView
         android:layout_width="match_parent"
@@ -66,9 +56,6 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
-    <!-- CONTENT -->
-
-    <!-- BOTTOM NAVIGATION -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -77,13 +64,10 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- TITULO -->
-
-        <!-- ALTO -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
+            android:layout_marginBottom="16dp"
             android:text="Confirmación"
             android:textColor="#000"
             android:textSize="50sp"
@@ -95,44 +79,37 @@
             android:layout_height="56dp"
             android:layout_marginBottom="12dp"
             android:text="ALTO"
-            app:backgroundTint="#FFCDD2"
             android:textColor="#000"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:cornerRadius="35dp"/>
-
-        <!-- MEDIO -->
+            app:backgroundTint="#FFCDD2"
+            app:cornerRadius="35dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMedio"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_button_medio"
             android:text="MEDIO"
-            app:backgroundTint="#FFE0B2"
-
             android:textColor="#000"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:backgroundTint="#FFE0B2" />
 
-        <!-- BAJO -->
         <Button
             android:id="@+id/btnBajo"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/bg_button_bajo"
             android:text="BAJO"
-            app:backgroundTint="#C8E6C9"
             android:textColor="#000"
             android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <!-- ENVIAR -->
+            android:textStyle="bold"
+            app:backgroundTint="#C8E6C9" />
 
         <Button
-            android:id="@+id/btnSalvo"
+            android:id="@+id/btnEstoyASalvo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="32dp"
@@ -157,15 +134,11 @@
 
     </LinearLayout>
 
-    <!-- BOTTOM NAVIGATION -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomNavBar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/barra"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:background="@color/barra">
 
         <ImageButton
             android:id="@+id/btnNavHome"
@@ -173,8 +146,8 @@
             android:layout_height="60dp"
             android:background="@drawable/nav_bar_button_background"
             android:src="@drawable/ic_home"
-            app:tint="@color/fondo"
             android:contentDescription="Inicio"
+            app:tint="@color/fondo"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnNavBox"
@@ -187,8 +160,8 @@
             android:layout_height="60dp"
             android:background="@drawable/nav_bar_button_background"
             android:src="@drawable/ic_box"
-            app:tint="@color/fondo"
             android:contentDescription="Objetos perdidos"
+            app:tint="@color/fondo"
             app:layout_constraintStart_toEndOf="@+id/btnNavHome"
             app:layout_constraintEnd_toStartOf="@+id/btnNavAccess"
             app:layout_constraintTop_toTopOf="parent"
@@ -200,8 +173,8 @@
             android:layout_height="60dp"
             android:background="@drawable/nav_bar_button_background"
             android:src="@drawable/icono_seguridad"
-            app:tint="@color/fondo"
             android:contentDescription="Accesos"
+            app:tint="@color/fondo"
             app:layout_constraintStart_toEndOf="@+id/btnNavBox"
             app:layout_constraintEnd_toStartOf="@+id/btnNavEmergency"
             app:layout_constraintTop_toTopOf="parent"
@@ -213,8 +186,8 @@
             android:layout_height="60dp"
             android:background="@drawable/nav_bar_button_background"
             android:src="@drawable/ic_warning"
-            app:tint="@color/fondo"
             android:contentDescription="Emergencias"
+            app:tint="@color/fondo"
             app:layout_constraintStart_toEndOf="@+id/btnNavAccess"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

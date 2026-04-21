@@ -49,29 +49,13 @@
         <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
         <activity android:name=".useractivity.VersionActivity" android:exported="false" />
 
-        <activity
-            android:name=".ReportarEmergenciaActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".EstadoPersonaActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".RutaEvacuacionActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".PuntosEncuentroActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ConfirmacionActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ConfirmacionEstadoActivity"
-            android:exported="false" />
+        <activity android:name=".ReportarEmergenciaActivity" android:exported="false" />
+        <activity android:name=".EstadoPersonaActivity" android:exported="false" />
+        <activity android:name=".RutaEvacuacionActivity" android:exported="false" />
+        <activity android:name=".PuntosEncuentroActivity" android:exported="false" />
+        <activity android:name=".ConfirmacionActivity" android:exported="false" />
+        <activity android:name=".ConfirmacionEstadoActivity" android:exported="false" />
+        <activity android:name=".EstadoEnviadoActivity" android:exported="false" />
 
     </application>
 
