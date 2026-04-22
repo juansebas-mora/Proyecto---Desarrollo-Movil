@@ -1,14 +1,25 @@
-# ==========================
+Android_URumbox/.idea/misc.xml
+# ========================
 # ANDROID STUDIO / IDEA
-# ==========================
+# ========================
+../.idea/
 .idea/
 *.iml
 *.iws
 *.ipr
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/libraries
+.idea/caches
+.idea/modules.xml
+.idea/navEditor.xml
 
-# ==========================
+# ========================
 # GRADLE
-# ==========================
+# ========================
 .gradle/
 build/
 gradle-app.setting
@@ -16,9 +27,9 @@ gradle-app.setting
 !gradle-wrapper.properties
 local.properties
 
-# ==========================
+# ========================
 # ANDROID
-# ==========================
+# ========================
 *.apk
 *.aab
 *.ap_
@@ -29,23 +40,23 @@ gen/
 out/
 release/
 
-# ==========================
+# ========================
 # KOTLIN
-# ==========================
+# ========================
 *.kotlin_module
 *.kotlin_metadata
 
-# ==========================
+# ========================
 # ARCHIVOS DE SISTEMA
-# ==========================
+# ========================
 .DS_Store
 Thumbs.db
 *.swp
 *~
 
-# ==========================
+# ========================
 # FIRMA Y SEGURIDAD
-# ==========================
+# ========================
 *.jks
 *.keystore
 keystore.properties
@@ -54,27 +65,22 @@ google-services.json
 GoogleService-Info.plist
 local.defaults.properties
 
-# ==========================
+# ========================
 # LOGS Y TEMPORALES
-# ==========================
+# ========================
 *.log
 *.tmp
 *.bak
 captures/
 *.hprof
 
-# ==========================
+# ========================
 # PROGUARD
-# ==========================
+# ========================
 proguard/
 
-# ==========================
+# ========================
 # TESTING
-# ==========================
+# ========================
 .hbuilder
 *.test.js.map
-
-# ==========================
-# CLAUDE CODE
-# ==========================
-.claude/

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Paleta principal -->
+    <color name="azul_ur">#1A3A5C</color>
+    <color name="rojo_ur">#B11830</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="fondo">#F4F7FB</color>
+    <color name="texto_principal">#202124</color>
+    <color name="texto_secundario">#888888</color>
+    <color name="gris_linea">#EEEEEE</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="primario">#1A3A5C</color>
     <color name="secundario">#0A7EBF</color>
-    <color name="fondo">#F4F7FB</color>
-    <color name="success">#00C48C</color>
-    <color name="warning">#F5A623</color>
-    <color name="danger">#E8003D</color>
-    <color name="texto_general">#000000</color>
-    <color name="texto_opaco">#9E9E9E</color>
-    <color name="nav_bar">#E8F0FE</color>
-
-    <!-- Aliases para referencias existentes en layouts y drawables -->
-    <color name="background">#F4F7FB</color>
-    <color name="white">#FFFFFF</color>
-    <color name="divider">#E5E7EB</color>
-    <color name="badge_bg">#F3F4F6</color>
+    <color name="barra">#E8F0FE</color>
+    <color name="success">#2E7D32</color>
+    <color name="warning">#F57C00</color>
 </resources>
+

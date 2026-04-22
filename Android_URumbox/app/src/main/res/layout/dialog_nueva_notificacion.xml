@@ -21,7 +21,7 @@
             android:text="Nuevo aviso de ruta"
             android:textSize="17sp"
             android:textStyle="bold"
-            android:textColor="@color/texto_general"
+            android:textColor="@color/texto_principal"
             android:gravity="center" />
 
         <!-- Divisor -->
@@ -38,14 +38,14 @@
             android:layout_height="wrap_content"
             android:text="Tipo de aviso"
             android:textSize="12sp"
-            android:textColor="@color/texto_opaco"
+            android:textColor="@color/texto_secundario"
             android:layout_marginBottom="4dp" />
 
         <Spinner
             android:id="@+id/spinnerTipo"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@drawable/bg_search"
+            android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:layout_marginBottom="14dp" />
@@ -56,19 +56,19 @@
             android:layout_height="wrap_content"
             android:text="Zona afectada"
             android:textSize="12sp"
-            android:textColor="@color/texto_opaco"
+            android:textColor="@color/texto_secundario"
             android:layout_marginBottom="4dp" />
 
         <EditText
             android:id="@+id/etNuevoArea"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@drawable/bg_search"
+            android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:hint="Ej: Pasillo B, Piso 2"
-            android:textColorHint="@color/texto_opaco"
-            android:textColor="@color/texto_general"
+            android:textColorHint="@color/texto_secundario"
+            android:textColor="@color/texto_principal"
             android:textSize="14sp"
             android:inputType="text"
             android:layout_marginBottom="14dp" />
@@ -79,19 +79,19 @@
             android:layout_height="wrap_content"
             android:text="Descripción del aviso"
             android:textSize="12sp"
-            android:textColor="@color/texto_opaco"
+            android:textColor="@color/texto_secundario"
             android:layout_marginBottom="4dp" />
 
         <EditText
             android:id="@+id/etNuevoAsunto"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@drawable/bg_search"
+            android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:hint="Describe brevemente el aviso"
-            android:textColorHint="@color/texto_opaco"
-            android:textColor="@color/texto_general"
+            android:textColorHint="@color/texto_secundario"
+            android:textColor="@color/texto_principal"
             android:textSize="14sp"
             android:inputType="text"
             android:layout_marginBottom="14dp" />
@@ -102,19 +102,19 @@
             android:layout_height="wrap_content"
             android:text="Hora estimada de resolución (opcional)"
             android:textSize="12sp"
-            android:textColor="@color/texto_opaco"
+            android:textColor="@color/texto_secundario"
             android:layout_marginBottom="4dp" />
 
         <EditText
             android:id="@+id/etHoraExpiracion"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@drawable/bg_search"
+            android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:hint="Ej: 3:00 p.m."
-            android:textColorHint="@color/texto_opaco"
-            android:textColor="@color/texto_general"
+            android:textColorHint="@color/texto_secundario"
+            android:textColor="@color/texto_principal"
             android:textSize="14sp"
             android:inputType="text"
             android:layout_marginBottom="14dp" />
@@ -125,14 +125,14 @@
             android:layout_height="wrap_content"
             android:text="Prioridad"
             android:textSize="12sp"
-            android:textColor="@color/texto_opaco"
+            android:textColor="@color/texto_secundario"
             android:layout_marginBottom="4dp" />
 
         <Spinner
             android:id="@+id/spinnerPrioridad"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@drawable/bg_search"
+            android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:layout_marginBottom="20dp" />

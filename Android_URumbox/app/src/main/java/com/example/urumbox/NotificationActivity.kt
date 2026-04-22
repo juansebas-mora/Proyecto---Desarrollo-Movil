@@ -1,6 +1,5 @@
 package com.example.urumbox
 
-import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,14 +28,6 @@ class NotificationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Si no hay sesión activa, ir al login
-        if (!UsuarioSesion.estaLogueado) {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-            return
-        }
-
         setContentView(R.layout.activity_notificaciones)
 
         cargarDatosDummy()
@@ -44,7 +35,6 @@ class NotificationActivity : AppCompatActivity() {
         configurarFiltros()
         configurarBottomNav()
         configurarFab()
-        configurarPerfil()
     }
 
     private fun cargarDatosDummy() {
@@ -144,7 +134,7 @@ class NotificationActivity : AppCompatActivity() {
         val tvPrioridad = dialogView.findViewById<TextView>(R.id.dialogPrioridad)
         tvPrioridad.text = n.prioridad
         tvPrioridad.setTextColor(getColor(when (n.prioridad) {
-            "Alta" -> R.color.danger
+            "Alta" -> R.color.rojo_ur
             "Baja" -> R.color.success
             else   -> R.color.warning
         }))
@@ -168,7 +158,7 @@ class NotificationActivity : AppCompatActivity() {
     private fun configurarRecyclerView() {
         adapter = NotificacionAdapter(
             lista = listaFiltrada,
-            rolUsuario = UsuarioSesion.rol,
+            rolUsuario = "Admin",
             onVerDetalles = { n, _ ->
                 n.leida = true
                 aplicarFiltroActual()
@@ -216,7 +206,6 @@ class NotificationActivity : AppCompatActivity() {
             findViewById(R.id.tabEliminados)
         )
 
-        // Actualizar etiquetas de tabs según strings actualizados
         tabs[1].text = getString(R.string.tab_sin_leer)
         tabs[2].text = getString(R.string.tab_leidos)
         tabs[3].text = getString(R.string.tab_eliminados)
@@ -224,10 +213,10 @@ class NotificationActivity : AppCompatActivity() {
         tabs.forEach { tab ->
             tab.setOnClickListener {
                 tabs.forEach { t ->
-                    t.setBackgroundResource(R.drawable.bg_tab_unselected)
+                    t.setBackgroundResource(R.drawable.bg_badge_tipo)
                     t.setTextColor(getColor(android.R.color.white))
                 }
-                tab.setBackgroundResource(R.drawable.bg_tab_selected)
+                tab.setBackgroundResource(R.drawable.bg_button_dark)
                 tab.setTextColor(getColor(android.R.color.white))
 
                 filtroActual = tab.text.toString()
@@ -247,28 +236,6 @@ class NotificationActivity : AppCompatActivity() {
         fab.setOnClickListener { mostrarDialogNuevoAviso() }
     }
 
-    private fun configurarPerfil() {
-        findViewById<ImageButton>(R.id.btnPerfil).setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("${UsuarioSesion.nombre} (${UsuarioSesion.rol})")
-                .setMessage("¿Deseas cerrar sesión?")
-                .setPositiveButton("Cerrar sesión") { _, _ ->
-                    UsuarioSesion.cerrarSesion()
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
-                }
-                .setNegativeButton("Cancelar", null)
-                .show()
-        }
-    }
-
-    private fun tiposPorRol(): List<String> = when (UsuarioSesion.rol) {
-        "Visitante" -> listOf("Incidente")
-        "Operador"  -> listOf("Incidente", "Limpieza", "Actividad", "Ruta Alternativa")
-        "Admin"     -> listOf("Incidente", "Limpieza", "Actividad", "Acceso Restringido", "Ruta Alternativa")
-        else        -> listOf("Incidente")
-    }
-
     private fun mostrarDialogNuevoAviso() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nueva_notificacion, null)
 
@@ -278,7 +245,7 @@ class NotificationActivity : AppCompatActivity() {
         val etDescripcion    = dialogView.findViewById<EditText>(R.id.etNuevoAsunto)
         val etHoraExp        = dialogView.findViewById<EditText>(R.id.etHoraExpiracion)
 
-        val tipos = tiposPorRol()
+        val tipos = listOf("Incidente", "Limpieza", "Actividad", "Acceso Restringido", "Ruta Alternativa")
         spinnerTipo.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, tipos)
             .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
@@ -308,34 +275,25 @@ class NotificationActivity : AppCompatActivity() {
                 val hora      = SimpleDateFormat("h:mm a", Locale("es")).format(Date())
                 val fecha     = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale("es")).format(Date())
 
-                // Visitantes crean avisos pendientes de aprobación
-                val estado = if (UsuarioSesion.rol == "Visitante") "pendiente" else "activa"
-                val afectaRuta = tipo != "Actividad"
-
                 val nueva = Notificacion(
                     id               = listaCompleta.size + 1,
                     hora             = hora,
                     tipo             = tipo,
-                    nombreReportante = UsuarioSesion.nombre,
+                    nombreReportante = "Admin",
                     fecha            = fecha,
                     zonaAfectada     = zona,
                     iconoResId       = iconoPorTipo(tipo),
                     descripcion      = descripcion,
                     prioridad        = prioridad,
                     horaExpiracion   = horaExp,
-                    rolOrigen        = UsuarioSesion.rol,
-                    estado           = estado,
-                    afectaRuta       = afectaRuta
+                    rolOrigen        = "Admin",
+                    estado           = "activa",
+                    afectaRuta       = tipo != "Actividad"
                 )
                 listaCompleta.add(nueva)
                 aplicarFiltroActual()
                 dialog.dismiss()
-
-                val msg = if (estado == "pendiente")
-                    "Aviso enviado. Pendiente de aprobación."
-                else
-                    "Aviso publicado correctamente."
-                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Aviso publicado correctamente.", Toast.LENGTH_SHORT).show()
             }
     }
 }
