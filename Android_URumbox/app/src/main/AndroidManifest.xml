@@ -12,14 +12,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.URumbox">
 
+
+                <activity
+                    android:name=".MainActivity"
+                    android:exported="true">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
+                </activity>
+        <!--
         <activity
             android:name=".MainActivity"
+            android:exported="false" />-->
+
+        <activity
+            android:name=".useractivity.PerfilActivity"
+            android:exported="false" />
+        <!--
+        <activity
+            android:name=".useractivity.InicioActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
+
+        <activity android:name=".useractivity.LoginSActivity" android:exported="false" />
+        <activity android:name=".useractivity.RegistroActivity" android:exported="false" />
+        <activity android:name=".useractivity.InfoPersonalActivity" android:exported="false" />
+        <activity android:name=".useractivity.ConfiguracionActivity" android:exported="false" />
+        <activity android:name=".useractivity.PermisosActivity" android:exported="false" />
+        <activity android:name=".useractivity.CambiarContrasenaActivity" android:exported="false" />
+        <activity android:name=".useractivity.ComentarioActivity" android:exported="false" />
+        <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
+        <activity android:name=".useractivity.VersionActivity" android:exported="false" />
 
         <activity android:name=".ReportarEmergenciaActivity" android:exported="false" />
         <activity android:name=".EstadoPersonaActivity" android:exported="false" />
