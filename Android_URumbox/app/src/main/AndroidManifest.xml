@@ -11,25 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.URumbox">
-
-
-                <activity
-                    android:name=".MainActivity"
-                    android:exported="true">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
-                </activity>
-        <!--
         <activity
             android:name=".MainActivity"
-            android:exported="false" />-->
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".useractivity.PerfilActivity"
             android:exported="false" />
-        <!--
+
         <activity
             android:name=".useractivity.InicioActivity"
             android:exported="true">
@@ -37,7 +31,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
 
         <activity android:name=".useractivity.LoginSActivity" android:exported="false" />
         <activity android:name=".useractivity.RegistroActivity" android:exported="false" />
@@ -56,6 +50,12 @@
         <activity android:name=".ConfirmacionActivity" android:exported="false" />
         <activity android:name=".ConfirmacionEstadoActivity" android:exported="false" />
         <activity android:name=".EstadoEnviadoActivity" android:exported="false" />
+
+        <!-- TEMPORAL: quitar intent-filter y volver exported="false" cuando termine prueba -->
+        <activity
+            android:name=".NotificationActivity"
+            android:exported="false">
+        </activity>
 
     </application>
 
