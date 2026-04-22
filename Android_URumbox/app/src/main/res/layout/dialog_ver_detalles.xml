@@ -41,7 +41,7 @@
                 android:paddingVertical="4dp"
                 android:textSize="12sp"
                 android:textColor="@color/white"
-                android:background="@drawable/bg_badge_tipo" />
+                android:background="@drawable/bg_button_blue_rounded" />
 
         </LinearLayout>
 

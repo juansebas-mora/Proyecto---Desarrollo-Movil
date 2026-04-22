@@ -12,7 +12,13 @@
     <color name="primario">#1A3A5C</color>
     <color name="secundario">#0A7EBF</color>
     <color name="barra">#E8F0FE</color>
-    <color name="success">#2E7D32</color>
-    <color name="warning">#F57C00</color>
+    <color name="badge_encontrado_bg">#D1FAE5</color>
+    <color name="badge_encontrado_text">#065F46</color>
+    <color name="text_alto">#B71C1C</color>
+    <color name="text_medio">#E65100</color>
+    <color name="text_bajo">#1B5E20</color>
+    <color name="text_dark_blue">#1B3E63</color>
+    <color name="bg_dark_blue_soft">#D0E4F7</color>
+    <color name="figma_dark_blue">#1B3E63</color>
+    <color name="azul_brillante">#0A7EBF</color>
 </resources>
-

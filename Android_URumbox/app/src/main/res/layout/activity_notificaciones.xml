@@ -198,7 +198,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/nav_bar_button_background"
-                android:src="@drawable/ic_package"
+                android:src="@drawable/ic_nav_box"
                 android:padding="15dp"
                 android:scaleType="fitCenter"
                 android:contentDescription="Paquetes"/>

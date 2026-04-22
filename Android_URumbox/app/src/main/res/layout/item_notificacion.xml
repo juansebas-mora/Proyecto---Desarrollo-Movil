@@ -49,7 +49,7 @@
             android:text="Solicitud"
             android:textColor="@color/white"
             android:textSize="11sp"
-            android:background="@drawable/bg_badge_tipo"
+            android:background="@drawable/bg_button_blue_rounded"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingTop="3dp"

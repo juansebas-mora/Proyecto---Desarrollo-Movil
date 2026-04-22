@@ -1,6 +1,5 @@
 package com.example.urumbox
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
@@ -135,8 +134,8 @@ class NotificationActivity : AppCompatActivity() {
         tvPrioridad.text = n.prioridad
         tvPrioridad.setTextColor(getColor(when (n.prioridad) {
             "Alta" -> R.color.rojo_ur
-            "Baja" -> R.color.success
-            else   -> R.color.warning
+            "Baja" -> R.color.text_bajo
+            else   -> R.color.text_medio
         }))
 
         dialogView.findViewById<TextView>(R.id.dialogCorreo).text =
@@ -152,7 +151,7 @@ class NotificationActivity : AppCompatActivity() {
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .show()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     private fun configurarRecyclerView() {
@@ -213,7 +212,7 @@ class NotificationActivity : AppCompatActivity() {
         tabs.forEach { tab ->
             tab.setOnClickListener {
                 tabs.forEach { t ->
-                    t.setBackgroundResource(R.drawable.bg_badge_tipo)
+                    t.setBackgroundResource(R.drawable.bg_button_blue_rounded)
                     t.setTextColor(getColor(android.R.color.white))
                 }
                 tab.setBackgroundResource(R.drawable.bg_button_dark)
@@ -257,7 +256,7 @@ class NotificationActivity : AppCompatActivity() {
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .show()
-        dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCrearNotificacion)
             .setOnClickListener {
@@ -272,8 +271,8 @@ class NotificationActivity : AppCompatActivity() {
 
                 val tipo      = spinnerTipo.selectedItem.toString()
                 val prioridad = spinnerPrioridad.selectedItem.toString()
-                val hora      = SimpleDateFormat("h:mm a", Locale("es")).format(Date())
-                val fecha     = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale("es")).format(Date())
+                val hora      = SimpleDateFormat("h:mm a", Locale.forLanguageTag("es")).format(Date())
+                val fecha     = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale.forLanguageTag("es")).format(Date())
 
                 val nueva = Notificacion(
                     id               = listaCompleta.size + 1,
