@@ -52,6 +52,8 @@
             app:layout_constraintTop_toTopOf="@+id/tvTitle" />
     </LinearLayout>
 
+    <!-- SUBTITLE -->
+
     <!-- CONTENT -->
 
     <TextView
@@ -72,6 +74,8 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="24dp">
+
+        <!-- CHECK ICON -->
 
         <!-- STATUS -->
         <ImageView
@@ -106,39 +110,18 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            app:cardBackgroundColor="#FFEBEE"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_textview_rounded"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="Mantenga la calma, el personal vendrá a ayudarle"
-                android:textColor="#000"
-                android:textSize="18sp" />
-
-        </androidx.cardview.widget.CardView>
-
         <Button
-            android:id="@+id/btnVolverInicio"
-            android:layout_width="match_parent"
+            android:id="@+id/btnVolver"
+            android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/bg_button_rounded"
+            android:layout_marginTop="40dp"
+            app:backgroundTint="#1B3E63"
+            android:background="@drawable/bg_button_volver"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
             android:text="Volver al inicio"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:backgroundTint="#1B3E63" />
-
+            android:textSize="16sp" />
     </LinearLayout>
 
     <!-- BOTTOM NAVIGATION -->
@@ -205,4 +188,5 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

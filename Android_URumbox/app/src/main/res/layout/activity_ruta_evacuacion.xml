@@ -140,24 +140,26 @@
             <!-- MAP PLACEHOLDER -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="129dp"
                 android:layout_marginBottom="12dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="123dp"
                     android:background="#E0E0E0">
 
-                    <!-- Route overlay marker -->
+                    <!-- Replace with actual MapView or ImageView of map --><![CDATA[
+                    />
+
+                    ]]><!-- Route overlay marker -->
 
                     <ImageView
                         android:id="@+id/imgMapPuntos"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/mapa_puntos" />
+                        android:layout_height="132dp"
+                        android:scaleType="centerCrop"/>
 
                     <View
                         android:layout_width="10dp"
@@ -301,5 +303,4 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </LinearLayout>

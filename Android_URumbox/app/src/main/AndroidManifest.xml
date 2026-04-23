@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.URumbox">
 
-
+        <!-- Main -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -27,31 +27,45 @@
             android:name=".MainActivity"
             android:exported="false" />-->
 
+        <!--  -->
         <activity
-            android:name=".ReportarEmergenciaActivity"
+            android:name=".useractivity.PerfilActivity"
             android:exported="false" />
 
         <activity
-            android:name=".EstadoPersonaActivity"
-            android:exported="false" />
+            android:name=".useractivity.InicioActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".useractivity.LoginSActivity" android:exported="false" />
+        <activity android:name=".useractivity.RegistroActivity" android:exported="false" />
+        <activity android:name=".useractivity.InfoPersonalActivity" android:exported="false" />
+        <activity android:name=".useractivity.ConfiguracionActivity" android:exported="false" />
+        <activity android:name=".useractivity.PermisosActivity" android:exported="false" />
+        <activity android:name=".useractivity.CambiarContrasenaActivity" android:exported="false" />
+        <activity android:name=".useractivity.ComentarioActivity" android:exported="false" />
+        <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
+        <activity android:name=".useractivity.VersionActivity" android:exported="false" />
+
+        <activity android:name=".ReportarEmergenciaActivity" android:exported="false" />
+        <activity android:name=".EstadoPersonaActivity" android:exported="false" />
+        <activity android:name=".RutaEvacuacionActivity" android:exported="false" />
+        <activity android:name=".PuntosEncuentroActivity" android:exported="false" />
+        <activity android:name=".ConfirmacionActivity" android:exported="false" />
+        <activity android:name=".ConfirmacionEstadoActivity" android:exported="false" />
+        <activity android:name=".EstadoEnviadoActivity" android:exported="false" />
+
 
         <activity
-            android:name=".RutaEvacuacionActivity"
-            android:exported="false" />
+            android:name=".NotificationActivity"
+            android:exported="false">
+        </activity>
 
-        <activity
-            android:name=".PuntosEncuentroActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ConfirmacionActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ConfirmacionEstadoActivity"
-            android:exported="false" />
-
-
+        <!-- ACCESS -->
         <activity
             android:name=".AccessMainActivity"
             android:exported="false" />
@@ -66,17 +80,9 @@
             </intent-filter>
         </activity>-->
 
-        <activity
-            android:name=".AccessHistoryActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".AccessRequestActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".AccessQrActivity"
-            android:exported="false" />
+        <activity android:name=".AccessHistoryActivity" android:exported="false" />
+        <activity android:name=".AccessRequestActivity" android:exported="false" />
+        <activity android:name=".AccessQrActivity" android:exported="false" />
 
     </application>
 
