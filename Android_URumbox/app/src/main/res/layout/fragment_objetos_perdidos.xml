@@ -141,12 +141,13 @@
         style="@style/Widget.Material3.Button"/>
 
     <!-- NavBar -->
+    <!--
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/bg_navbar_rounded"
         android:elevation="12dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />-->
 
 </LinearLayout>
