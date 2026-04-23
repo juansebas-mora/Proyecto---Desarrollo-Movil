@@ -8,44 +8,12 @@
     android:background="@color/fondo">
 
     <!-- Header -->
-    <LinearLayout
+    <com.example.urumbox.TopbarView
+        android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/primario"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Objetos Perdidos"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-
-        <ImageButton
-            android:id="@+id/btnNotificaciones"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_notifications"
-            android:background="@drawable/circle_button_bg"
-            android:contentDescription="Notificaciones"
-            android:layout_marginEnd="8dp"/>
-
-        <ImageButton
-            android:id="@+id/btnPerfil"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_person"
-            android:background="@drawable/circle_button_bg"
-            android:contentDescription="Perfil"/>
-
-    </LinearLayout>
-
+        app:topbarTitle="Objetos Perdidos"/>
+    
     <!-- Barra de búsqueda -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,6 +32,7 @@
             app:queryBackground="@android:color/transparent"/>
 
     </LinearLayout>
+
 
     <!-- Filtros -->
     <HorizontalScrollView
