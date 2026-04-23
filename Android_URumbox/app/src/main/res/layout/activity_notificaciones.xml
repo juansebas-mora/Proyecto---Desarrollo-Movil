@@ -12,47 +12,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Header -->
-        <LinearLayout
-            android:id="@+id/header"
+        <!-- Topbar Component -->
+        <com.example.urumbox.TopbarView
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_button_dark"
-            android:orientation="horizontal"
-            android:paddingStart="20dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="48dp"
-            android:paddingBottom="16dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tvTitulo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Notificaciones"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium"/>
-
-            <ImageButton
-                android:id="@+id/btnCampana"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/topbar_button_background"
-                android:src="@drawable/ic_bell"
-                android:contentDescription="Notificaciones"
-                android:layout_marginEnd="8dp"/>
-
-            <ImageButton
-                android:id="@+id/btnPerfil"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@drawable/topbar_button_background"
-                android:src="@drawable/ic_profile"
-                android:contentDescription="Perfil"/>
-        </LinearLayout>
+            app:topbarTitle="Notificaciones" />
 
         <!-- Search Bar -->
         <LinearLayout
@@ -170,66 +135,11 @@
             android:clipToPadding="false"
             android:paddingBottom="8dp"/>
 
-        <!-- Bottom Navigation -->
-        <LinearLayout
-            android:id="@+id/bottomNav"
+        <!-- Navbar Component -->
+        <com.example.urumbox.NavbarView
+            android:id="@+id/navbar"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/bg_navbar_rounded"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
-
-            <ImageButton
-                android:id="@+id/navHome"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/nav_bar_button_background"
-                android:src="@drawable/ic_home"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                android:contentDescription="Inicio"/>
-
-            <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
-
-            <ImageButton
-                android:id="@+id/navPaquetes"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/nav_bar_button_background"
-                android:src="@drawable/ic_nav_box"
-                android:padding="15dp"
-                android:scaleType="fitCenter"
-                android:contentDescription="Paquetes"/>
-
-            <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
-
-            <ImageButton
-                android:id="@+id/navAcceso"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/nav_bar_button_background"
-                android:src="@drawable/ic_lock"
-                android:padding="15dp"
-                android:scaleType="fitCenter"
-                android:contentDescription="Acceso"/>
-
-            <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
-
-            <ImageButton
-                android:id="@+id/navAlertas"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/nav_bar_button_background"
-                android:src="@drawable/ic_warning"
-                android:padding="15dp"
-                android:scaleType="fitCenter"
-                android:contentDescription="Alertas"/>
-
-            <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
-
-        </LinearLayout>
+            android:layout_height="80dp" />
 
     </LinearLayout>
 

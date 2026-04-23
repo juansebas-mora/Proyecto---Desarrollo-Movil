@@ -10,9 +10,12 @@
     <!-- ======= -->
     <!-- TOP APP BAR -->
     <!-- ======= -->
-    <include
+    <com.example.urumbox.TopbarView
         android:id="@+id/topAppBar"
-        layout="@layout/component_topbar"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topbarTitle="Accesos"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- ======= -->
     <!-- CONTENT -->

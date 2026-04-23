@@ -279,65 +279,12 @@
     </ScrollView>
 
     <!-- BOTTOM NAVIGATION -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottomNavBar"
+    <com.example.urumbox.NavbarView
+        android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/barra">
-
-        <ImageButton
-            android:id="@+id/btnNavHome"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/nav_bar_button_background"
-            android:src="@drawable/ic_home"
-            android:contentDescription="Inicio"
-            app:tint="@color/fondo"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnNavBox"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnNavBox"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/nav_bar_button_background"
-            android:src="@drawable/ic_box"
-            android:contentDescription="Objetos perdidos"
-            app:tint="@color/fondo"
-            app:layout_constraintStart_toEndOf="@+id/btnNavHome"
-            app:layout_constraintEnd_toStartOf="@+id/btnNavAccess"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnNavAccess"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/nav_bar_button_background"
-            android:src="@drawable/icono_seguridad"
-            android:contentDescription="Accesos"
-            app:tint="@color/fondo"
-            app:layout_constraintStart_toEndOf="@+id/btnNavBox"
-            app:layout_constraintEnd_toStartOf="@+id/btnNavEmergency"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnNavEmergency"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/nav_bar_button_background"
-            android:src="@drawable/ic_warning"
-            android:contentDescription="Emergencias"
-            app:tint="@color/fondo"
-            app:layout_constraintStart_toEndOf="@+id/btnNavAccess"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </LinearLayout>

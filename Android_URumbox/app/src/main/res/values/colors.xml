@@ -11,6 +11,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primario">#1A3A5C</color>
     <color name="secundario">#0A7EBF</color>
+    <color name="azul_brillante">#0DF0E3</color>
     <color name="barra">#E8F0FE</color>
     <color name="badge_encontrado_bg">#D1FAE5</color>
     <color name="badge_encontrado_text">#065F46</color>
@@ -20,5 +21,4 @@
     <color name="text_dark_blue">#1B3E63</color>
     <color name="bg_dark_blue_soft">#D0E4F7</color>
     <color name="figma_dark_blue">#1B3E63</color>
-    <color name="azul_brillante">#0A7EBF</color>
 </resources>
