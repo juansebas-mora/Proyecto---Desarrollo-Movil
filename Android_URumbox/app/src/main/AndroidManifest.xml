@@ -13,6 +13,7 @@
         android:theme="@style/Theme.URumbox">
 
         <!-- Main -->
+        <!--
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -20,18 +21,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
 
-        <!--
+
         <activity
             android:name=".MainActivity"
-            android:exported="false" />-->
+            android:exported="false" />
 
-        <!--  -->
+
         <activity
             android:name=".useractivity.PerfilActivity"
             android:exported="false" />
 
+        <!--
         <activity
             android:name=".useractivity.InicioActivity"
             android:exported="true">
@@ -39,7 +41,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
 
         <activity android:name=".useractivity.LoginSActivity" android:exported="false" />
         <activity android:name=".useractivity.RegistroActivity" android:exported="false" />
@@ -66,11 +68,12 @@
         </activity>
 
         <!-- ACCESS -->
+        <!--
         <activity
             android:name=".AccessMainActivity"
-            android:exported="false" />
+            android:exported="false" />-->
 
-        <!--
+
         <activity
             android:name=".AccessMainActivity"
             android:exported="true">
@@ -78,7 +81,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
 
         <activity android:name=".AccessHistoryActivity" android:exported="false" />
         <activity android:name=".AccessRequestActivity" android:exported="false" />
