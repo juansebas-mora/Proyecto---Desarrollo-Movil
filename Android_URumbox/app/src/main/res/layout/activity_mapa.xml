@@ -6,54 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/fondo">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.example.urumbox.TopbarView
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primario"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp"
-            android:text="Mapa"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/topbar_button_background"
-            android:src="@drawable/ic_notifications"
-            android:contentDescription="@string/notifications_description"
-            app:tint="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-            app:layout_constraintEnd_toStartOf="@+id/btnProfile"
-            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
-
-        <ImageButton
-            android:id="@+id/btnProfile"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/topbar_button_background"
-            android:src="@drawable/ic_profile"
-            android:contentDescription="@string/profile_description"
-            app:tint="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:topbarTitle="Mapa"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -100,7 +58,7 @@
                     android:background="@color/secundario"
                     android:elevation="4dp"
                     android:src="@drawable/ic_go_to_pasos"
-                    android:contentDescription="@string/go_to_steps_description"
+                    android:contentDescription="Ir a pasos"
                     app:tint="@color/white" />
             </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -146,6 +104,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardReunion"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

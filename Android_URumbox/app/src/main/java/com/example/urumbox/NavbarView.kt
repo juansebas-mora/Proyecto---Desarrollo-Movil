@@ -1,6 +1,7 @@
 package com.example.urumbox
 
 import android.content.Context
+import android.content.Intent
 import android.util.AttributeSet
 import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -25,8 +26,37 @@ class NavbarView @JvmOverloads constructor(
         btnBox = findViewById(R.id.btnNavBox)
         btnAccess = findViewById(R.id.btnNavAccess)
         btnEmergency = findViewById(R.id.btnNavEmergency)
+
+        setupDefaultNavigation()
     }
 
+    private fun setupDefaultNavigation() {
+        btnHome.setOnClickListener {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            context.startActivity(intent)
+        }
+
+        btnBox.setOnClickListener {
+            val intent = Intent(context, ObjetosActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            context.startActivity(intent)
+        }
+
+        btnAccess.setOnClickListener {
+            val intent = Intent(context, AccessMainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            context.startActivity(intent)
+        }
+
+        btnEmergency.setOnClickListener {
+            val intent = Intent(context, ReportarEmergenciaActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            context.startActivity(intent)
+        }
+    }
+
+    // Keep this method for backwards compatibility or overrides
     fun setOnButtonsClickListener(
         onHome: () -> Unit,
         onBox: () -> Unit,
