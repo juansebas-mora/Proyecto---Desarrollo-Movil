@@ -320,13 +320,13 @@
             <!-- ROLE + ADD VISITOR + QR -->
             <!-- ======================= -->
             <ImageButton
-                android:id="@+id/btnCopyAccess"
+                android:id="@+id/btnAddVisitor"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/content_button"
                 android:src="@drawable/ic_add"
-                android:contentDescription="Copiar acceso"
+                android:contentDescription="Agregar visitante"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardAccessHistory"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -345,7 +345,7 @@
                 android:textStyle="bold"
                 android:textColor="#0D1B3E"
                 android:background="@drawable/content_button"
-                app:layout_constraintStart_toEndOf="@+id/btnCopyAccess"
+                app:layout_constraintStart_toEndOf="@+id/btnAddVisitor"
                 app:layout_constraintEnd_toStartOf="@+id/btnQrCode"
                 app:layout_constraintTop_toBottomOf="@+id/cardAccessHistory"
                 app:layout_constraintBottom_toBottomOf="parent" />

@@ -150,17 +150,13 @@
                     android:layout_height="match_parent"
                     android:background="#E0E0E0">
 
-                    <!-- Replace with actual MapView or ImageView of map --><![CDATA[
-                    />
-
-                    ]]><!-- Route overlay marker -->
+                    <!-- Route overlay marker -->
 
                     <ImageView
                         android:id="@+id/imgMapPuntos"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-
                         android:src="@drawable/mapa_puntos" />
 
                     <View
@@ -306,3 +302,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+</LinearLayout>
