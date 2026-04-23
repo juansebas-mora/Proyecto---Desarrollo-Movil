@@ -58,7 +58,7 @@ class DetalleObjetoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         cargarDatos()
         configurarUI()
-        configurarNavbar()
+        //configurarNavbar()
     }
 
     private fun cargarDatos() {
@@ -161,14 +161,14 @@ class DetalleObjetoFragment : Fragment() {
         dialog.show()
     }
 
-    private fun configurarNavbar() {
+    /*private fun configurarNavbar() {
         binding.navbar.setOnButtonsClickListener(
             onHome      = { /* TODO */ },
             onBox       = { parentFragmentManager.popBackStack() },
             onAccess    = { /* TODO */ },
             onEmergency = { /* TODO */ }
         )
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
