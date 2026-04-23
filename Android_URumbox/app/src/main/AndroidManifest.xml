@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.URumbox">
 
-        <!--
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -20,11 +20,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
 
+        <!--
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false" />-->
 
         <activity
             android:name=".ReportarEmergenciaActivity"
@@ -50,10 +51,12 @@
             android:name=".ConfirmacionEstadoActivity"
             android:exported="false" />
 
-        <!--
+
         <activity
             android:name=".AccessMainActivity"
-            android:exported="false" /> -->
+            android:exported="false" />
+
+        <!--
         <activity
             android:name=".AccessMainActivity"
             android:exported="true">
@@ -61,7 +64,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
 
         <activity
             android:name=".AccessHistoryActivity"
