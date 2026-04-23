@@ -92,6 +92,7 @@
                     android:alpha="0.1" />
 
                 <ImageButton
+                    android:id="@+id/btnGoToPasos"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="bottom|end"
