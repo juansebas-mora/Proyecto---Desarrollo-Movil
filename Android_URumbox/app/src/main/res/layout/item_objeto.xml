@@ -110,7 +110,7 @@
         <Button
             android:id="@+id/btnVerDetalles"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="48dp"
             android:text="Ver detalles"
             android:textSize="13sp"
             android:paddingHorizontal="16dp"

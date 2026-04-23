@@ -139,7 +139,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVerDetalles"
             android:layout_width="0dp"
-            android:layout_height="38dp"
+            android:layout_height="48dp"
             android:text="Ver detalles"
             android:textColor="#FFFFFF"
             android:textSize="13sp"
@@ -161,8 +161,8 @@
         <!-- Botón Aceptar (estado normal) -->
         <ImageButton
             android:id="@+id/btnAceptar"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_check"
             android:background="@drawable/circle_avatar_background_green"
             android:contentDescription="Aceptar"
@@ -175,8 +175,8 @@
         <!-- Botón Rechazar (estado normal) -->
         <ImageButton
             android:id="@+id/btnRechazar"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_close"
             android:background="@drawable/circle_avatar_background_red"
             android:contentDescription="Rechazar"

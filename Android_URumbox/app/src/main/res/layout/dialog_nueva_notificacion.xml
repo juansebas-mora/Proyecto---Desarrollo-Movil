@@ -44,7 +44,7 @@
         <Spinner
             android:id="@+id/spinnerTipo"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
@@ -62,7 +62,7 @@
         <EditText
             android:id="@+id/etNuevoArea"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
@@ -85,7 +85,7 @@
         <EditText
             android:id="@+id/etNuevoAsunto"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
@@ -108,7 +108,7 @@
         <EditText
             android:id="@+id/etHoraExpiracion"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
@@ -131,7 +131,7 @@
         <Spinner
             android:id="@+id/spinnerPrioridad"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:background="@drawable/bg_search_bar"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"

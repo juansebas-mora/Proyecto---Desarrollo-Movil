@@ -93,7 +93,7 @@ class ObjetosPerdidosFragment : Fragment() {
     private fun configurarRecyclerView() {
         adapter = ObjetosAdapter(requireContext(), emptyList()) { objeto ->
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, DetalleObjetoFragment.newInstance(objeto))
+                .replace(R.id.fragment_container_objetos, DetalleObjetoFragment.newInstance(objeto))
                 .addToBackStack(null)
                 .commit()
         }
@@ -139,7 +139,7 @@ class ObjetosPerdidosFragment : Fragment() {
     private fun configurarBotones() {
         binding.btnReportarObjeto.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ReportarObjetoFragment())
+                .replace(R.id.fragment_container_objetos, ReportarObjetoFragment())
                 .addToBackStack(null) // permite volver con el botón atrás
                 .commit()
         }

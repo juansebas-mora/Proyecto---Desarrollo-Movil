@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -32,7 +31,6 @@ class NotificationActivity : AppCompatActivity() {
         cargarDatosDummy()
         configurarRecyclerView()
         configurarFiltros()
-        configurarBottomNav()
         configurarFab()
     }
 
@@ -221,12 +219,6 @@ class NotificationActivity : AppCompatActivity() {
                 filtroActual = tab.text.toString()
                 aplicarFiltroActual()
             }
-        }
-    }
-
-    private fun configurarBottomNav() {
-        findViewById<ImageButton>(R.id.navHome).setOnClickListener {
-            Toast.makeText(this, "Inicio", Toast.LENGTH_SHORT).show()
         }
     }
 
