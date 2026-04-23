@@ -1,6 +1,6 @@
 *.iml
 .gradle
-/local.properties
+.idea
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -13,7 +13,12 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
 .claude/
-.idea/
-build/
+.gradle/9.1.0/executionHistory/executionHistory.bin
+.gradle/9.1.0/executionHistory/executionHistory.lock
+.gradle/9.1.0/fileHashes/fileHashes.bin
+.gradle/9.1.0/fileHashes/fileHashes.lock
+.gradle/9.1.0/fileHashes/resourceHashesCache.bin
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/buildOutputCleanup/outputFiles.bin
+.idea/workspace.xml
