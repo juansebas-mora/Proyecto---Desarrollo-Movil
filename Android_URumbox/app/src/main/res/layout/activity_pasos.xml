@@ -212,6 +212,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <ImageButton
+                    android:id="@+id/btnGoToMapa"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_margin="16dp"
@@ -312,6 +313,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Fondo extra para tapar el azul en los bordes redondeados -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#F4F7FB"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"

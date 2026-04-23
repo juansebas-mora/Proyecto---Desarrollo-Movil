@@ -12,24 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.URumbox">
 
-
-                <activity
-                    android:name=".MainActivity"
-                    android:exported="true">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
-                </activity>
-        <!--
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />-->
-
-        <activity
-            android:name=".useractivity.PerfilActivity"
-            android:exported="false" />
-        <!--
+        <!-- Ventana de Inicio (Bienvenida/Login/Registro) -->
         <activity
             android:name=".useractivity.InicioActivity"
             android:exported="true">
@@ -37,8 +20,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
 
+        <!-- Ventana principal del Dashboard -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <activity android:name=".BusquedaActivity" android:exported="false" />
+        <activity android:name=".MapaActivity" android:exported="false" />
+        <activity android:name=".PasosActivity" android:exported="false" />
+        <activity android:name=".ObjetosActivity" android:exported="false" />
+
+        <activity android:name=".useractivity.PerfilActivity" android:exported="false" />
         <activity android:name=".useractivity.LoginSActivity" android:exported="false" />
         <activity android:name=".useractivity.RegistroActivity" android:exported="false" />
         <activity android:name=".useractivity.InfoPersonalActivity" android:exported="false" />
@@ -56,6 +50,12 @@
         <activity android:name=".ConfirmacionActivity" android:exported="false" />
         <activity android:name=".ConfirmacionEstadoActivity" android:exported="false" />
         <activity android:name=".EstadoEnviadoActivity" android:exported="false" />
+        <activity android:name=".NotificationActivity" android:exported="false" />
+
+        <activity android:name=".AccessMainActivity" android:exported="false" />
+        <activity android:name=".AccessHistoryActivity" android:exported="false" />
+        <activity android:name=".AccessRequestActivity" android:exported="false" />
+        <activity android:name=".AccessQrActivity" android:exported="false" />
 
     </application>
 

@@ -29,8 +29,8 @@
 
         <ImageButton
             android:id="@+id/btnNotificaciones"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_notifications"
             android:background="@drawable/circle_button_bg"
             android:contentDescription="Notificaciones"
@@ -38,8 +38,8 @@
 
         <ImageButton
             android:id="@+id/btnPerfil"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_person"
             android:background="@drawable/circle_button_bg"
             android:contentDescription="Perfil"/>
@@ -133,17 +133,21 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Reportar Objeto"
         android:textSize="15sp"
         android:textStyle="bold"
         android:backgroundTint="@color/primario"
         style="@style/Widget.Material3.Button"/>
 
-    <!-- NavBar-->
+    <!-- NavBar -->
+    <!--
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="80dp"
+        android:background="@drawable/bg_navbar_rounded"
+        android:elevation="12dp"
+        app:layout_constraintBottom_toBottomOf="parent" />-->
 
 </LinearLayout>
