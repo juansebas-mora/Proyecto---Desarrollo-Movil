@@ -4,15 +4,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F2F5"
-    android:fitsSystemWindows="true">
+    android:background="@color/azul_ur">
 
     <!-- ============================= -->
     <!-- TOP APP BAR                   -->
     <!-- ============================= -->
-    <include
-        android:id="@+id/topAppBar"
-        layout="@layout/component_topbar"/>
+    <com.example.urumbox.TopbarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topbarTitle="Solicitud"
+        app:showBackButton="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- ============================= -->
     <!-- MAIN CONTENT                  -->
@@ -22,10 +27,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/topAppBar"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
         app:layout_constraintBottom_toTopOf="@+id/navbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/fondo">
 
         <!-- ========================= -->
         <!-- FORM                      -->
@@ -46,16 +52,6 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp">
 
-                <!-- Form Title Row -->
-                <ImageButton
-                    android:id="@+id/btnBack"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@null"
-                    android:src="@drawable/ic_arrow_back"
-                    android:contentDescription="Regresar"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tvFormTitle"
@@ -69,7 +65,7 @@
                     android:padding="7dp"
                     android:layout_marginBottom="20dp"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btnBack"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- NOMBRES label -->
@@ -187,24 +183,26 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <!-- NÚMERO DE DOCUMENTO input -->
+
+                <!-- FECHA DE INGRESO label -->
                 <EditText
                     android:id="@+id/etDocumento"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="4dp"
+                    android:background="@drawable/input_background"
                     android:hint="1001254869"
-                    android:textSize="14sp"
-                    android:textColor="#212121"
-                    android:textColorHint="#AAAAAA"
+                    android:inputType="number"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:background="@drawable/input_background"
-                    android:inputType="number"
-                    app:layout_constraintTop_toBottomOf="@+id/tvLabelDocumento"
+                    android:textColor="#212121"
+                    android:textColorHint="#AAAAAA"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvLabelDocumento" />
 
-                <!-- FECHA DE INGRESO label -->
                 <TextView
                     android:id="@+id/tvLabelFecha"
                     android:layout_width="0dp"
@@ -353,6 +351,12 @@
     <!-- ============================= -->
     <!-- BOTTOM NAVIGATION BAR         -->
     <!-- ============================= -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/fondo"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
