@@ -1,6 +1,8 @@
 package com.example.urumbox
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -11,14 +13,13 @@ class RutaEvacuacionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ruta_evacuacion)
 
         // Botón volver
-        findViewById<android.widget.Button>(R.id.btnBack).setOnClickListener {
+        findViewById<ImageButton>(R.id.btnVolver).setOnClickListener {
             finish()
         }
 
         // Botón SIGA LA RUTA
-        findViewById<android.widget.Button>(R.id.btnSigueLaRuta).setOnClickListener {
+        findViewById<Button>(R.id.btnSigueLaRuta).setOnClickListener {
             Toast.makeText(this, "Iniciando navegación...", Toast.LENGTH_SHORT).show()
-            // Aquí puedes lanzar Google Maps o tu lógica de navegación
         }
     }
 }

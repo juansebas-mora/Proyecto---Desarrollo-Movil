@@ -73,9 +73,9 @@
                             android:layout_width="44dp"
                             android:layout_height="44dp"
                             android:layout_gravity="center"
+                            android:contentDescription="Avatar"
                             android:src="@drawable/ic_person_filled"
-                            app:tint="#0D1B3E"
-                            android:contentDescription="Avatar" />
+                            app:tint="#0D1B3E" />
 
                     </FrameLayout>
 
