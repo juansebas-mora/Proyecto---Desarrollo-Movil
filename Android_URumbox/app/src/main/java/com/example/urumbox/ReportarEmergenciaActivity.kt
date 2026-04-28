@@ -2,63 +2,94 @@ package com.example.urumbox
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import androidx.appcompat.widget.AppCompatButton
 
 class ReportarEmergenciaActivity : AppCompatActivity() {
 
-    private var tipoEmergenciaSeleccionado = ""
+    private var categoriaSeleccionada = ""
+    private var gravedadSeleccionada = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reportar_emergencia)
 
-        val btnIncendio         = findViewById<CardView>(R.id.btnIncendio)
-        val btnSismo            = findViewById<CardView>(R.id.btnSismo)
-        val btnEmergenciaMedica = findViewById<CardView>(R.id.btnEmergenciaMedica)
-        val btnAmenaza          = findViewById<CardView>(R.id.btnAmenazaSeguridad)
-        val btnEnviar           = findViewById<Button>(R.id.btnEnviarAlerta)
-        val botones             = listOf(btnIncendio, btnSismo, btnEmergenciaMedica, btnAmenaza)
-
         // Botón volver
-        findViewById<Button>(R.id.btnBack).setOnClickListener { finish() }
+        findViewById<ImageButton>(R.id.btnVolver).setOnClickListener { finish() }
 
-        // Selección de tipo de emergencia
-        btnIncendio.setOnClickListener {
-            tipoEmergenciaSeleccionado = "Incendio"
-            resaltarSeleccion(btnIncendio, botones)
+        // Botones categoría
+        val btnIncendio = findViewById<AppCompatButton>(R.id.btnIncendio)
+        val btnMedica   = findViewById<AppCompatButton>(R.id.btnMedica)
+        val btnRobo     = findViewById<AppCompatButton>(R.id.btnRobo)
+        val btnSismo    = findViewById<AppCompatButton>(R.id.btnSismo)
+        val btnOtro     = findViewById<AppCompatButton>(R.id.btnOtro)
+        val botonesCategoria = listOf(btnIncendio, btnMedica, btnRobo, btnSismo, btnOtro)
+
+        // Botones gravedad
+        val btnBaja  = findViewById<AppCompatButton>(R.id.btnBaja)
+        val btnMedia = findViewById<AppCompatButton>(R.id.btnMedia)
+        val btnAlta  = findViewById<AppCompatButton>(R.id.btnAlta)
+        val botonesGravedad = listOf(btnBaja, btnMedia, btnAlta)
+
+        // Otros elementos
+        val etDescripcion       = findViewById<EditText>(R.id.etDescripcion)
+        val btnSeleccionarMapa  = findViewById<LinearLayout>(R.id.btnSeleccionarMapa)
+        val btnSubirFoto        = findViewById<LinearLayout>(R.id.btnSubirFoto)
+        val btnEnviarReporte    = findViewById<AppCompatButton>(R.id.btnEnviarReporte)
+
+        // Selección categoría
+        btnIncendio.setOnClickListener { categoriaSeleccionada = "Incendio"; resaltarSeleccion(btnIncendio, botonesCategoria) }
+        btnMedica.setOnClickListener   { categoriaSeleccionada = "Médica";   resaltarSeleccion(btnMedica, botonesCategoria) }
+        btnRobo.setOnClickListener     { categoriaSeleccionada = "Robo";     resaltarSeleccion(btnRobo, botonesCategoria) }
+        btnSismo.setOnClickListener    { categoriaSeleccionada = "Sismo";    resaltarSeleccion(btnSismo, botonesCategoria) }
+        btnOtro.setOnClickListener     { categoriaSeleccionada = "Otro";     resaltarSeleccion(btnOtro, botonesCategoria) }
+
+        // Selección gravedad
+        btnBaja.setOnClickListener  { gravedadSeleccionada = "Baja";  resaltarSeleccion(btnBaja, botonesGravedad) }
+        btnMedia.setOnClickListener { gravedadSeleccionada = "Media"; resaltarSeleccion(btnMedia, botonesGravedad) }
+        btnAlta.setOnClickListener  { gravedadSeleccionada = "Alta";  resaltarSeleccion(btnAlta, botonesGravedad) }
+
+        // Mapa y foto
+        btnSeleccionarMapa.setOnClickListener {
+            Toast.makeText(this, "Seleccionar ubicación en mapa", Toast.LENGTH_SHORT).show()
         }
 
-        btnSismo.setOnClickListener {
-            tipoEmergenciaSeleccionado = "Sismo"
-            resaltarSeleccion(btnSismo, botones)
+        btnSubirFoto.setOnClickListener {
+            Toast.makeText(this, "Subir foto", Toast.LENGTH_SHORT).show()
         }
 
-        btnEmergenciaMedica.setOnClickListener {
-            tipoEmergenciaSeleccionado = "Emergencia médica"
-            resaltarSeleccion(btnEmergenciaMedica, botones)
-        }
-
-        btnAmenaza.setOnClickListener {
-            tipoEmergenciaSeleccionado = "Amenaza de seguridad"
-            resaltarSeleccion(btnAmenaza, botones)
-        }
-
-        // Enviar alerta
-        btnEnviar.setOnClickListener {
-            if (tipoEmergenciaSeleccionado.isEmpty()) {
-                Toast.makeText(this, "Selecciona un tipo de emergencia", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+        // Enviar reporte
+        btnEnviarReporte.setOnClickListener {
+            when {
+                categoriaSeleccionada.isEmpty() ->
+                    Toast.makeText(this, "Selecciona una categoría", Toast.LENGTH_SHORT).show()
+                gravedadSeleccionada.isEmpty() ->
+                    Toast.makeText(this, "Selecciona el nivel de gravedad", Toast.LENGTH_SHORT).show()
+                etDescripcion.text.toString().trim().isEmpty() ->
+                    Toast.makeText(this, "Escribe una descripción", Toast.LENGTH_SHORT).show()
+                else -> {
+                    val intent = Intent(this, ConfirmacionActivity::class.java)
+                    intent.putExtra("tipo_emergencia", categoriaSeleccionada)
+                    startActivity(intent)
+                    finish()
+                }
             }
-            val intent = Intent(this, ConfirmacionActivity::class.java)
-            intent.putExtra("tipo_emergencia", tipoEmergenciaSeleccionado)
-            startActivity(intent)
         }
     }
 
-    private fun resaltarSeleccion(seleccionado: CardView, todos: List<CardView>) {
-        todos.forEach { it.alpha = if (it == seleccionado) 1.0f else 0.5f }
+    private fun resaltarSeleccion(seleccionado: AppCompatButton, todos: List<AppCompatButton>) {
+        todos.forEach { btn ->
+            if (btn == seleccionado) {
+                btn.setBackgroundResource(R.drawable.rounded_button_background)
+                btn.setTextColor(resources.getColor(android.R.color.white, null))
+            } else {
+                btn.setBackgroundResource(R.drawable.chip_unselected_bg)
+                btn.setTextColor(resources.getColor(android.R.color.holo_blue_dark, null))
+            }
+        }
     }
 }

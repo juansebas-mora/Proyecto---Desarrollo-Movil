@@ -9,7 +9,7 @@ class ConfirmacionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_confirmacion)
+        setContentView(R.layout.activity_confirmacion_estado)
 
         val tipoEmergencia = intent.getStringExtra("tipo_emergencia") ?: ""
         // Puedes usar tipoEmergencia para mostrar info si lo necesitas
