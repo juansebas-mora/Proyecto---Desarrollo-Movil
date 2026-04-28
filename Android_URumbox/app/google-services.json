@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "593069822504",
+    "project_id": "urumbox-1c6c1",
+    "storage_bucket": "urumbox-1c6c1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593069822504:android:d86707a68927e630711b1d",
+        "android_client_info": {
+          "package_name": "com.example.urumbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfW-FfOnf2jQSCpvqTy78U4lru4cIqaiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

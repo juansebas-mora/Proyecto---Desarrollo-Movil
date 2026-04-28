@@ -11,20 +11,35 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/topbar_button_background"
+        android:contentDescription="Volver"
+        android:src="@drawable/ic_arrow_back"
+        android:visibility="gone"
+        app:tint="@color/fondo"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
     <!-- Title -->
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-
         android:paddingTop="25dp"
         android:paddingBottom="25dp"
         android:text="Accesos"
         android:textColor="@color/fondo"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
+        app:layout_constraintEnd_toStartOf="@+id/btnNotification"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
