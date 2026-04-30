@@ -4,15 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo"
-    android:fitsSystemWindows="true">
+    android:background="@color/azul_ur">
 
     <!-- ======= -->
     <!-- TOP APP BAR -->
     <!-- ======= -->
-    <include
-        android:id="@+id/topAppBar"
-        layout="@layout/component_topbar"/>
+    <com.example.urumbox.TopbarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topbarTitle="Accesos"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- ======= -->
     <!-- CONTENT -->
@@ -24,10 +28,11 @@
         android:fillViewport="true"
         android:paddingBottom="16dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@+id/topAppBar"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
         app:layout_constraintBottom_toTopOf="@+id/navbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/fondo">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toTopOf="parent"
@@ -70,9 +75,9 @@
                             android:layout_width="44dp"
                             android:layout_height="44dp"
                             android:layout_gravity="center"
+                            android:contentDescription="Avatar"
                             android:src="@drawable/ic_person_filled"
-                            app:tint="#0D1B3E"
-                            android:contentDescription="Avatar" />
+                            app:tint="#0D1B3E" />
 
                     </FrameLayout>
 
@@ -320,13 +325,13 @@
             <!-- ROLE + ADD VISITOR + QR -->
             <!-- ======================= -->
             <ImageButton
-                android:id="@+id/btnCopyAccess"
+                android:id="@+id/btnAddVisitor"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/content_button"
                 android:src="@drawable/ic_add"
-                android:contentDescription="Copiar acceso"
+                android:contentDescription="Agregar visitante"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardAccessHistory"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -345,7 +350,7 @@
                 android:textStyle="bold"
                 android:textColor="#0D1B3E"
                 android:background="@drawable/content_button"
-                app:layout_constraintStart_toEndOf="@+id/btnCopyAccess"
+                app:layout_constraintStart_toEndOf="@+id/btnAddVisitor"
                 app:layout_constraintEnd_toStartOf="@+id/btnQrCode"
                 app:layout_constraintTop_toBottomOf="@+id/cardAccessHistory"
                 app:layout_constraintBottom_toBottomOf="parent" />
@@ -371,10 +376,16 @@
     <!-- ============================= -->
     <!-- BOTTOM NAVIGATION BAR         -->
     <!-- ============================= -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/fondo"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="85dp"
         android:background="@color/barra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
