@@ -4,10 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.activity.ComponentActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.urumbox.useractivity.PerfilActivity
 
 class TopbarView @JvmOverloads constructor(
     context: Context,
@@ -16,17 +17,18 @@ class TopbarView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private var tvTitle: TextView
+    private var btnBack: ImageButton
     private var btnNotification: ImageButton
     private var btnProfile: ImageButton
 
     init {
         LayoutInflater.from(context).inflate(R.layout.component_topbar, this, true)
-        
+
         tvTitle = findViewById(R.id.tvTitle)
+        btnBack = findViewById(R.id.btnBack)
         btnNotification = findViewById(R.id.btnNotification)
         btnProfile = findViewById(R.id.btnProfile)
 
-        // Aplicar atributos personalizados si existen
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.TopbarView,
@@ -34,9 +36,10 @@ class TopbarView @JvmOverloads constructor(
         ).apply {
             try {
                 val title = getString(R.styleable.TopbarView_topbarTitle)
-                if (title != null) {
-                    tvTitle.text = title
-                }
+                if (title != null) tvTitle.text = title
+
+                val showBack = getBoolean(R.styleable.TopbarView_showBackButton, false)
+                btnBack.visibility = if (showBack) View.VISIBLE else View.GONE
             } finally {
                 recycle()
             }
@@ -46,18 +49,28 @@ class TopbarView @JvmOverloads constructor(
     }
 
     private fun setupNavigation() {
+        btnBack.setOnClickListener {
+            (context as? ComponentActivity)?.onBackPressedDispatcher?.onBackPressed()
+        }
+
         btnNotification.setOnClickListener {
-            val intent = Intent(context, NotificationActivity::class.java)
-            context.startActivity(intent)
+            context.startActivity(Intent(context, NotificationActivity::class.java))
         }
 
         btnProfile.setOnClickListener {
-            val intent = Intent(context, PerfilActivity::class.java)
-            context.startActivity(intent)
+            context.startActivity(Intent(context, com.example.urumbox.useractivity.PerfilActivity::class.java))
         }
     }
 
     fun setTitle(title: String) {
         tvTitle.text = title
+    }
+
+    fun setBackButtonVisible(visible: Boolean) {
+        btnBack.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    fun setOnBackClickListener(listener: OnClickListener) {
+        btnBack.setOnClickListener(listener)
     }
 }

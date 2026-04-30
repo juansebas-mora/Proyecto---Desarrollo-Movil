@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnReportIncident.setOnClickListener {
-            startActivity(Intent(this, ReportarEmergenciaActivity::class.java))
+            startActivity(Intent(this, EmergenciasActivity::class.java))
         }
 
         // Objetos Perdidos
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnNavNotifications.setOnClickListener {
             startActivity(Intent(this, NotificationActivity::class.java))
         }
-        
+
         binding.btnNavProfile.setOnClickListener {
             startActivity(Intent(this, com.example.urumbox.useractivity.PerfilActivity::class.java))
         }
