@@ -340,7 +340,6 @@
                     android:backgroundTint="@color/azul_ur"
                     android:contentDescription="Registrar solicitud"
                     android:layout_marginTop="20dp"
-
                     app:layout_constraintTop_toBottomOf="@+id/containerFoto"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
