@@ -26,7 +26,8 @@
         android:id="@+id/mainContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="16dp"
+        android:padding="15dp"
+        android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@+id/topBar"
         app:layout_constraintBottom_toTopOf="@+id/navbar"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +42,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardBackgroundColor="#FFFFFF"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/fondo"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -60,7 +62,7 @@
                     android:text="Solicita Acceso para\nun Visitante"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#0D1B3E"
+                    android:textColor="@color/azul_ur"
                     android:gravity="center"
                     android:padding="7dp"
                     android:layout_marginBottom="20dp"
@@ -103,7 +105,7 @@
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="4dp"
-                    android:hint="Karen Natalia"
+                    android:hint="Ej: Juan Carlos"
                     android:textSize="14sp"
                     android:textColor="#212121"
                     android:textColorHint="#AAAAAA"
@@ -122,7 +124,7 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginStart="12dp"
-                    android:hint="Gomez Rodriguez"
+                    android:hint="Ej: Perez Gomez"
                     android:textSize="14sp"
                     android:textColor="#212121"
                     android:textColorHint="#AAAAAA"
@@ -155,7 +157,7 @@
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="4dp"
-                    android:hint="karennat.gomezrod89@gmail.com"
+                    android:hint="nombre.apellido@urosario.edu.co"
                     android:textSize="14sp"
                     android:textColor="#212121"
                     android:textColorHint="#AAAAAA"
@@ -191,7 +193,7 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/input_background"
-                    android:hint="1001254869"
+                    android:hint="Ej: 1001254869"
                     android:inputType="number"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
@@ -232,7 +234,7 @@
                         android:id="@+id/etFecha"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:hint="17/03/2026"
+                        android:hint="DD/MM/AAAA"
                         android:textSize="14sp"
                         android:textColor="#212121"
                         android:textColorHint="#AAAAAA"
@@ -325,22 +327,24 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!-- REGISTRAR SOLICITUD button -->
-                <Button
-                    android:id="@+id/btnRegistrar"
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.App.Button"
+                    android:id="@+id/btnRegistrarSolicitud"
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="24dp"
-                    android:text="Registrar solicitud"
-                    android:textSize="15sp"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:paddingStart="32dp"
-                    android:paddingEnd="32dp"
-                    android:background="@drawable/button_primary_background"
+                    android:layout_height="wrap_content"
+                    android:text="Registrar Solicitud"
+                    android:textAllCaps="false"
+                    app:cornerRadius="10dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/azul_ur"
+                    android:contentDescription="Registrar solicitud"
+                    android:layout_marginTop="20dp"
+
                     app:layout_constraintTop_toBottomOf="@+id/containerFoto"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
