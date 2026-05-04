@@ -4,28 +4,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F4F8">
+    android:background="@color/azul_ur">
 
     <!-- ======= -->
     <!-- TOP APP BAR -->
     <!-- ======= -->
-    <include
-        android:id="@+id/topAppBar"
-        layout="@layout/component_topbar"/>
+    <com.example.urumbox.TopbarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topbarTitle="Historial"
+        app:showBackButton="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
-    <!-- CONTENT CARD -->
-    <androidx.cardview.widget.CardView
+    <!-- ============================= -->
+    <!-- MAIN CONTENT                  -->
+    <!-- ============================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
+        app:layout_constraintBottom_toTopOf="@+id/navbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/fondo">
+
+        <!-- CONTENT CARD -->
+        <androidx.cardview.widget.CardView
         android:id="@+id/cardHistorial"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="24dp"
-        app:cardBackgroundColor="#FFFFFF"
+        app:cardBackgroundColor="@color/fondo"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/topAppBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -206,10 +225,16 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <!-- ============================= -->
     <!-- BOTTOM NAVIGATION BAR         -->
     <!-- ============================= -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/fondo"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"

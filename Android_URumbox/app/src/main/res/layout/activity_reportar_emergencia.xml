@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5">
+    android:background="#F2F4F7">
 
-    <!-- TOP BAR -->
+    <!-- HEADER -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="107dp"
@@ -16,14 +16,24 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
+        <ImageButton
+            android:id="@+id/btnVolver"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/circle_button_bg"
+            android:contentDescription="Volver"
+            android:src="@drawable/ic_arrow_back" />
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Reportar emergencias"
+            android:text="Reportar Emergencia"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingStart="8dp"/>
 
         <ImageButton
             android:id="@+id/btnNotification"
@@ -39,252 +49,253 @@
             android:id="@+id/btnProfile"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginEnd="20dp"
             android:background="@drawable/topbar_button_background"
             android:src="@drawable/ic_profile"
             android:contentDescription="@string/profile_description"
             app:tint="@color/blanco" />
     </LinearLayout>
 
-    <!-- SUBTITLE -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#1B3E63"
-        android:paddingStart="16dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:text="Ubicación Actual: Edificio A – Piso 2"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
-
+    <!-- CONTENIDO -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="467dp"
-        android:layout_weight="2"
-        android:padding="10dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <!-- BACK BUTTON ROW -->
-
-            <!-- GRID DE TIPOS DE EMERGENCIA -->
-
-            <!-- ENVIAR ALERTA BUTTON -->
+            <!-- CATEGORÍA -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CATEGORÍA"
+                android:textColor="#888888"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
 
-                <Button
-                    android:id="@+id/btnBack"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="0dp"
-                    android:background="@drawable/bg_circle_blue"
-                    android:padding="0dp"
-                    android:text="←"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnIncendio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="🔥 Incendio"
                     android:textColor="#FFFFFF"
-                    android:textSize="45sp"
-                    app:backgroundTint="#1B3E63" />
+                    android:textSize="12sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnMedica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/chip_unselected_bg"
+                    android:text="🚑 Médica"
+                    android:textColor="#1B3E63"
+                    android:textSize="12sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRobo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/chip_unselected_bg"
+                    android:text="🚨 Robo"
+                    android:textColor="#1B3E63"
+                    android:textSize="12sp" />
             </LinearLayout>
 
-            <GridLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="20dp"
-                android:columnCount="2"
-                android:rowCount="2">
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
 
-                <!-- Incendio -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/btnIncendio"
-                    android:layout_width="0dp"
-                    android:layout_height="110dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="6dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="35dp"
-                    app:cardElevation="3dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_local_fire_department"
-                            android:tint="#F44336" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Incendio"
-                            android:textColor="#333333"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Sismo -->
-                <androidx.cardview.widget.CardView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSismo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/chip_unselected_bg"
+                    android:text="🌍 Sismo"
+                    android:textColor="#1B3E63"
+                    android:textSize="12sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnOtro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/chip_unselected_bg"
+                    android:text="Otro"
+                    android:textColor="#1B3E63"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- NIVEL DE GRAVEDAD -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NIVEL DE GRAVEDAD"
+                android:textColor="#888888"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBaja"
                     android:layout_width="0dp"
-                    android:layout_height="110dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="6dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="35dp"
-                    app:cardElevation="3dp">
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/chip_unselected_bg"
+                    android:text="🟢 Baja"
+                    android:textColor="#1B3E63"
+                    android:textSize="12sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_earthquake"
-                            android:tint="#FF9800" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Sismo"
-                            android:textColor="#333333"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Emergencia médica -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/btnEmergenciaMedica"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnMedia"
                     android:layout_width="0dp"
-                    android:layout_height="110dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="6dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="35dp"
-                    app:cardElevation="3dp">
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/chip_unselected_bg"
+                    android:text="🟡 Media"
+                    android:textColor="#1B3E63"
+                    android:textSize="12sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_local_hospital"
-                            android:tint="#4CAF50" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:gravity="center"
-                            android:text="Emergencia\nmédica"
-                            android:textColor="#333333"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- Amenaza de seguridad -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/btnAmenazaSeguridad"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAlta"
                     android:layout_width="0dp"
-                    android:layout_height="110dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="6dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="35dp"
-                    app:cardElevation="3dp">
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/chip_unselected_bg"
+                    android:text="🔴 Alta"
+                    android:textColor="#1B3E63"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
+            <!-- DESCRIPCIÓN -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DESCRIPCIÓN"
+                android:textColor="#888888"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_lock"
-                            android:tint="#9C27B0" />
+            <EditText
+                android:id="@+id/etDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/input_background"
+                android:gravity="top|start"
+                android:hint="Describe la emergencia: qué ocurrió, cuántas personas afectadas..."
+                android:padding="12dp"
+                android:textSize="13sp"
+                android:inputType="textMultiLine"
+                android:layout_marginBottom="16dp"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:gravity="center"
-                            android:text="Amenaza de\nseguridad"
-                            android:textColor="#333333"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+            <!-- UBICACIÓN -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UBICACIÓN EN EL CAMPUS"
+                android:textColor="#888888"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
 
-            </GridLayout>
+            <LinearLayout
+                android:id="@+id/btnSeleccionarMapa"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/dashed_border_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
 
-            <Button
-                android:id="@+id/btnEnviarAlerta"
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_location_pin"
+                    app:tint="#1B3E63" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seleccionar en mapa"
+                    android:textColor="#1B3E63"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <!-- FOTO -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FOTO DE LA EMERGENCIA (OPCIONAL)"
+                android:textColor="#888888"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:id="@+id/btnSubirFoto"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/input_background"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_notifications"
+                    android:layout_marginEnd="8dp"
+                    app:tint="#888888" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subir foto"
+                    android:textColor="#888888"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <!-- BOTÓN ENVIAR -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnEnviarReporte"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/bg_button_rounded"
-                android:text="Enviar alerta"
+                android:background="@drawable/rounded_button_background"
+                android:text="Enviar Reporte"
                 android:textColor="#FFFFFF"
-                android:textSize="30sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:backgroundTint="#B71C1C" />
-
-            <Button
-                android:id="@+id/btnVolverInicio"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginBottom="25dp"
-                android:background="@drawable/bg_button_rounded"
-                android:text="Volver al inicio"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:backgroundTint="#1B3E63" />
+                android:layout_marginBottom="16dp"/>
 
         </LinearLayout>
-
     </ScrollView>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- NAVBAR -->
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="80dp" />
 
 </LinearLayout>

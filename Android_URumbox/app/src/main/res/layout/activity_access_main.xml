@@ -4,18 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo"
-    android:fitsSystemWindows="true">
+    android:background="@color/azul_ur">
 
     <!-- ======= -->
     <!-- TOP APP BAR -->
     <!-- ======= -->
     <com.example.urumbox.TopbarView
-        android:id="@+id/topAppBar"
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:topbarTitle="Accesos"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- ======= -->
     <!-- CONTENT -->
@@ -27,10 +28,11 @@
         android:fillViewport="true"
         android:paddingBottom="16dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@+id/topAppBar"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
         app:layout_constraintBottom_toTopOf="@+id/navbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/fondo">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toTopOf="parent"
@@ -73,9 +75,9 @@
                             android:layout_width="44dp"
                             android:layout_height="44dp"
                             android:layout_gravity="center"
+                            android:contentDescription="Avatar"
                             android:src="@drawable/ic_person_filled"
-                            app:tint="#0D1B3E"
-                            android:contentDescription="Avatar" />
+                            app:tint="#0D1B3E" />
 
                     </FrameLayout>
 
@@ -374,10 +376,16 @@
     <!-- ============================= -->
     <!-- BOTTOM NAVIGATION BAR         -->
     <!-- ============================= -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/fondo"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="85dp"
         android:background="@color/barra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

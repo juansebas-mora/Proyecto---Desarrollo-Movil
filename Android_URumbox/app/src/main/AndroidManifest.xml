@@ -44,18 +44,17 @@
         <activity android:name=".useractivity.VersionActivity" android:exported="false" />
 
         <activity android:name=".ReportarEmergenciaActivity" android:exported="false" />
-        <activity android:name=".EstadoPersonaActivity" android:exported="false" />
         <activity android:name=".RutaEvacuacionActivity" android:exported="false" />
         <activity android:name=".PuntosEncuentroActivity" android:exported="false" />
         <activity android:name=".ConfirmacionActivity" android:exported="false" />
-        <activity android:name=".ConfirmacionEstadoActivity" android:exported="false" />
-        <activity android:name=".EstadoEnviadoActivity" android:exported="false" />
         <activity android:name=".NotificationActivity" android:exported="false" />
 
         <activity android:name=".AccessMainActivity" android:exported="false" />
         <activity android:name=".AccessHistoryActivity" android:exported="false" />
         <activity android:name=".AccessRequestActivity" android:exported="false" />
         <activity android:name=".AccessQrActivity" android:exported="false" />
+        <activity android:name=".VerificacionVigilanteActivity" />
+        <activity android:name=".EmergenciasActivity" />
 
     </application>
 

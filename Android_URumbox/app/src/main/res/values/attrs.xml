@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="TopbarView">
         <attr name="topbarTitle" format="string" />
+        <attr name="showBackButton" format="boolean" />
     </declare-styleable>
 </resources>
