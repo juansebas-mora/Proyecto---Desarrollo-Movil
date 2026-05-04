@@ -108,6 +108,10 @@
                     android:layout_height="wrap_content"
                     android:text="Tecnología"
                     android:checked="true"
+                    android:layout_marginEnd="8dp"
+                    app:chipBackgroundColor="@color/secundario"
+                    app:chipStrokeColor="@color/primario"
+                    android:textColor="@color/white"
                     style="@style/Widget.Material3.Chip.Filter"/>
 
                 <com.google.android.material.chip.Chip
@@ -115,6 +119,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Documentos"
+                    android:layout_marginEnd="8dp"
+                    app:chipBackgroundColor="@color/secundario"
+                    app:chipStrokeColor="@color/primario"
+                    android:textColor="@color/white"
                     style="@style/Widget.Material3.Chip.Filter"/>
 
                 <com.google.android.material.chip.Chip
@@ -122,6 +130,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Prendas"
+                    android:layout_marginEnd="8dp"
+                    app:chipBackgroundColor="@color/secundario"
+                    app:chipStrokeColor="@color/primario"
+                    android:textColor="@color/white"
                     style="@style/Widget.Material3.Chip.Filter"/>
 
                 <com.google.android.material.chip.Chip
@@ -129,6 +141,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Accesorios"
+                    android:layout_marginEnd="8dp"
+                    app:chipBackgroundColor="@color/secundario"
+                    app:chipStrokeColor="@color/primario"
+                    android:textColor="@color/white"
                     style="@style/Widget.Material3.Chip.Filter"/>
 
                 <com.google.android.material.chip.Chip
@@ -136,6 +152,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Otro"
+                    android:layout_marginEnd="8dp"
+                    app:chipBackgroundColor="@color/secundario"
+                    app:chipStrokeColor="@color/primario"
+                    android:textColor="@color/white"
                     style="@style/Widget.Material3.Chip.Filter"/>
 
             </com.google.android.material.chip.ChipGroup>
@@ -263,11 +283,12 @@
 
         </LinearLayout>
 
-        <!-- NavBar -->
+        <!-- NavBar
         <com.example.urumbox.NavbarView
             android:id="@+id/navbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        -->
 
     </LinearLayout>
 </ScrollView>

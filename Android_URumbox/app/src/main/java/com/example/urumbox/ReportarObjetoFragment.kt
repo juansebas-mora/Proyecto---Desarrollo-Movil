@@ -52,7 +52,7 @@ class ReportarObjetoFragment : Fragment() {
         configurarFoto()
         configurarMapa()
         configurarPublicar()
-        configurarNavbar()
+        //configurarNavbar()
 
         binding.btnVolver.setOnClickListener {
             parentFragmentManager.popBackStack()
@@ -87,6 +87,7 @@ class ReportarObjetoFragment : Fragment() {
             binding.btnTabEncontrado.backgroundTintList =
                 android.content.res.ColorStateList.valueOf(colorInactivo)
             binding.btnTabEncontrado.setTextColor(textoInactivo)
+
         } else {
             binding.btnTabEncontrado.backgroundTintList =
                 android.content.res.ColorStateList.valueOf(colorActivo)
@@ -203,14 +204,14 @@ class ReportarObjetoFragment : Fragment() {
 
     // ── Navbar ────────────────────────────────────────────────────────────────
 
-    private fun configurarNavbar() {
+    /*private fun configurarNavbar() {
         binding.navbar.setOnButtonsClickListener(
             onHome      = { /* TODO */ },
             onBox       = { parentFragmentManager.popBackStack() },
             onAccess    = { /* TODO */ },
             onEmergency = { /* TODO */ }
         )
-    }
+    */
 
     override fun onDestroyView() {
         super.onDestroyView()

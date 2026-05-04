@@ -157,11 +157,11 @@
                         android:id="@+id/btnSimulacroRoute"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/azul_ur"
                         android:text="Cómo llegar"
                         android:textAllCaps="false"
-                        app:cornerRadius="8dp"
-                        android:layout_gravity="center"
-                        android:backgroundTint="@color/azul_ur" />
+                        app:cornerRadius="8dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

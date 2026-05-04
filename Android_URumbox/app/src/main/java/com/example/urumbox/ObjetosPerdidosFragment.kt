@@ -144,12 +144,14 @@ class ObjetosPerdidosFragment : Fragment() {
                 .commit()
         }
 
+        /*
         binding.navbar.setOnButtonsClickListener(
             onHome = { /* TODO */ },
             onBox = { /* ya estamos aquí */ },
             onAccess = { /* TODO */ },
             onEmergency = { /* TODO */ }
         )
+        */
     }
 
     private fun aplicarFiltros() {
