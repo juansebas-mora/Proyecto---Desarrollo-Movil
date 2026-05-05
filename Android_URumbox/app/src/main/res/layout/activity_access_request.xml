@@ -36,7 +36,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp">
+            android:padding="15dp"
+            android:clipToPadding="false">
 
             <!-- ========================= -->
             <!-- FORM CARD                 -->
@@ -49,6 +50,7 @@
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/fondo"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -294,7 +296,7 @@
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
                         android:background="@drawable/input_background"
-                        android:inputType="number"
+                        android:inputType="date"
                         app:layout_constraintTop_toBottomOf="@+id/tvLabelFecha"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />

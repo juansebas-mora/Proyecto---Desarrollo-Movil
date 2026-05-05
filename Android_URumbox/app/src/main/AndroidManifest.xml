@@ -52,11 +52,11 @@
         <activity android:name=".EstadoEnviadoActivity" android:exported="false" />
         <activity android:name=".NotificationActivity" android:exported="false" />
 
-        <activity android:name=".AccessMainActivity" android:exported="false" />
-        <activity android:name=".AccessHistoryActivity" android:exported="false" />
-        <activity android:name=".AccessRequestActivity" android:exported="false" />
-        <activity android:name=".AccessRequestConsultActivity" android:exported="false" />
-        <activity android:name=".AccessQrActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessMainActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessHistoryActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessRequestActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessRequestConsultActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessQrActivity" android:exported="false" />
 
     </application>
 
