@@ -3,6 +3,8 @@ package com.example.urumbox.accessactivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.urumbox.data.model.AccessRequest
+import com.example.urumbox.data.repository.AccessRequestRepository
 
 // region AccessMain
 
@@ -51,11 +53,12 @@ class AccessQrViewModel : ViewModel()
 // region AccessRequest
 
 sealed class AccessRequestEvent {
-    object ShowConfirmationDialog : AccessRequestEvent()
     object NavigateToConsult : AccessRequestEvent()
 }
 
 class AccessRequestViewModel : ViewModel() {
+
+    private val repository = AccessRequestRepository()
 
     private val _nombresError = MutableLiveData<String?>()
     val nombresError: LiveData<String?> = _nombresError
@@ -74,6 +77,12 @@ class AccessRequestViewModel : ViewModel() {
 
     private val _uiEvent = MutableLiveData<AccessRequestEvent?>()
     val uiEvent: LiveData<AccessRequestEvent?> = _uiEvent
+
+    private val _registrationResult = MutableLiveData<Result<Unit>?>()
+    val registrationResult: LiveData<Result<Unit>?> = _registrationResult
+
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
 
     private val namePattern = Regex("^[\\p{L} ]+$")
     private val emailPattern = Regex("^[a-zA-Z]+\\.[a-zA-Z]+@urosario\\.edu\\.co$")
@@ -148,7 +157,18 @@ class AccessRequestViewModel : ViewModel() {
         ).any { it != null }
 
         if (!hasErrors) {
-            _uiEvent.value = AccessRequestEvent.ShowConfirmationDialog
+            _isLoading.value = true
+            val request = AccessRequest(
+                nombres = nombres,
+                apellidos = apellidos,
+                correo = correo,
+                documento = documento,
+                fecha = fecha
+            )
+            repository.registerAccessRequest(request) { result ->
+                _isLoading.value = false
+                _registrationResult.value = result
+            }
         }
     }
 
@@ -158,6 +178,10 @@ class AccessRequestViewModel : ViewModel() {
 
     fun onEventConsumed() {
         _uiEvent.value = null
+    }
+
+    fun onRegistrationResultConsumed() {
+        _registrationResult.value = null
     }
 
     fun clearErrors() {
@@ -173,6 +197,38 @@ class AccessRequestViewModel : ViewModel() {
 
 // region AccessRequestConsult
 
-class AccessRequestConsultViewModel : ViewModel()
+class AccessRequestConsultViewModel : ViewModel() {
+
+    private val repository = AccessRequestRepository()
+
+    private val _accessRequests = MutableLiveData<List<AccessRequest>>(emptyList())
+    val accessRequests: LiveData<List<AccessRequest>> = _accessRequests
+
+    private val _loadError = MutableLiveData<String?>()
+    val loadError: LiveData<String?> = _loadError
+
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    fun loadAccessRequests() {
+        _isLoading.value = true
+        repository.getAccessRequests { result ->
+            _isLoading.value = false
+            result.fold(
+                onSuccess = { requests ->
+                    _accessRequests.value = requests
+                    _loadError.value = null
+                },
+                onFailure = { e ->
+                    _loadError.value = e.message ?: "Error al cargar las solicitudes"
+                }
+            )
+        }
+    }
+
+    fun onErrorConsumed() {
+        _loadError.value = null
+    }
+}
 
 // endregion

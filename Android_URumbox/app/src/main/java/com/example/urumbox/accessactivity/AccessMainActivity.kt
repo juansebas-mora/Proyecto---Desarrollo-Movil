@@ -8,14 +8,18 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.urumbox.R
+import com.example.urumbox.data.model.AccessRequest
 import com.example.urumbox.databinding.ActivityAccessHistoryBinding
 import com.example.urumbox.databinding.ActivityAccessMainBinding
 import com.example.urumbox.databinding.ActivityAccessQrBinding
@@ -268,12 +272,23 @@ class AccessRequestActivity : AppCompatActivity() {
             showFieldError(binding.tvErrorFecha, error)
         }
 
+        viewModel.isLoading.observe(this) { loading ->
+            binding.btnRegistrarSolicitud.isEnabled = !loading
+        }
+
+        viewModel.registrationResult.observe(this) { result ->
+            result ?: return@observe
+            if (result.isSuccess) {
+                showConfirmationDialog()
+            } else {
+                val msg = result.exceptionOrNull()?.message ?: "Error al registrar la solicitud"
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+            }
+            viewModel.onRegistrationResultConsumed()
+        }
+
         viewModel.uiEvent.observe(this) { event ->
             when (event) {
-                is AccessRequestEvent.ShowConfirmationDialog -> {
-                    showConfirmationDialog()
-                    viewModel.onEventConsumed()
-                }
                 is AccessRequestEvent.NavigateToConsult -> {
                     confirmationDialog?.dismiss()
                     startActivity(Intent(this, AccessRequestConsultActivity::class.java))
@@ -367,6 +382,8 @@ class AccessRequestConsultActivity : AppCompatActivity() {
 
     private val viewModel: AccessRequestConsultViewModel by viewModels()
     private lateinit var binding: ActivityAccessRequestConsultBinding
+    private lateinit var adapter: AccessRequestAdapter
+    private var detailDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -385,6 +402,53 @@ class AccessRequestConsultActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        setupRecyclerView()
+        observeViewModel()
+        viewModel.loadAccessRequests()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = AccessRequestAdapter { request -> showDetailDialog(request) }
+        binding.rvSolicitudes.layoutManager = LinearLayoutManager(this)
+        binding.rvSolicitudes.adapter = adapter
+    }
+
+    private fun observeViewModel() {
+        viewModel.accessRequests.observe(this) { requests ->
+            adapter.updateItems(requests)
+        }
+        viewModel.loadError.observe(this) { error ->
+            if (error != null) {
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+                viewModel.onErrorConsumed()
+            }
+        }
+    }
+
+    private fun showDetailDialog(request: AccessRequest) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_access_request_detail)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setDimAmount(0.6f)
+        dialog.setCancelable(true)
+
+        dialog.findViewById<TextView>(R.id.tvDetailNombres).text = request.nombres
+        dialog.findViewById<TextView>(R.id.tvDetailApellidos).text = request.apellidos
+        dialog.findViewById<TextView>(R.id.tvDetailCorreo).text = request.correo
+        dialog.findViewById<TextView>(R.id.tvDetailDocumento).text = request.documento
+        dialog.findViewById<TextView>(R.id.tvDetailFecha).text = request.fecha
+        dialog.findViewById<ImageButton>(R.id.btnCloseDetail).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        detailDialog = dialog
+        dialog.show()
     }
 }
 
