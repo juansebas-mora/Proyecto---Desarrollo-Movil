@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.urumbox.data.model.AccessRequest
 import com.example.urumbox.data.repository.AccessRequestRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 // region AccessMain
 
@@ -16,8 +18,32 @@ sealed class AccessMainEvent {
 
 class AccessMainViewModel : ViewModel() {
 
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+
+    private val _userName = MutableLiveData<String>()
+    val userName: LiveData<String> = _userName
+
+    private val _userEmail = MutableLiveData<String>()
+    val userEmail: LiveData<String> = _userEmail
+
     private val _uiEvent = MutableLiveData<AccessMainEvent?>()
     val uiEvent: LiveData<AccessMainEvent?> = _uiEvent
+
+    fun loadUserInfo() {
+        val user = auth.currentUser ?: return
+        db.collection("usuarios").document(user.uid).get()
+            .addOnSuccessListener { doc ->
+                val nombreCompleto = doc.getString("nombreCompleto")
+                    ?: "${doc.getString("nombre") ?: ""} ${doc.getString("apellido") ?: ""}".trim()
+                val correo = doc.getString("correo")
+                    ?: doc.getString("email")
+                    ?: user.email
+                    ?: ""
+                _userName.value = nombreCompleto
+                _userEmail.value = correo
+            }
+    }
 
     fun onAddVisitorClicked() {
         _uiEvent.value = AccessMainEvent.ShowAddVisitorDialog
@@ -158,12 +184,14 @@ class AccessRequestViewModel : ViewModel() {
 
         if (!hasErrors) {
             _isLoading.value = true
+            val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
             val request = AccessRequest(
                 nombres = nombres,
                 apellidos = apellidos,
                 correo = correo,
                 documento = documento,
-                fecha = fecha
+                fecha = fecha,
+                userId = uid
             )
             repository.registerAccessRequest(request) { result ->
                 _isLoading.value = false
@@ -211,8 +239,9 @@ class AccessRequestConsultViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun loadAccessRequests() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         _isLoading.value = true
-        repository.getAccessRequests { result ->
+        repository.getAccessRequests(uid) { result ->
             _isLoading.value = false
             result.fold(
                 onSuccess = { requests ->
