@@ -1,4 +1,4 @@
-package com.example.urumbox
+package com.example.urumbox.notificationactivity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,30 +8,49 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.urumbox.R
+import com.example.urumbox.data.model.Notificacion
+import com.example.urumbox.databinding.ActivityNotificacionesBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class NotificationActivity : AppCompatActivity() {
 
+    private val viewModel: NotificacionViewModel by viewModels()
+    private lateinit var binding: ActivityNotificacionesBinding
     private lateinit var adapter: NotificacionAdapter
     private val listaCompleta = mutableListOf<Notificacion>()
     private val listaFiltrada = mutableListOf<Notificacion>()
     private var filtroActual = "Todos"
-    private lateinit var viewModel: NotificacionViewModel
     private var dialogActivo: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notificaciones)
 
-        viewModel = ViewModelProvider(this)[NotificacionViewModel::class.java]
+        val systemBarColor = getColor(R.color.azul_ur)
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(systemBarColor),
+            navigationBarStyle = SystemBarStyle.dark(systemBarColor)
+        )
+
+        binding = ActivityNotificacionesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         configurarRecyclerView()
         configurarFiltros()
         configurarFab()
@@ -46,13 +65,22 @@ class NotificationActivity : AppCompatActivity() {
         }
 
         viewModel.estadoCreacion.observe(this) { result ->
+            result ?: return@observe
             result.onSuccess {
                 dialogActivo?.dismiss()
                 dialogActivo = null
                 Toast.makeText(this, "Aviso publicado correctamente.", Toast.LENGTH_SHORT).show()
+                viewModel.onEstadoCreacionConsumed()
             }.onFailure { error ->
                 Toast.makeText(this, "Error al publicar: ${error.message}", Toast.LENGTH_SHORT).show()
+                viewModel.onEstadoCreacionConsumed()
             }
+        }
+
+        viewModel.error.observe(this) { error ->
+            error ?: return@observe
+            Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+            viewModel.onErrorConsumed()
         }
     }
 
@@ -140,17 +168,16 @@ class NotificationActivity : AppCompatActivity() {
             }
         )
 
-        val rv = findViewById<RecyclerView>(R.id.rvNotificaciones)
-        rv.layoutManager = LinearLayoutManager(this)
-        rv.adapter = adapter
+        binding.rvNotificaciones.layoutManager = LinearLayoutManager(this)
+        binding.rvNotificaciones.adapter = adapter
     }
 
     private fun configurarFiltros() {
-        val tabs = listOf<TextView>(
-            findViewById(R.id.tabTodos),
-            findViewById(R.id.tabSinLeer),
-            findViewById(R.id.tabLeidos),
-            findViewById(R.id.tabEliminados)
+        val tabs = listOf(
+            binding.tabTodos,
+            binding.tabSinLeer,
+            binding.tabLeidos,
+            binding.tabEliminados
         )
 
         tabs[1].text = getString(R.string.tab_sin_leer)
@@ -173,8 +200,7 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private fun configurarFab() {
-        val fab = findViewById<FloatingActionButton>(R.id.fabNueva)
-        fab.setOnClickListener { mostrarDialogNuevoAviso() }
+        binding.fabNueva.setOnClickListener { mostrarDialogNuevoAviso() }
     }
 
     private fun mostrarDialogNuevoAviso() {

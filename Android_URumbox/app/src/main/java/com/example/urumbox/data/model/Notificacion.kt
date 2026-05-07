@@ -1,4 +1,4 @@
-package com.example.urumbox
+package com.example.urumbox.data.model
 
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
