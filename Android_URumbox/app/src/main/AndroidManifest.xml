@@ -54,12 +54,11 @@
         <activity android:name=".ConfirmacionActivity" android:exported="false" />
         <activity android:name=".NotificationActivity" android:exported="false" />
 
-        <activity android:name=".AccessMainActivity" android:exported="false" />
-        <activity android:name=".AccessHistoryActivity" android:exported="false" />
-        <activity android:name=".AccessRequestActivity" android:exported="false" />
-        <activity android:name=".AccessQrActivity" android:exported="false" />
-        <activity android:name=".VerificacionVigilanteActivity" />
-        <activity android:name=".EmergenciasActivity" />
+        <activity android:name=".accessactivity.AccessMainActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessHistoryActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessRequestActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessRequestConsultActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AccessQrActivity" android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

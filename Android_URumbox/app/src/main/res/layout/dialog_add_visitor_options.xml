@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_dialog_rounded">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar visitante"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/azul_ur"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.App.Button"
+            android:id="@+id/btnRegistrarSolicitud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:maxLines="2"
+            android:text="Registrar solicitud"
+            android:backgroundTint="@color/azul_ur"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.App.Button"
+            android:id="@+id/btnConsultarSolicitudes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:maxLines="2"
+            android:text="Consultar solicitudes"
+            android:backgroundTint="@color/azul_ur"/>
+
+    </LinearLayout>
+
+</LinearLayout>
