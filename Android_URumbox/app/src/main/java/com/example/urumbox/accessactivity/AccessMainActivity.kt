@@ -168,6 +168,18 @@ class AccessQrActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        viewModel.loadAndGenerateQr()
+
+        viewModel.qrBitmap.observe(this) { bitmap ->
+            if (bitmap != null) binding.ivQrCode.setImageBitmap(bitmap)
+        }
+        viewModel.validDate.observe(this) { date ->
+            binding.tvValidDate.text = date
+        }
+        viewModel.loadError.observe(this) { error ->
+            if (error != null) Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+        }
     }
 }
 

@@ -1,5 +1,7 @@
 package com.example.urumbox.accessactivity
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +9,11 @@ import com.example.urumbox.data.model.AccessRequest
 import com.example.urumbox.data.repository.AccessRequestRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.qrcode.QRCodeWriter
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 // region AccessMain
 
@@ -72,7 +79,59 @@ class AccessHistoryViewModel : ViewModel()
 
 // region AccessQr
 
-class AccessQrViewModel : ViewModel()
+class AccessQrViewModel : ViewModel() {
+
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+
+    private val _qrBitmap = MutableLiveData<Bitmap?>()
+    val qrBitmap: LiveData<Bitmap?> = _qrBitmap
+
+    private val _validDate = MutableLiveData<String>()
+    val validDate: LiveData<String> = _validDate
+
+    private val _loadError = MutableLiveData<String?>()
+    val loadError: LiveData<String?> = _loadError
+
+    fun loadAndGenerateQr() {
+        val uid = auth.currentUser?.uid ?: run {
+            _loadError.value = "Usuario no autenticado"
+            return
+        }
+        db.collection("usuarios").document(uid).get()
+            .addOnSuccessListener { doc ->
+                val nombre = doc.getString("nombreCompleto") ?: ""
+                val correo = doc.getString("correo") ?: auth.currentUser?.email ?: ""
+                val fechaNacimiento = doc.getString("fechaNacimiento") ?: ""
+
+                val now = Calendar.getInstance().time
+                val fechaAcceso = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(now)
+                val fechaDisplay = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(now)
+
+                _validDate.value = "Válido para: $fechaDisplay"
+
+                val content = "{\"nombre\":\"$nombre\",\"correo\":\"$correo\"," +
+                    "\"fechaNacimiento\":\"$fechaNacimiento\",\"fechaAcceso\":\"$fechaAcceso\"}"
+
+                try {
+                    val size = 512
+                    val bitMatrix = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
+                    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
+                    for (x in 0 until size) {
+                        for (y in 0 until size) {
+                            bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+                        }
+                    }
+                    _qrBitmap.value = bitmap
+                } catch (e: Exception) {
+                    _loadError.value = "Error al generar el código QR"
+                }
+            }
+            .addOnFailureListener {
+                _loadError.value = "Error al cargar datos del usuario"
+            }
+    }
+}
 
 // endregion
 

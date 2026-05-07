@@ -1,4 +1,4 @@
-package com.example.urumbox
+package com.example.urumbox.notificationactivity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,96 +8,80 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.urumbox.R
+import com.example.urumbox.data.model.Notificacion
+import com.example.urumbox.databinding.ActivityNotificacionesBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class NotificationActivity : AppCompatActivity() {
 
+    private val viewModel: NotificacionViewModel by viewModels()
+    private lateinit var binding: ActivityNotificacionesBinding
     private lateinit var adapter: NotificacionAdapter
     private val listaCompleta = mutableListOf<Notificacion>()
     private val listaFiltrada = mutableListOf<Notificacion>()
     private var filtroActual = "Todos"
+    private var dialogActivo: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notificaciones)
 
-        cargarDatosDummy()
+        val systemBarColor = getColor(R.color.azul_ur)
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(systemBarColor),
+            navigationBarStyle = SystemBarStyle.dark(systemBarColor)
+        )
+
+        binding = ActivityNotificacionesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         configurarRecyclerView()
         configurarFiltros()
         configurarFab()
+        observarViewModel()
     }
 
-    private fun cargarDatosDummy() {
-        listaCompleta.addAll(listOf(
-            Notificacion(
-                id = 1, hora = "9:15 a.m.", tipo = "Limpieza",
-                nombreReportante = "Personal de Mantenimiento",
-                fecha = "7 de Abril de 2026", zonaAfectada = "Pasillo B - Piso 2",
-                iconoResId = R.drawable.ic_restaurar,
-                descripcion = "Piso mojado en proceso de secado. Use la ruta alterna por escaleras C.",
-                ubicacion = "Pasillo B entre oficinas 201–215",
-                prioridad = "Media", horaExpiracion = "11:00 a.m.",
-                rolOrigen = "Operador", afectaRuta = true
-            ),
-            Notificacion(
-                id = 2, hora = "10:30 a.m.", tipo = "Actividad",
-                nombreReportante = "Depto. Eventos",
-                fecha = "7 de Abril de 2026", zonaAfectada = "Auditorio Principal",
-                iconoResId = R.drawable.ic_group,
-                descripcion = "Conferencia en curso. El acceso al auditorio está restringido hasta las 12:00.",
-                ubicacion = "Edificio Central, Piso 1",
-                prioridad = "Baja", horaExpiracion = "12:00 p.m.",
-                rolOrigen = "Admin", afectaRuta = false
-            ),
-            Notificacion(
-                id = 3, hora = "8:00 a.m.", tipo = "Incidente",
-                nombreReportante = "Guardia de Seguridad",
-                fecha = "7 de Abril de 2026", zonaAfectada = "Entrada Principal Norte",
-                iconoResId = R.drawable.ic_warning,
-                descripcion = "Fuga menor de agua reparada. Zona despejada pero superficie resbaladiza.",
-                ubicacion = "Puerta norte, acceso vehicular",
-                prioridad = "Alta", horaExpiracion = "Por confirmar",
-                rolOrigen = "Operador", estado = "activa", afectaRuta = true
-            ),
-            Notificacion(
-                id = 4, hora = "11:45 a.m.", tipo = "Acceso Restringido",
-                nombreReportante = "Administración",
-                fecha = "7 de Abril de 2026", zonaAfectada = "Zona de Servidores - Sótano",
-                iconoResId = R.drawable.ic_lock,
-                descripcion = "Mantenimiento programado de infraestructura. Solo personal autorizado.",
-                ubicacion = "Sótano, puerta S-3",
-                prioridad = "Alta", horaExpiracion = "6:00 p.m.",
-                rolOrigen = "Admin", afectaRuta = false
-            ),
-            Notificacion(
-                id = 5, hora = "12:00 p.m.", tipo = "Incidente",
-                nombreReportante = "Ana García",
-                fecha = "7 de Abril de 2026", zonaAfectada = "Escaleras Torre A",
-                iconoResId = R.drawable.ic_warning,
-                descripcion = "Escaleras principales bloqueadas por caja de materiales. Use el ascensor o escaleras B.",
-                ubicacion = "Torre A, entre pisos 1 y 3",
-                prioridad = "Media", horaExpiracion = "5:00 p.m.",
-                rolOrigen = "Visitante", estado = "pendiente", afectaRuta = true
-            ),
-            Notificacion(
-                id = 6, hora = "1:30 p.m.", tipo = "Ruta Alternativa",
-                nombreReportante = "Operaciones",
-                fecha = "7 de Abril de 2026", zonaAfectada = "Corredor Central",
-                iconoResId = R.drawable.ic_help_circle,
-                descripcion = "Corredor central cerrado por evento corporativo. Acceda por corredor lateral este.",
-                ubicacion = "Planta baja, entre bloques A y B",
-                prioridad = "Media", horaExpiracion = "4:00 p.m.",
-                rolOrigen = "Operador", afectaRuta = true
-            )
-        ))
-        listaFiltrada.addAll(listaCompleta)
+    private fun observarViewModel() {
+        viewModel.notificaciones.observe(this) { notificaciones ->
+            listaCompleta.clear()
+            listaCompleta.addAll(notificaciones)
+            aplicarFiltroActual()
+        }
+
+        viewModel.estadoCreacion.observe(this) { result ->
+            result ?: return@observe
+            result.onSuccess {
+                dialogActivo?.dismiss()
+                dialogActivo = null
+                Toast.makeText(this, "Aviso publicado correctamente.", Toast.LENGTH_SHORT).show()
+                viewModel.onEstadoCreacionConsumed()
+            }.onFailure { error ->
+                Toast.makeText(this, "Error al publicar: ${error.message}", Toast.LENGTH_SHORT).show()
+                viewModel.onEstadoCreacionConsumed()
+            }
+        }
+
+        viewModel.error.observe(this) { error ->
+            error ?: return@observe
+            Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+            viewModel.onErrorConsumed()
+        }
     }
 
     private fun aplicarFiltroActual() {
@@ -105,12 +89,12 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private fun iconoPorTipo(tipo: String): Int = when (tipo) {
-        "Incidente"          -> R.drawable.ic_warning
-        "Limpieza"           -> R.drawable.ic_restaurar
-        "Actividad"          -> R.drawable.ic_group
-        "Acceso Restringido" -> R.drawable.ic_lock
-        "Ruta Alternativa"   -> R.drawable.ic_help_circle
-        else                 -> R.drawable.ic_warning
+        "Incidente"          -> R.drawable.ic_warning_white
+        "Limpieza"           -> R.drawable.ic_restaurar_white
+        "Actividad"          -> R.drawable.ic_group_white
+        "Acceso Restringido" -> R.drawable.ic_lock_white
+        "Ruta Alternativa"   -> R.drawable.ic_help_circle_white
+        else                 -> R.drawable.ic_warning_white
     }
 
     private fun mostrarDialogDetalles(n: Notificacion) {
@@ -162,16 +146,10 @@ class NotificationActivity : AppCompatActivity() {
                 mostrarDialogDetalles(n)
             },
             onAceptar = { n, _ ->
-                if (n.estado == "pendiente") {
-                    n.estado = "activa"
-                    n.leida = true
-                    aplicarFiltroActual()
-                    Toast.makeText(this, "Aviso aprobado y publicado", Toast.LENGTH_SHORT).show()
-                } else {
-                    n.eliminada = true
-                    aplicarFiltroActual()
-                    Toast.makeText(this, "Marcado como resuelto", Toast.LENGTH_SHORT).show()
-                }
+                if (n.estado == "pendiente") n.estado = "activa"
+                n.leida = true
+                aplicarFiltroActual()
+                Toast.makeText(this, "Marcado como visto", Toast.LENGTH_SHORT).show()
             },
             onRechazar = { n, _ ->
                 n.eliminada = true
@@ -190,17 +168,16 @@ class NotificationActivity : AppCompatActivity() {
             }
         )
 
-        val rv = findViewById<RecyclerView>(R.id.rvNotificaciones)
-        rv.layoutManager = LinearLayoutManager(this)
-        rv.adapter = adapter
+        binding.rvNotificaciones.layoutManager = LinearLayoutManager(this)
+        binding.rvNotificaciones.adapter = adapter
     }
 
     private fun configurarFiltros() {
-        val tabs = listOf<TextView>(
-            findViewById(R.id.tabTodos),
-            findViewById(R.id.tabSinLeer),
-            findViewById(R.id.tabLeidos),
-            findViewById(R.id.tabEliminados)
+        val tabs = listOf(
+            binding.tabTodos,
+            binding.tabSinLeer,
+            binding.tabLeidos,
+            binding.tabEliminados
         )
 
         tabs[1].text = getString(R.string.tab_sin_leer)
@@ -223,8 +200,7 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private fun configurarFab() {
-        val fab = findViewById<FloatingActionButton>(R.id.fabNueva)
-        fab.setOnClickListener { mostrarDialogNuevoAviso() }
+        binding.fabNueva.setOnClickListener { mostrarDialogNuevoAviso() }
     }
 
     private fun mostrarDialogNuevoAviso() {
@@ -249,6 +225,10 @@ class NotificationActivity : AppCompatActivity() {
             .setView(dialogView)
             .show()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialogActivo = dialog
+
+        dialogView.findViewById<android.widget.ImageButton>(R.id.btnCerrarDialog)
+            .setOnClickListener { dialog.dismiss() }
 
         dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCrearNotificacion)
             .setOnClickListener {
@@ -267,7 +247,6 @@ class NotificationActivity : AppCompatActivity() {
                 val fecha     = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale.forLanguageTag("es")).format(Date())
 
                 val nueva = Notificacion(
-                    id               = listaCompleta.size + 1,
                     hora             = hora,
                     tipo             = tipo,
                     nombreReportante = "Admin",
@@ -281,10 +260,7 @@ class NotificationActivity : AppCompatActivity() {
                     estado           = "activa",
                     afectaRuta       = tipo != "Actividad"
                 )
-                listaCompleta.add(nueva)
-                aplicarFiltroActual()
-                dialog.dismiss()
-                Toast.makeText(this, "Aviso publicado correctamente.", Toast.LENGTH_SHORT).show()
+                viewModel.crearNotificacion(nueva)
             }
     }
 }

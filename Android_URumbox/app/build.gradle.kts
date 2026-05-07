@@ -65,4 +65,5 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
 
     implementation(libs.glide)
+    implementation(libs.zxing.core)
 }
