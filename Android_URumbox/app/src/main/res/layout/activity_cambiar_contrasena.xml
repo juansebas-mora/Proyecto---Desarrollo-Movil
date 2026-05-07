@@ -90,6 +90,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutContrasenaActual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -104,6 +105,7 @@
                         app:endIconMode="password_toggle">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etContrasenaActual"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="••••••••••••"
@@ -121,6 +123,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutContrasenaNueva"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -135,6 +138,7 @@
                         app:endIconMode="password_toggle">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etContrasenaNueva"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="••••••••••••"
@@ -152,6 +156,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutContrasenaConfirmar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -166,6 +171,7 @@
                         app:endIconMode="password_toggle">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etContrasenaConfirmar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="••••••••••••"
