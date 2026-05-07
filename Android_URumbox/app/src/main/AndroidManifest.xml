@@ -52,7 +52,7 @@
         <activity android:name=".RutaEvacuacionActivity" android:exported="false" />
         <activity android:name=".PuntosEncuentroActivity" android:exported="false" />
         <activity android:name=".ConfirmacionActivity" android:exported="false" />
-        <activity android:name=".NotificationActivity" android:exported="false" />
+        <activity android:name=".notificationactivity.NotificationActivity" android:exported="false" />
 
         <activity android:name=".accessactivity.AccessMainActivity" android:exported="false" />
         <activity android:name=".accessactivity.AccessHistoryActivity" android:exported="false" />

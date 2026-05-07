@@ -1,5 +1,6 @@
-package com.example.urumbox
+package com.example.urumbox.notificationactivity
 
+import com.example.urumbox.data.model.Notificacion
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.urumbox.R
 
 class NotificacionAdapter(
     private val lista: MutableList<Notificacion>,

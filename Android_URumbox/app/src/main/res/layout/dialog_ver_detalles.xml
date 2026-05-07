@@ -85,8 +85,8 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:padding="14dp"
-                    android:src="@drawable/ic_person"
-                    android:background="@drawable/bg_status_badge" />
+                    android:src="@drawable/ic_personaa"
+                    android:background="@drawable/bg_icono_topbar" />
 
             </LinearLayout>
 
@@ -112,7 +112,7 @@
             android:gravity="center"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/texto_principal" />
+            android:textColor="@color/primario" />
 
         <!-- Zona afectada con mini icono, centrado -->
         <LinearLayout
@@ -152,7 +152,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/iconFecha"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_fechanoti"
+                android:contentDescription="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -167,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                android:textColor="@color/texto_principal" />
+                android:textColor="@color/primario" />
 
         </LinearLayout>
 
@@ -176,7 +185,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/iconUbicacion"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_ubicacionoti"
+                android:contentDescription="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -188,10 +206,11 @@
 
             <TextView
                 android:id="@+id/dialogUbicacion"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textSize="13sp"
-                android:textColor="@color/texto_principal" />
+                android:textColor="@color/primario" />
 
         </LinearLayout>
 
@@ -200,7 +219,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/iconDescripcion"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_descripcionoti"
+                android:contentDescription="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -216,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="13sp"
-                android:textColor="@color/texto_principal" />
+                android:textColor="@color/primario" />
 
         </LinearLayout>
 
@@ -225,7 +253,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/iconResolucion"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginEnd="6dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_resolucionoti" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -241,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="13sp"
-                android:textColor="@color/texto_principal" />
+                android:textColor="@color/primario" />
 
         </LinearLayout>
 
@@ -251,6 +288,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iconPrioridad"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_prioridadnoti"
+                android:contentDescription="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -284,7 +329,7 @@
                 android:text="Estado de la alerta"
                 android:textSize="13sp"
                 android:textStyle="bold"
-                android:textColor="@color/texto_principal"
+                android:textColor="@color/primario"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8dp" />
 
@@ -295,6 +340,14 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="6dp">
+
+                <ImageView
+                    android:id="@+id/iconEstado"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_estadonoti"
+                    android:contentDescription="@null" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -320,6 +373,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/iconAfecta"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_afectanoti"
+                    android:contentDescription="@null" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package com.example.urumbox
 
 import android.content.Context
+import com.example.urumbox.notificationactivity.NotificationActivity
 import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
