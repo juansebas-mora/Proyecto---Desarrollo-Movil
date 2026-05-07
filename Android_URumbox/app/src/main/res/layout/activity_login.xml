@@ -127,6 +127,7 @@
             app:layout_constraintTop_toBottomOf="@id/labelCorreo">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="nombre@urosario.edu.co"
@@ -166,6 +167,7 @@
             app:layout_constraintTop_toBottomOf="@id/labelContrasena">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etContrasena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="••••••••••••"
@@ -189,6 +191,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/inputLayoutContrasena" />
+
+        <!-- ProgressBar loading -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnIngresar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Link registro -->
+        <TextView
+            android:id="@+id/tvRegistrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="¿No estás registrado? Regístrate"
+            android:textColor="@color/azul_ur"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressBar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
