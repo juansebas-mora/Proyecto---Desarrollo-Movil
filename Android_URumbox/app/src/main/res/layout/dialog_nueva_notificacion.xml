@@ -11,149 +11,283 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <!-- Título -->
-        <TextView
+        <!-- Encabezado con título y botón X -->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nuevo aviso de ruta"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:textColor="@color/texto_principal"
-            android:gravity="center" />
+            android:paddingStart="20dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:paddingEnd="32dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nuevo aviso de ruta"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primario"
+                    android:gravity="start" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Completa los campos para publicar un aviso"
+                    android:textSize="12sp"
+                    android:textColor="@color/texto_secundario"
+                    android:layout_marginTop="2dp" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btnCerrarDialog"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="end|top"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_close_black"
+                android:padding="6dp"
+                android:contentDescription="Cerrar" />
+
+        </FrameLayout>
 
         <!-- Divisor -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/fondo"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Tipo -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tipo de aviso"
-            android:textSize="12sp"
-            android:textColor="@color/texto_secundario"
-            android:layout_marginBottom="4dp" />
-
-        <Spinner
-            android:id="@+id/spinnerTipo"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_search_bar"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:layout_marginBottom="14dp" />
-
-        <!-- Zona afectada -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Zona afectada"
-            android:textSize="12sp"
-            android:textColor="@color/texto_secundario"
-            android:layout_marginBottom="4dp" />
-
-        <EditText
-            android:id="@+id/etNuevoArea"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_search_bar"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:hint="Ej: Pasillo B, Piso 2"
-            android:textColorHint="@color/texto_secundario"
-            android:textColor="@color/texto_principal"
-            android:textSize="14sp"
-            android:inputType="text"
-            android:layout_marginBottom="14dp" />
-
-        <!-- Descripción -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Descripción del aviso"
-            android:textSize="12sp"
-            android:textColor="@color/texto_secundario"
-            android:layout_marginBottom="4dp" />
-
-        <EditText
-            android:id="@+id/etNuevoAsunto"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_search_bar"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:hint="Describe brevemente el aviso"
-            android:textColorHint="@color/texto_secundario"
-            android:textColor="@color/texto_principal"
-            android:textSize="14sp"
-            android:inputType="text"
-            android:layout_marginBottom="14dp" />
-
-        <!-- Hora estimada de resolución -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hora estimada de resolución (opcional)"
-            android:textSize="12sp"
-            android:textColor="@color/texto_secundario"
-            android:layout_marginBottom="4dp" />
-
-        <EditText
-            android:id="@+id/etHoraExpiracion"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_search_bar"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:hint="Ej: 3:00 p.m."
-            android:textColorHint="@color/texto_secundario"
-            android:textColor="@color/texto_principal"
-            android:textSize="14sp"
-            android:inputType="text"
-            android:layout_marginBottom="14dp" />
-
-        <!-- Prioridad -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Prioridad"
-            android:textSize="12sp"
-            android:textColor="@color/texto_secundario"
-            android:layout_marginBottom="4dp" />
-
-        <Spinner
-            android:id="@+id/spinnerPrioridad"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_search_bar"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
+            android:background="@color/gris_linea"
             android:layout_marginBottom="20dp" />
 
-        <!-- Botón Publicar -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCrearNotificacion"
+        <!-- Cuerpo del formulario -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Publicar aviso"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            app:backgroundTint="@color/primario"
-            app:cornerRadius="12dp"
-            app:icon="@drawable/ic_add"
-            app:iconTint="@color/white"
-            app:iconGravity="textStart"
-            app:iconPadding="6dp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- Tipo de aviso -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIPO DE AVISO"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:textColor="@color/primario"
+                android:layout_marginBottom="6dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_field"
+                android:layout_marginBottom="20dp">
+
+                <Spinner
+                    android:id="@+id/spinnerTipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="40dp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_arrow_down"
+                    android:contentDescription="@null" />
+
+            </FrameLayout>
+
+            <!-- Zona afectada -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ZONA AFECTADA"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:textColor="@color/primario"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etNuevoArea"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_field"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:hint="Ej: Pasillo B, Piso 2"
+                android:textColorHint="@color/texto_secundario"
+                android:textColor="@color/primario"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Ubicación exacta -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UBICACIÓN EXACTA"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:textColor="@color/primario"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etNuevaUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_field"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:hint="Ej: Entrada norte, frente al ascensor"
+                android:textColorHint="@color/texto_secundario"
+                android:textColor="@color/primario"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Descripción -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DESCRIPCIÓN DEL AVISO"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:textColor="@color/primario"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etNuevoAsunto"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_input_field"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="10dp"
+                android:hint="Describe brevemente el aviso"
+                android:textColorHint="@color/texto_secundario"
+                android:textColor="@color/primario"
+                android:textSize="14sp"
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Hora estimada de resolución -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="HORA EST. DE RESOLUCIÓN"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"
+                    android:textColor="@color/primario" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Opcional"
+                    android:textSize="11sp"
+                    android:textColor="@color/blanco"
+                    android:background="@drawable/bg_button_blue_rounded"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etHoraExpiracion"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_field"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:hint="Ej: 3:00 p.m."
+                android:textColorHint="@color/texto_secundario"
+                android:textColor="@color/primario"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Prioridad -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRIORIDAD"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:textColor="@color/primario"
+                android:layout_marginBottom="6dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_field"
+                android:layout_marginBottom="28dp">
+
+                <Spinner
+                    android:id="@+id/spinnerPrioridad"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="40dp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_arrow_down"
+                    android:contentDescription="@null" />
+
+            </FrameLayout>
+
+            <!-- Botón Publicar -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCrearNotificacion"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Publicar aviso"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:backgroundTint="@color/primario"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_add"
+                app:iconTint="@color/white"
+                app:iconGravity="textStart"
+                app:iconPadding="6dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

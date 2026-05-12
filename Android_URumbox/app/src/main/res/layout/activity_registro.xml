@@ -71,6 +71,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutNombre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -83,6 +84,7 @@
                         app:boxBackgroundColor="@color/blanco">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etNombre"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Carlos"
@@ -107,6 +109,7 @@
                         android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputLayoutApellido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
@@ -119,6 +122,7 @@
                         app:boxBackgroundColor="@color/blanco">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etApellido"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Mendoza"
@@ -139,6 +143,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutTelefono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
@@ -151,6 +156,7 @@
                 app:boxBackgroundColor="@color/blanco">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTelefono"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="3123456789"
@@ -169,6 +175,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutFecha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
@@ -181,9 +188,10 @@
                 app:boxBackgroundColor="@color/blanco">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="07/08/1986"
+                    android:hint="DD/MM/AAAA"
                     android:inputType="date"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -199,6 +207,7 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutCorreoReg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
@@ -211,9 +220,10 @@
                 app:boxBackgroundColor="@color/blanco">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etCorreoReg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre@urosario.edu.co"
+                    android:hint="Nombre.Apellido@urosario.edu.co"
                     android:inputType="textEmailAddress"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -243,12 +253,22 @@
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etContrasenaReg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="••••••••••••"
                     android:inputType="textPassword"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ProgressBar loading -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:visibility="gone" />
 
             <!-- Botón Registrarse -->
             <Button
@@ -263,6 +283,20 @@
                 android:backgroundTint="@color/rojo_ur"
                 android:stateListAnimator="@null"
                 app:cornerRadius="14dp" />
+
+            <!-- Link login -->
+            <TextView
+                android:id="@+id/tvIniciarSesion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="¿Ya estás registrado? Inicia sesión"
+                android:textColor="@color/azul_ur"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true" />
 
         </LinearLayout>
     </ScrollView>

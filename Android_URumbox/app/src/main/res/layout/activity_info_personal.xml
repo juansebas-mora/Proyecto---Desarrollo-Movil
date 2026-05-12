@@ -89,6 +89,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvNombreValor"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -120,6 +121,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvUsuarioValor"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -151,6 +153,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvCorreoValor"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -182,6 +185,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvRolValor"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -203,7 +207,7 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingStart="20dp"
-                        android:paddingEnd="20dp">
+                        android:paddingEnd="12dp">
 
                         <TextView
                             android:layout_width="100dp"
@@ -212,14 +216,36 @@
                             android:textColor="@color/texto_secundario"
                             android:textSize="14sp" />
 
-                        <TextView
+                        <EditText
+                            android:id="@+id/etTelefono"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="300 000 0000"
                             android:textColor="@color/texto_principal"
                             android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:enabled="false"
+                            android:background="@android:color/transparent"
+                            android:inputType="phone"
+                            android:maxLines="1" />
+
+                        <ImageView
+                            android:id="@+id/ivEditTelefono"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_copy_all"
+                            android:padding="6dp"
+                            android:contentDescription="Editar teléfono" />
+
+                        <ImageView
+                            android:id="@+id/ivGuardarTelefono"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_arrow_forward"
+                            android:padding="6dp"
+                            android:contentDescription="Guardar teléfono"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <View
@@ -244,6 +270,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvNacimientoValor"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
