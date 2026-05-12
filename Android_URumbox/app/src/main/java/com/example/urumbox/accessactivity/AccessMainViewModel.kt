@@ -5,12 +5,17 @@ import android.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.urumbox.data.model.AccessRequest
+import com.example.urumbox.data.model.UserQrData
 import com.example.urumbox.data.repository.AccessRequestRepository
+import com.example.urumbox.data.repository.QrException
+import com.example.urumbox.data.repository.QrRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -81,8 +86,8 @@ class AccessHistoryViewModel : ViewModel()
 
 class AccessQrViewModel : ViewModel() {
 
+    private val repo = QrRepository()
     private val auth = FirebaseAuth.getInstance()
-    private val db = FirebaseFirestore.getInstance()
 
     private val _qrBitmap = MutableLiveData<Bitmap?>()
     val qrBitmap: LiveData<Bitmap?> = _qrBitmap
@@ -98,38 +103,26 @@ class AccessQrViewModel : ViewModel() {
             _loadError.value = "Usuario no autenticado"
             return
         }
-        db.collection("usuarios").document(uid).get()
-            .addOnSuccessListener { doc ->
-                val nombre = doc.getString("nombreCompleto") ?: ""
-                val correo = doc.getString("correo") ?: auth.currentUser?.email ?: ""
-                val fechaNacimiento = doc.getString("fechaNacimiento") ?: ""
-
+        viewModelScope.launch {
+            try {
                 val now = Calendar.getInstance().time
-                val fechaAcceso = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(now)
-                val fechaDisplay = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(now)
-
-                _validDate.value = "Válido para: $fechaDisplay"
-
-                val content = "{\"nombre\":\"$nombre\",\"correo\":\"$correo\"," +
-                    "\"fechaNacimiento\":\"$fechaNacimiento\",\"fechaAcceso\":\"$fechaAcceso\"}"
-
-                try {
-                    val size = 512
-                    val bitMatrix = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
-                    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
-                    for (x in 0 until size) {
-                        for (y in 0 until size) {
-                            bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
-                        }
+                val todayDate = SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(now)
+                val displayDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(now)
+                _validDate.value = "Válido para: $displayDate"
+                val token = repo.getOrCreateQrToken(uid, todayDate)
+                val size = 512
+                val bitMatrix = QRCodeWriter().encode(token, BarcodeFormat.QR_CODE, size, size)
+                val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
+                for (x in 0 until size) {
+                    for (y in 0 until size) {
+                        bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
                     }
-                    _qrBitmap.value = bitmap
-                } catch (e: Exception) {
-                    _loadError.value = "Error al generar el código QR"
                 }
+                _qrBitmap.value = bitmap
+            } catch (e: Exception) {
+                _loadError.value = "Error al generar el código QR"
             }
-            .addOnFailureListener {
-                _loadError.value = "Error al cargar datos del usuario"
-            }
+        }
     }
 }
 
@@ -316,6 +309,40 @@ class AccessRequestConsultViewModel : ViewModel() {
 
     fun onErrorConsumed() {
         _loadError.value = null
+    }
+}
+
+// endregion
+
+// region QrScanner
+
+sealed class QrValidationResult {
+    data class Success(val userData: UserQrData) : QrValidationResult()
+    data class Error(val type: QrException) : QrValidationResult()
+}
+
+class QrScannerViewModel : ViewModel() {
+
+    private val repo = QrRepository()
+
+    private val _validationResult = MutableLiveData<QrValidationResult?>()
+    val validationResult: LiveData<QrValidationResult?> = _validationResult
+
+    fun validateQrContent(scannedContent: String) {
+        val todayDate = SimpleDateFormat("ddMMyyyy", Locale.getDefault())
+            .format(Calendar.getInstance().time)
+        viewModelScope.launch {
+            try {
+                val userData = repo.validateQrToken(scannedContent, todayDate)
+                _validationResult.value = QrValidationResult.Success(userData)
+            } catch (e: QrException) {
+                _validationResult.value = QrValidationResult.Error(e)
+            }
+        }
+    }
+
+    fun onResultConsumed() {
+        _validationResult.value = null
     }
 }
 
