@@ -19,8 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.urumbox.R
 import com.example.urumbox.data.model.Notificacion
 import com.example.urumbox.databinding.ActivityNotificacionesBinding
+import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class NotificationActivity : AppCompatActivity() {
@@ -88,6 +88,20 @@ class NotificationActivity : AppCompatActivity() {
         adapter.filtrar(filtroActual, listaCompleta)
     }
 
+    private fun formatearHora(timestamp: Timestamp?): String =
+        timestamp?.let {
+            SimpleDateFormat("h:mm a", Locale.forLanguageTag("es"))
+                .apply { timeZone = java.util.TimeZone.getTimeZone("America/Bogota") }
+                .format(it.toDate())
+        } ?: "Sin hora"
+
+    private fun formatearFecha(timestamp: Timestamp?): String =
+        timestamp?.let {
+            SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale.forLanguageTag("es"))
+                .apply { timeZone = java.util.TimeZone.getTimeZone("America/Bogota") }
+                .format(it.toDate())
+        } ?: "Sin fecha"
+
     private fun iconoPorTipo(tipo: String): Int = when (tipo) {
         "Incidente"          -> R.drawable.ic_warning_white
         "Limpieza"           -> R.drawable.ic_restaurar_white
@@ -100,13 +114,13 @@ class NotificationActivity : AppCompatActivity() {
     private fun mostrarDialogDetalles(n: Notificacion) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_ver_detalles, null)
 
-        dialogView.findViewById<TextView>(R.id.dialogHora).text = n.hora
+        dialogView.findViewById<TextView>(R.id.dialogHora).text = formatearHora(n.timestamp)
         dialogView.findViewById<TextView>(R.id.dialogTipo).text = n.tipo
         dialogView.findViewById<ImageView>(R.id.dialogIcono).setImageResource(n.iconoResId)
         dialogView.findViewById<TextView>(R.id.dialogNombre).text = n.nombreReportante
         dialogView.findViewById<TextView>(R.id.dialogArea).text = n.zonaAfectada
         dialogView.findViewById<ImageView>(R.id.dialogIconoDept).setImageResource(iconoPorTipo(n.tipo))
-        dialogView.findViewById<TextView>(R.id.dialogFecha).text = n.fecha
+        dialogView.findViewById<TextView>(R.id.dialogFecha).text = formatearFecha(n.timestamp)
         dialogView.findViewById<TextView>(R.id.dialogUbicacion).text = n.ubicacion
         dialogView.findViewById<TextView>(R.id.dialogAsunto).text = n.descripcion
         dialogView.findViewById<TextView>(R.id.dialogDocumentos).text =
@@ -141,29 +155,23 @@ class NotificationActivity : AppCompatActivity() {
             lista = listaFiltrada,
             rolUsuario = "Admin",
             onVerDetalles = { n, _ ->
-                n.leida = true
-                aplicarFiltroActual()
+                viewModel.marcarLeida(n.id, n.estado)
                 mostrarDialogDetalles(n)
             },
             onAceptar = { n, _ ->
-                if (n.estado == "pendiente") n.estado = "activa"
-                n.leida = true
-                aplicarFiltroActual()
+                viewModel.marcarLeida(n.id, n.estado)
                 Toast.makeText(this, "Marcado como visto", Toast.LENGTH_SHORT).show()
             },
             onRechazar = { n, _ ->
-                n.eliminada = true
-                aplicarFiltroActual()
+                viewModel.archivarNotificacion(n.id)
                 Toast.makeText(this, "Aviso archivado", Toast.LENGTH_SHORT).show()
             },
             onRestaurar = { n, _ ->
-                n.eliminada = false
-                aplicarFiltroActual()
+                viewModel.restaurarNotificacion(n.id)
                 Toast.makeText(this, "Aviso restaurado", Toast.LENGTH_SHORT).show()
             },
             onEliminarDefinitivo = { n, _ ->
-                listaCompleta.remove(n)
-                aplicarFiltroActual()
+                viewModel.eliminarNotificacion(n.id)
                 Toast.makeText(this, "Aviso eliminado definitivamente", Toast.LENGTH_SHORT).show()
             }
         )
@@ -209,6 +217,7 @@ class NotificationActivity : AppCompatActivity() {
         val spinnerTipo      = dialogView.findViewById<Spinner>(R.id.spinnerTipo)
         val spinnerPrioridad = dialogView.findViewById<Spinner>(R.id.spinnerPrioridad)
         val etZona           = dialogView.findViewById<EditText>(R.id.etNuevoArea)
+        val etUbicacion      = dialogView.findViewById<EditText>(R.id.etNuevaUbicacion)
         val etDescripcion    = dialogView.findViewById<EditText>(R.id.etNuevoAsunto)
         val etHoraExp        = dialogView.findViewById<EditText>(R.id.etHoraExpiracion)
 
@@ -233,6 +242,7 @@ class NotificationActivity : AppCompatActivity() {
         dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCrearNotificacion)
             .setOnClickListener {
                 val zona        = etZona.text.toString().trim()
+                val ubicacion   = etUbicacion.text.toString().trim()
                 val descripcion = etDescripcion.text.toString().trim()
                 val horaExp     = etHoraExp.text.toString().trim()
 
@@ -243,16 +253,14 @@ class NotificationActivity : AppCompatActivity() {
 
                 val tipo      = spinnerTipo.selectedItem.toString()
                 val prioridad = spinnerPrioridad.selectedItem.toString()
-                val hora      = SimpleDateFormat("h:mm a", Locale.forLanguageTag("es")).format(Date())
-                val fecha     = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale.forLanguageTag("es")).format(Date())
 
                 val nueva = Notificacion(
-                    hora             = hora,
+                    timestamp        = Timestamp.now(),
                     tipo             = tipo,
                     nombreReportante = "Admin",
-                    fecha            = fecha,
                     zonaAfectada     = zona,
                     iconoResId       = iconoPorTipo(tipo),
+                    ubicacion        = ubicacion,
                     descripcion      = descripcion,
                     prioridad        = prioridad,
                     horaExpiracion   = horaExp,

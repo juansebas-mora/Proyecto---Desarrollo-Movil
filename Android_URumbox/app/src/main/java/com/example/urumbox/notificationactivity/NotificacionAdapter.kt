@@ -9,6 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urumbox.R
+import com.google.firebase.Timestamp
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class NotificacionAdapter(
     private val lista: MutableList<Notificacion>,
@@ -44,10 +47,10 @@ class NotificacionAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val n = lista[position]
 
-        holder.tvHora.text   = n.hora
+        holder.tvHora.text   = formatearHora(n.timestamp)
         holder.tvTipo.text   = n.tipo
         holder.tvNombre.text = n.nombreReportante
-        holder.tvFecha.text  = n.fecha
+        holder.tvFecha.text  = formatearFecha(n.timestamp)
         holder.tvArea.text   = n.zonaAfectada
         holder.ivIconoCategoria.setImageResource(n.iconoResId)
 
@@ -90,6 +93,20 @@ class NotificacionAdapter(
     }
 
     override fun getItemCount() = lista.size
+
+    private fun formatearHora(timestamp: Timestamp?): String =
+        timestamp?.let {
+            SimpleDateFormat("h:mm a", Locale.forLanguageTag("es"))
+                .apply { timeZone = java.util.TimeZone.getTimeZone("America/Bogota") }
+                .format(it.toDate())
+        } ?: "Sin hora"
+
+    private fun formatearFecha(timestamp: Timestamp?): String =
+        timestamp?.let {
+            SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale.forLanguageTag("es"))
+                .apply { timeZone = java.util.TimeZone.getTimeZone("America/Bogota") }
+                .format(it.toDate())
+        } ?: "Sin fecha"
 
     fun filtrar(filtro: String, listaCompleta: List<Notificacion>) {
         lista.clear()
