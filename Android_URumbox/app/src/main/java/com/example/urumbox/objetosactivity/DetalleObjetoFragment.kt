@@ -1,6 +1,7 @@
-package com.example.urumbox
+package com.example.urumbox.objetosactivity
 
 import android.app.Dialog
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,12 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.urumbox.R
+import com.example.urumbox.data.model.objetosperdidos.EstadoObjeto
+import com.example.urumbox.data.model.objetosperdidos.ObjetoPerdido
 import com.example.urumbox.databinding.FragmentDetalleObjetoBinding
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class DetalleObjetoFragment : Fragment() {
@@ -64,24 +69,24 @@ class DetalleObjetoFragment : Fragment() {
     private fun cargarDatos() {
         val args = requireArguments()
         objeto = ObjetoPerdido(
-            id                 = args.getInt(ARG_OBJETO_ID),
-            nombre             = args.getString("nombre", ""),
-            ubicacion          = args.getString("ubicacion", ""),
-            descripcion        = args.getString("descripcion", ""),
-            fecha              = java.util.Date(args.getLong("fecha")),
-            estado             = EstadoObjeto.valueOf(args.getString("estado", "PERDIDO")),
-            categoria          = args.getString("categoria", ""),
-            fotoUri            = args.getString("fotoUri"),
-            nombreReportante   = args.getString("nombreReportante", ""),
+            id = args.getInt(ARG_OBJETO_ID),
+            nombre = args.getString("nombre", ""),
+            ubicacion = args.getString("ubicacion", ""),
+            descripcion = args.getString("descripcion", ""),
+            fecha = Date(args.getLong("fecha")),
+            estado = EstadoObjeto.valueOf(args.getString("estado", "PERDIDO")),
+            categoria = args.getString("categoria", ""),
+            fotoUri = args.getString("fotoUri"),
+            nombreReportante = args.getString("nombreReportante", ""),
             telefonoReportante = args.getString("telefonoReportante", ""),
-            correoReportante   = args.getString("correoReportante", "")
+            correoReportante = args.getString("correoReportante", "")
         )
     }
 
     private fun configurarUI() {
         // Foto
         if (!objeto.fotoUri.isNullOrEmpty()) {
-            binding.ivFotoDetalle.setImageURI(android.net.Uri.parse(objeto.fotoUri))
+            binding.ivFotoDetalle.setImageURI(Uri.parse(objeto.fotoUri))
         }
 
         // Badge estado
@@ -160,16 +165,6 @@ class DetalleObjetoFragment : Fragment() {
 
         dialog.show()
     }
-
-    /*private fun configurarNavbar() {
-        binding.navbar.setOnButtonsClickListener(
-            onHome      = { /* TODO */ },
-            onBox       = { parentFragmentManager.popBackStack() },
-            onAccess    = { /* TODO */ },
-            onEmergency = { /* TODO */ }
-        )
-    }*/
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -1,7 +1,8 @@
-package com.example.urumbox
+package com.example.urumbox.objetosactivity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.urumbox.R
 
 class ObjetosActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
