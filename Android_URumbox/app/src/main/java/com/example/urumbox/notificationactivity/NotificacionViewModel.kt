@@ -41,6 +41,31 @@ class NotificacionViewModel : ViewModel() {
         }
     }
 
+    fun marcarLeida(id: String, estadoActual: String) {
+        val nuevoEstado = if (estadoActual == "pendiente") "activa" else estadoActual
+        repository.marcarLeida(id, nuevoEstado) { result ->
+            result.onFailure { e -> _error.value = e.message ?: "Error al actualizar notificación" }
+        }
+    }
+
+    fun archivarNotificacion(id: String) {
+        repository.archivarNotificacion(id) { result ->
+            result.onFailure { e -> _error.value = e.message ?: "Error al archivar notificación" }
+        }
+    }
+
+    fun restaurarNotificacion(id: String) {
+        repository.restaurarNotificacion(id) { result ->
+            result.onFailure { e -> _error.value = e.message ?: "Error al restaurar notificación" }
+        }
+    }
+
+    fun eliminarNotificacion(id: String) {
+        repository.eliminarNotificacion(id) { result ->
+            result.onFailure { e -> _error.value = e.message ?: "Error al eliminar notificación" }
+        }
+    }
+
     fun onEstadoCreacionConsumed() {
         _estadoCreacion.value = null
     }

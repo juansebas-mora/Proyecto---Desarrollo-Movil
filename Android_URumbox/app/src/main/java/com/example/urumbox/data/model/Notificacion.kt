@@ -1,15 +1,15 @@
 package com.example.urumbox.data.model
 
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.Exclude
 
 data class Notificacion(
     @DocumentId
     val id: String = "",
-    val hora: String = "",
+    val timestamp: Timestamp? = null,
     val tipo: String = "",
     val nombreReportante: String = "",
-    val fecha: String = "",
     val zonaAfectada: String = "",
     @get:Exclude
     var iconoResId: Int = 0,
