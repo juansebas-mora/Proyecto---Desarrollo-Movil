@@ -5,6 +5,7 @@ import com.example.urumbox.notificationactivity.NotificationActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.urumbox.databinding.ActivityMainBinding
+import com.example.urumbox.objetosactivity.ObjetosActivity
 
 class MainActivity : AppCompatActivity() {
 

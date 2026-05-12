@@ -35,7 +35,7 @@
         <activity android:name=".BusquedaActivity" android:exported="false" />
         <activity android:name=".MapaActivity" android:exported="false" />
         <activity android:name=".PasosActivity" android:exported="false" />
-        <activity android:name=".ObjetosActivity" android:exported="false" />
+        <activity android:name=".objetosactivity.ObjetosActivity" android:exported="false" />
 
         <activity android:name=".useractivity.PerfilActivity" android:exported="false" />
         <activity android:name=".useractivity.LoginSActivity" android:exported="false" />
