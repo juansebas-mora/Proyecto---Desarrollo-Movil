@@ -131,7 +131,7 @@ class DetalleObjetoFragment : Fragment() {
         val ahora   = System.currentTimeMillis()
         val diff    = ahora - objeto.fecha.time
         val horas   = diff / (1000 * 60 * 60)
-        val sdf     = SimpleDateFormat("h:mm a", Locale("es", "CO"))
+        val sdf     = SimpleDateFormat("h:mm a",    Locale("es", "CO"))
         val hora    = sdf.format(objeto.fecha)
 
         return when {
