@@ -1,16 +1,21 @@
 package com.example.urumbox.useractivity
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.urumbox.data.AuthResult
 import com.example.urumbox.databinding.ActivityRegistroBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class RegistroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistroBinding
@@ -23,6 +28,17 @@ class RegistroActivity : AppCompatActivity() {
         binding = ActivityRegistroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnBack.setOnClickListener { finish() }
+
+        // Campo fecha: solo lectura, abre DatePickerDialog al tocar (sin teclado)
+        binding.etFecha.apply {
+            isFocusable = false
+            isClickable = true
+            isCursorVisible = false
+        }
+        binding.etFecha.setOnClickListener { mostrarSelectorFecha() }
+        binding.inputLayoutFecha.setOnClickListener { mostrarSelectorFecha() }
+
         binding.btnRegistrarse.setOnClickListener {
             val nombre = binding.etNombre.text.toString().trim()
             val apellido = binding.etApellido.text.toString().trim()
@@ -30,9 +46,44 @@ class RegistroActivity : AppCompatActivity() {
             val fecha = binding.etFecha.text.toString().trim()
             val correo = binding.etCorreoReg.text.toString().trim()
             val contrasena = binding.etContrasenaReg.text.toString().trim()
-            if (validarCampos(nombre, apellido, telefono, fecha, correo, contrasena)) {
-                viewModel.registrar(correo, contrasena, nombre, apellido, telefono, fecha)
+
+            if (!validarCampos(nombre, apellido, telefono, fecha, correo, contrasena)) return@setOnClickListener
+
+            // Capa 1: validar dominio institucional
+            if (!correo.endsWith("@urosario.edu.co")) {
+                Toast.makeText(
+                    this,
+                    "Solo puedes registrarte con un correo institucional @urosario.edu.co",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
             }
+
+            // Capa 2: verificar si el correo ya está registrado en Firebase Auth.
+            // NOTA: Firebase NO puede verificar directamente si un correo existe en Outlook/Microsoft.
+            // Solo verifica si el correo ya está registrado en Firebase Authentication.
+            // La validación del dominio @urosario.edu.co es la barrera principal para
+            // restringir el registro a usuarios institucionales.
+            FirebaseAuth.getInstance().fetchSignInMethodsForEmail(correo)
+                .addOnSuccessListener { result ->
+                    if (!result.signInMethods.isNullOrEmpty()) {
+                        Toast.makeText(
+                            this,
+                            "Este correo ya está registrado. Inicia sesión o recupera tu contraseña.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        viewModel.registrar(correo, contrasena, nombre, apellido, telefono, fecha)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    when (e) {
+                        is FirebaseAuthInvalidCredentialsException ->
+                            Toast.makeText(this, "El formato del correo no es válido.", Toast.LENGTH_SHORT).show()
+                        else ->
+                            Toast.makeText(this, "No se pudo verificar el correo. Intenta de nuevo.", Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
 
         binding.tvIniciarSesion.setOnClickListener {
@@ -64,6 +115,20 @@ class RegistroActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun mostrarSelectorFecha() {
+        val cal = Calendar.getInstance()
+        DatePickerDialog(
+            this,
+            { _, year, month, day ->
+                // Formato DD/MM/AAAA
+                binding.etFecha.setText(String.format("%02d/%02d/%04d", day, month + 1, year))
+            },
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
 
     private fun validarCampos(

@@ -11,49 +11,41 @@
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:background="@color/primario"
+        android:background="@color/azul_ur"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="20dp"
+        android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_chevron_right"
+            android:rotation="180"
+            app:tint="@color/blanco"
+            android:contentDescription="Volver" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="8dp"
             android:text="Perfil"
             android:textColor="@color/blanco"
             android:textSize="20sp"
             android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/btnCampana"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/bg_icono_topbar"
-            android:src="@drawable/ic_notificationes"
-            android:padding="10dp"
-            android:contentDescription="Notificaciones" />
-
-        <ImageButton
-            android:id="@+id/btnUsuario"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_icono_topbar"
-            android:src="@drawable/ic_personaa"
-            android:padding="10dp"
-            android:contentDescription="Usuario" />
     </LinearLayout>
 
-    <!-- SCROLL para el contenido -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@id/navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
             <!-- CARD AVATAR -->
             <androidx.cardview.widget.CardView

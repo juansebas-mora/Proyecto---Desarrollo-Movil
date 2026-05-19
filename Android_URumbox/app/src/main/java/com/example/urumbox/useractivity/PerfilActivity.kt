@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
+import com.example.urumbox.MainActivity
 import com.example.urumbox.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -47,6 +49,14 @@ class PerfilActivity : AppCompatActivity() {
         tvNombre = findViewById(R.id.tvNombre)
         tvRol = findViewById(R.id.tvRol)
 
+        // El botón volver regresa a MainActivity sin cerrar la app ni recrear el stack
+        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
+        }
+
         loadUserData()
 
         imgAvatar.setOnClickListener { showPhotoSourceDialog() }
@@ -64,6 +74,15 @@ class PerfilActivity : AppCompatActivity() {
             startActivity(Intent(this, InicioActivity::class.java))
             finishAffinity()
         }
+    }
+
+    // El botón físico de volver también regresa a MainActivity
+    @Suppress("DEPRECATION")
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        startActivity(intent)
+        finish()
     }
 
     private fun loadUserData() {
