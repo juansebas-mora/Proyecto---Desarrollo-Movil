@@ -1,4 +1,4 @@
-package com.example.urumbox
+package com.example.urumbox.emergencyactivity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.example.urumbox.R
 
 class ReportarEmergenciaActivity : AppCompatActivity() {
 

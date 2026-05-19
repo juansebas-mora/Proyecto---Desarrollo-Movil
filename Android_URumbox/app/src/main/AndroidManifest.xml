@@ -48,10 +48,12 @@
         <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
         <activity android:name=".useractivity.VersionActivity" android:exported="false" />
 
-        <activity android:name=".ReportarEmergenciaActivity" android:exported="false" />
-        <activity android:name=".RutaEvacuacionActivity" android:exported="false" />
-        <activity android:name=".PuntosEncuentroActivity" android:exported="false" />
+        <activity android:name=".emergencyactivity.EmergenciasActivity" android:exported="false" />
+        <activity android:name=".emergencyactivity.ReportarEmergenciaActivity" android:exported="false" />
+        <activity android:name=".emergencyactivity.RutaEvacuacionActivity" android:exported="false" />
+        <activity android:name=".emergencyactivity.PuntosEncuentroActivity" android:exported="false" />
         <activity android:name=".ConfirmacionActivity" android:exported="false" />
+
         <activity android:name=".notificationactivity.NotificationActivity" android:exported="false" />
 
         <activity android:name=".accessactivity.AccessMainActivity" android:exported="false" />

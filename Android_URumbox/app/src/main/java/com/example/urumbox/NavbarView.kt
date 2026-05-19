@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.LayoutInflater
 import com.example.urumbox.accessactivity.AccessMainActivity
+import com.example.urumbox.emergencyactivity.EmergenciasActivity
 
 class NavbarView @JvmOverloads constructor(
     context: Context,
@@ -51,13 +52,12 @@ class NavbarView @JvmOverloads constructor(
         }
 
         btnEmergency.setOnClickListener {
-            val intent = Intent(context, ReportarEmergenciaActivity::class.java)
+            val intent = Intent(context, EmergenciasActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             context.startActivity(intent)
         }
     }
 
-    // Keep this method for backwards compatibility or overrides
     fun setOnButtonsClickListener(
         onHome: () -> Unit,
         onBox: () -> Unit,

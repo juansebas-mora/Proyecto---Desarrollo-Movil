@@ -1,10 +1,11 @@
-package com.example.urumbox
+package com.example.urumbox.emergencyactivity
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.urumbox.R
 
 class RutaEvacuacionActivity : AppCompatActivity() {
 

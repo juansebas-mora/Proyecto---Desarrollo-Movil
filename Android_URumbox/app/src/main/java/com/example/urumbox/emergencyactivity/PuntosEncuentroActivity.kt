@@ -1,9 +1,11 @@
-package com.example.urumbox
+package com.example.urumbox.emergencyactivity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.urumbox.MainActivity
+import com.example.urumbox.R
 
 class PuntosEncuentroActivity : AppCompatActivity() {
 
@@ -11,11 +13,6 @@ class PuntosEncuentroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_puntos_encuentro)
 
-        findViewById<Button>(R.id.btnVolverInicio).setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-            finish()
-        }
+
     }
 }
