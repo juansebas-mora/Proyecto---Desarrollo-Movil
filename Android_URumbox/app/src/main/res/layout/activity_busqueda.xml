@@ -70,10 +70,11 @@
         android:background="@drawable/bg_search_bar"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="12dp"
-        android:hint="Buscar ubicación, persona o sala..."
+        android:hint="Buscar ubicación"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textSize="14sp"
+        android:transitionName="search_bar_transition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar" />

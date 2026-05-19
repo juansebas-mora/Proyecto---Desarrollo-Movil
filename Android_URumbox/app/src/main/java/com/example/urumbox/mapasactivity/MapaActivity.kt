@@ -1,4 +1,4 @@
-package com.example.urumbox
+package com.example.urumbox.mapasactivity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.urumbox.R
 import com.example.urumbox.databinding.ActivityMapaBinding
+import androidx.activity.viewModels
 
 class MapaActivity : AppCompatActivity() {
 
+    private val viewModel: MapaViewModel by viewModels()
     private lateinit var binding: ActivityMapaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

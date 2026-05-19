@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo"
+    android:background="@color/primario"
     tools:context=".MainActivity">
 
     <!-- Header Section (Dark Blue) -->
@@ -67,6 +67,8 @@
             android:inputType="none"
             android:focusable="false"
             android:clickable="true"
+            android:textSize="14sp"
+            android:transitionName="search_bar_transition"
             app:layout_constraintTop_toBottomOf="@id/tvWelcomeTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -76,6 +78,7 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingBottom="100dp"
+        android:background="@color/fondo"
         app:layout_constraintTop_toBottomOf="@id/headerLayout"
         app:layout_constraintBottom_toTopOf="@id/navbar">
 
@@ -158,11 +161,11 @@
                         android:id="@+id/btnSimulacroRoute"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/azul_ur"
                         android:text="Cómo llegar"
                         android:textAllCaps="false"
-                        app:cornerRadius="8dp"
-                        android:layout_gravity="center"
-                        android:backgroundTint="@color/azul_ur" />
+                        app:cornerRadius="8dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -266,7 +269,7 @@
                         android:gravity="center">
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnAudifonosRoute"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:text="Cómo llegar"
                             android:textAllCaps="false"
@@ -275,7 +278,7 @@
                             android:layout_marginEnd="16dp" />
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnAudifonosDetails"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:text="Detalles"
                             android:textAllCaps="false"
@@ -342,7 +345,7 @@
                         android:gravity="center">
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnCelularRoute"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:text="Cómo llegar"
                             android:textAllCaps="false"
@@ -351,7 +354,7 @@
                             android:layout_marginEnd="16dp" />
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnCelularDetails"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"
                             android:text="Detalles"
                             android:textAllCaps="false"
