@@ -1,11 +1,12 @@
 package com.example.urumbox
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 
@@ -36,10 +37,10 @@ class ReportarEmergenciaActivity : AppCompatActivity() {
         val botonesGravedad = listOf(btnBaja, btnMedia, btnAlta)
 
         // Otros elementos
-        val etDescripcion       = findViewById<EditText>(R.id.etDescripcion)
-        val btnSeleccionarMapa  = findViewById<LinearLayout>(R.id.btnSeleccionarMapa)
-        val btnSubirFoto        = findViewById<LinearLayout>(R.id.btnSubirFoto)
-        val btnEnviarReporte    = findViewById<AppCompatButton>(R.id.btnEnviarReporte)
+        val etDescripcion      = findViewById<EditText>(R.id.etDescripcion)
+        val btnSeleccionarMapa = findViewById<LinearLayout>(R.id.btnSeleccionarMapa)
+        val btnSubirFoto       = findViewById<LinearLayout>(R.id.btnSubirFoto)
+        val btnEnviarReporte   = findViewById<AppCompatButton>(R.id.btnEnviarReporte)
 
         // Selección categoría
         btnIncendio.setOnClickListener { categoriaSeleccionada = "Incendio"; resaltarSeleccion(btnIncendio, botonesCategoria) }
@@ -57,7 +58,6 @@ class ReportarEmergenciaActivity : AppCompatActivity() {
         btnSeleccionarMapa.setOnClickListener {
             Toast.makeText(this, "Seleccionar ubicación en mapa", Toast.LENGTH_SHORT).show()
         }
-
         btnSubirFoto.setOnClickListener {
             Toast.makeText(this, "Subir foto", Toast.LENGTH_SHORT).show()
         }
@@ -71,14 +71,29 @@ class ReportarEmergenciaActivity : AppCompatActivity() {
                     Toast.makeText(this, "Selecciona el nivel de gravedad", Toast.LENGTH_SHORT).show()
                 etDescripcion.text.toString().trim().isEmpty() ->
                     Toast.makeText(this, "Escribe una descripción", Toast.LENGTH_SHORT).show()
-                else -> {
-                    val intent = Intent(this, ConfirmacionActivity::class.java)
-                    intent.putExtra("tipo_emergencia", categoriaSeleccionada)
-                    startActivity(intent)
-                    finish()
-                }
+                else -> mostrarDialogoExito()
             }
         }
+    }
+
+    private fun mostrarDialogoExito() {
+        val dialogView = LayoutInflater.from(this)
+            .inflate(R.layout.dialog_reporte_publicado, null)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        // Fondo transparente para que se vean las esquinas redondeadas
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialogView.findViewById<AppCompatButton>(R.id.btnCerrarDialog).setOnClickListener {
+            dialog.dismiss()
+            finish() // Vuelve a la pantalla anterior
+        }
+
+        dialog.show()
     }
 
     private fun resaltarSeleccion(seleccionado: AppCompatButton, todos: List<AppCompatButton>) {

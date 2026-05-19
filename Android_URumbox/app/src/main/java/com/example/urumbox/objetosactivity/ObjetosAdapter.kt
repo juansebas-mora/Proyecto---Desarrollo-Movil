@@ -1,4 +1,4 @@
-package com.example.urumbox
+package com.example.urumbox.objetosactivity
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.urumbox.R
+import com.example.urumbox.data.model.objetosperdidos.EstadoObjeto
+import com.example.urumbox.data.model.objetosperdidos.ObjetoPerdido
 import com.example.urumbox.databinding.ItemObjetoBinding
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 class ObjetosAdapter(

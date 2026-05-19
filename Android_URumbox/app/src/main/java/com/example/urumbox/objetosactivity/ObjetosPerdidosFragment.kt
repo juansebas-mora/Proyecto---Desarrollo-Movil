@@ -1,14 +1,20 @@
-package com.example.urumbox
+package com.example.urumbox.objetosactivity
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.urumbox.ui.objetosperdidos.ObjetoViewModel
+import com.example.urumbox.R
+import com.example.urumbox.objetosactivity.ReportarObjetoFragment
+import com.example.urumbox.data.model.objetosperdidos.EstadoObjeto
+import com.example.urumbox.data.model.objetosperdidos.ObjetoPerdido
 import com.example.urumbox.databinding.FragmentObjetosPerdidosBinding
-import java.util.*
 
 class ObjetosPerdidosFragment : Fragment() {
 
@@ -16,61 +22,11 @@ class ObjetosPerdidosFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: ObjetosAdapter
+    private lateinit var viewModel: ObjetoViewModel
 
     private var filtroEstado: EstadoObjeto? = null
     private var textoBusqueda: String = ""
-
-    private val listaCompleta: List<ObjetoPerdido> = listOf(
-        ObjetoPerdido(
-            id = 1,
-            nombre = "Carnet Universitario",
-            ubicacion = "Biblioteca Central",
-            descripcion = "Carnet con foto, nombre Juan Pérez, código 2021115",
-            fecha = Calendar.getInstance().apply { add(Calendar.HOUR, -1) }.time,
-            estado = EstadoObjeto.PERDIDO,
-            categoria = "Documentos",
-            nombreReportante   = "Juan Andrés García López",
-            telefonoReportante = "+57 310 456 7890",
-            correoReportante   = "ja.garcia@urosario.edu.co"
-        ),
-        ObjetoPerdido(
-            id = 2,
-            nombre = "Mochila Negra",
-            ubicacion = "Terraza Torre 2",
-            descripcion = "Mochila Totto negra con cremallera roja",
-            fecha = Calendar.getInstance().apply {
-                add(Calendar.DAY_OF_YEAR, -1)
-                set(Calendar.HOUR_OF_DAY, 15)
-                set(Calendar.MINUTE, 15)
-            }.time,
-            estado = EstadoObjeto.ENCONTRADO
-        ),
-        ObjetoPerdido(
-            id = 3,
-            nombre = "Celular Samsung Galaxy",
-            ubicacion = "Casur - Salón 208",
-            descripcion = "Samsung Galaxy negro con funda transparente. Pantalla sin daños.",
-            fecha = Calendar.getInstance().apply {
-                add(Calendar.DAY_OF_YEAR, -1)
-                set(Calendar.HOUR_OF_DAY, 15); set(Calendar.MINUTE, 15)
-            }.time,
-            estado = EstadoObjeto.ENCONTRADO,
-            categoria = "Tecnología",
-            nombreReportante   = "Laura Pérez",
-            telefonoReportante = "+57 315 123 4567",
-            correoReportante   = "l.perez@urosario.edu.co"
-        ),
-        ObjetoPerdido(
-            id = 4,
-            nombre = "Audífonos Bluetooth",
-            ubicacion = "Biblioteca Central",
-            descripcion = "JBL negros, estuche gris, con nombre escrito en el estuche",
-            fecha = Calendar.getInstance().apply {
-                add(Calendar.DAY_OF_YEAR, -2)
-            }.time,
-            estado = EstadoObjeto.PERDIDO
-        )
-    )
+    private var listaCompleta: List<ObjetoPerdido> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,11 +39,37 @@ class ObjetosPerdidosFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        configurarViewModel()
         configurarRecyclerView()
         configurarFiltros()
         configurarBusqueda()
         configurarBotones()
-        aplicarFiltros()
+
+        // ── CONSULTA: carga objetos desde Firestore al abrir la pantalla ──
+        viewModel.cargarObjetos()
+    }
+
+    private fun configurarViewModel() {
+        viewModel = ViewModelProvider(this)[ObjetoViewModel::class.java]
+
+        // Observa la lista de objetos
+        viewModel.objetos.observe(viewLifecycleOwner) { lista ->
+            listaCompleta = lista
+            aplicarFiltros()
+        }
+
+        // Observa el estado de carga
+        viewModel.cargando.observe(viewLifecycleOwner) { cargando ->
+            binding.progressBar.visibility = if (cargando) View.VISIBLE else View.GONE
+        }
+
+        // Observa mensajes de éxito o error
+        viewModel.mensaje.observe(viewLifecycleOwner) { mensaje ->
+            if (mensaje.isNotEmpty()) {
+                Toast.makeText(requireContext(), mensaje, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun configurarRecyclerView() {
@@ -140,18 +122,9 @@ class ObjetosPerdidosFragment : Fragment() {
         binding.btnReportarObjeto.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container_objetos, ReportarObjetoFragment())
-                .addToBackStack(null) // permite volver con el botón atrás
+                .addToBackStack(null)
                 .commit()
         }
-
-        /*
-        binding.navbar.setOnButtonsClickListener(
-            onHome = { /* TODO */ },
-            onBox = { /* ya estamos aquí */ },
-            onAccess = { /* TODO */ },
-            onEmergency = { /* TODO */ }
-        )
-        */
     }
 
     private fun aplicarFiltros() {

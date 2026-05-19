@@ -58,6 +58,7 @@
                 app:chipBackgroundColor="@color/secundario"
                 app:chipStrokeColor="@color/primario"
                 android:textColor="@color/white"
+                app:checkedIconTint="@color/white"
                 style="@style/Widget.Material3.Chip.Filter"/>
 
             <com.google.android.material.chip.Chip
@@ -68,6 +69,7 @@
                 app:chipBackgroundColor="@color/secundario"
                 app:chipStrokeColor="@color/primario"
                 android:textColor="@color/white"
+                app:checkedIconTint="@color/white"
                 android:layout_marginEnd="8dp"
 
                 style="@style/Widget.Material3.Chip.Filter"/>
@@ -80,11 +82,20 @@
                 app:chipBackgroundColor="@color/secundario"
                 app:chipStrokeColor="@color/primario"
                 android:textColor="@color/white"
+                app:checkedIconTint="@color/white"
                 style="@style/Widget.Material3.Chip.Filter"/>
 
         </LinearLayout>
 
     </HorizontalScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
 
     <!-- Lista de objetos -->
     <androidx.recyclerview.widget.RecyclerView

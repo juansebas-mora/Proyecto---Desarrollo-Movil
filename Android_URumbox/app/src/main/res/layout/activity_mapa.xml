@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo">
+    android:background="@color/primario">
 
     <com.example.urumbox.TopbarView
         android:id="@+id/topBar"
@@ -49,108 +49,84 @@
                     android:src="@drawable/ic_box"
                     android:alpha="0.1" />
 
-                <ImageButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btnGoToPasos"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
                     android:layout_margin="16dp"
-                    android:background="@color/secundario"
-                    android:elevation="4dp"
                     android:src="@drawable/ic_go_to_pasos"
                     android:contentDescription="Ir a pasos"
-                    app:tint="@color/white" />
+                    app:backgroundTint="@color/secundario"
+                    app:tint="@color/white"
+                    app:elevation="4dp"
+                    app:maxImageSize="32dp" />
             </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_bottom_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:padding="16dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/white"
+            app:strokeColor="#1A000000"
+            app:strokeWidth="1dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
-                android:id="@+id/layout_rooms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="0dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardUseCompatPadding="true"
-                    app:strokeColor="#1A000000"
-                    app:strokeWidth="1dp"
-                    app:cardBackgroundColor="@color/white">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dp"
-                        android:text="Sala 2172\nCASUR"
-                        android:textStyle="bold"
-                        android:textColor="@color/primario" />
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardReunion"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardUseCompatPadding="true"
-                    app:strokeColor="#1A000000"
-                    app:strokeWidth="1dp"
-                    app:cardBackgroundColor="@color/white">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dp"
-                        android:text="Reunión general de la\njunta de directivos..."
-                        android:textStyle="bold"
-                        android:textColor="@color/primario"
-                        android:maxLines="2"
-                        android:ellipsize="end" />
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:cardUseCompatPadding="true"
-                app:strokeColor="#1A000000"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/layout_rooms">
                 <TextView
+                    android:id="@+id/tvDestinationName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="14dp"
-                    android:text="Faltan 15 min | 9:00 a.m."
+                    android:text="Sala 2172 CASUR"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     android:textColor="@color/primario" />
-            </com.google.android.material.card.MaterialCardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvRouteStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Faltan 5 min (500 metros)"
+                    android:textSize="14sp"
+                    android:textColor="@color/texto_secundario" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@color/gris_linea" />
+
+                <TextView
+                    android:id="@+id/tvNextInstruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Siguiente: Gira a la derecha en el pasillo principal"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/secundario" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Fondo extra para tapar el azul en los bordes redondeados -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#F4F7FB"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
