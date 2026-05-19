@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.LayoutInflater
 import com.example.urumbox.objetosactivity.ObjetosActivity
+import com.example.urumbox.accessactivity.AccessMainActivity
 
 class NavbarView @JvmOverloads constructor(
     context: Context,

@@ -3,10 +3,11 @@
     <style name="Base.Theme.URumbox" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Color de la barra de navegación del dispositivo -->
         <item name="android:navigationBarColor">@color/primario</item>
+        <item name="android:windowLightNavigationBar">false</item>
 
         <!-- Color de la barra de estado -->
-        <item name="android:statusBarColor">@color/fondo</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/primario</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Widget.App.Button" parent="Widget.Material3.Button">
