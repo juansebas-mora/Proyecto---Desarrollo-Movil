@@ -4,8 +4,8 @@ import com.example.urumbox.R
 import com.example.urumbox.data.model.Notificacion
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.firestore
+import com.google.firebase.Firebase
 
 class NotificacionRepository {
 
