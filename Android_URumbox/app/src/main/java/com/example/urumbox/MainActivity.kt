@@ -3,7 +3,6 @@ package com.example.urumbox
 import android.content.Intent
 import com.example.urumbox.notificationactivity.NotificationActivity
 import android.os.Bundle
-import androidx.activity.SystemBarStyle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
@@ -12,7 +11,6 @@ import com.example.urumbox.databinding.ActivityMainBinding
 import com.example.urumbox.objetosactivity.ObjetosActivity
 import com.example.urumbox.mapasactivity.BusquedaActivity
 import com.example.urumbox.mapasactivity.MapaActivity
-
 import androidx.activity.viewModels
 
 class MainActivity : AppCompatActivity() {
@@ -22,12 +20,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val systemBarColor = getColor(R.color.azul_ur)
-        enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.dark(systemBarColor),
-            navigationBarStyle = SystemBarStyle.dark(systemBarColor)
-        )
+        enableEdgeToEdge()
+        androidx.core.view.WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -50,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         // Emergencias y Evacuación
         binding.btnSimulacroRoute.setOnClickListener {
-            startActivity(Intent(this, MapaActivity::class.java))
+            // Simulacro - Sin redirigir por ahora (módulo de emergencias)
         }
 
         binding.btnReportIncident.setOnClickListener {
@@ -59,7 +53,10 @@ class MainActivity : AppCompatActivity() {
 
         // Objetos Perdidos
         binding.btnAudifonosRoute.setOnClickListener {
-            startActivity(Intent(this, MapaActivity::class.java))
+            val intent = Intent(this, MapaActivity::class.java).apply {
+                putExtra("id_ruta", "ruta_casur")
+            }
+            startActivity(intent)
         }
 
         binding.btnAudifonosDetails.setOnClickListener {
@@ -67,7 +64,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnCelularRoute.setOnClickListener {
-            startActivity(Intent(this, MapaActivity::class.java))
+            val intent = Intent(this, MapaActivity::class.java).apply {
+                putExtra("id_ruta", "ruta_casur")
+            }
+            startActivity(intent)
         }
 
         binding.btnCelularDetails.setOnClickListener {
