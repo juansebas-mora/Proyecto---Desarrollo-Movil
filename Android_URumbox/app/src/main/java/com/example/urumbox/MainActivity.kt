@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        androidx.core.view.WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         // Emergencias y Evacuación
         binding.btnSimulacroRoute.setOnClickListener {
-            startActivity(Intent(this, MapaActivity::class.java))
+            // Simulacro - Sin redirigir por ahora (módulo de emergencias)
         }
 
         binding.btnReportIncident.setOnClickListener {
@@ -52,7 +53,10 @@ class MainActivity : AppCompatActivity() {
 
         // Objetos Perdidos
         binding.btnAudifonosRoute.setOnClickListener {
-            startActivity(Intent(this, MapaActivity::class.java))
+            val intent = Intent(this, MapaActivity::class.java).apply {
+                putExtra("id_ruta", "ruta_casur")
+            }
+            startActivity(intent)
         }
 
         binding.btnAudifonosDetails.setOnClickListener {
@@ -60,7 +64,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnCelularRoute.setOnClickListener {
-            startActivity(Intent(this, MapaActivity::class.java))
+            val intent = Intent(this, MapaActivity::class.java).apply {
+                putExtra("id_ruta", "ruta_casur")
+            }
+            startActivity(intent)
         }
 
         binding.btnCelularDetails.setOnClickListener {
