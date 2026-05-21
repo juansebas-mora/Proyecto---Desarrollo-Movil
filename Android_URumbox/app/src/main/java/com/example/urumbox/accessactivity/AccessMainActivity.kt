@@ -1,7 +1,9 @@
 package com.example.urumbox.accessactivity
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,19 +15,34 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.urumbox.R
 import com.example.urumbox.data.model.AccessRequest
+import com.example.urumbox.data.repository.QrException
 import com.example.urumbox.databinding.ActivityAccessHistoryBinding
 import com.example.urumbox.databinding.ActivityAccessMainBinding
 import com.example.urumbox.databinding.ActivityAccessQrBinding
 import com.example.urumbox.databinding.ActivityAccessRequestBinding
 import com.example.urumbox.databinding.ActivityAccessRequestConsultBinding
+import com.example.urumbox.databinding.ActivityQrScannerBinding
 import com.google.android.material.button.MaterialButton
+import com.google.mlkit.vision.barcode.BarcodeScanner
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.google.mlkit.vision.common.InputImage
 
 // region AccessMainActivity
 
@@ -46,6 +63,10 @@ class AccessMainActivity : AppCompatActivity() {
         binding = ActivityAccessMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel.loadUserInfo()
+        viewModel.userName.observe(this) { name -> binding.tvUserName.text = name }
+        viewModel.userEmail.observe(this) { email -> binding.tvUserEmail.text = email }
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -61,7 +82,7 @@ class AccessMainActivity : AppCompatActivity() {
         }
 
         binding.btnQrCode.setOnClickListener {
-            startActivity(Intent(this, AccessQrActivity::class.java))
+            showQrOptionsDialog()
         }
 
         viewModel.uiEvent.observe(this) { event ->
@@ -105,6 +126,30 @@ class AccessMainActivity : AppCompatActivity() {
         }
 
         addVisitorDialog = dialog
+        dialog.show()
+    }
+
+    private fun showQrOptionsDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_qr_options)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setDimAmount(0.6f)
+        dialog.setCancelable(true)
+
+        dialog.findViewById<MaterialButton>(R.id.btnVerMiQr).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, AccessQrActivity::class.java))
+        }
+        dialog.findViewById<MaterialButton>(R.id.btnLeerQr).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, QrScannerActivity::class.java))
+        }
+
         dialog.show()
     }
 }
@@ -163,6 +208,18 @@ class AccessQrActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        viewModel.loadAndGenerateQr()
+
+        viewModel.qrBitmap.observe(this) { bitmap ->
+            if (bitmap != null) binding.ivQrCode.setImageBitmap(bitmap)
+        }
+        viewModel.validDate.observe(this) { date ->
+            binding.tvValidDate.text = date
+        }
+        viewModel.loadError.observe(this) { error ->
+            if (error != null) Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
         }
     }
 }
@@ -448,6 +505,150 @@ class AccessRequestConsultActivity : AppCompatActivity() {
         }
 
         detailDialog = dialog
+        dialog.show()
+    }
+}
+
+// endregion
+
+// region QrScannerActivity
+
+class QrScannerActivity : AppCompatActivity() {
+
+    private val viewModel: QrScannerViewModel by viewModels()
+    private lateinit var binding: ActivityQrScannerBinding
+    private var cameraProvider: ProcessCameraProvider? = null
+    private var analysisUseCase: ImageAnalysis? = null
+    private var scanHandled = false
+
+    private val requestPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) startCamera() else finish()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val systemBarColor = getColor(R.color.azul_ur)
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(systemBarColor),
+            navigationBarStyle = SystemBarStyle.dark(systemBarColor)
+        )
+
+        binding = ActivityQrScannerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.btnCloseScanner.setOnClickListener { finish() }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            startCamera()
+        } else {
+            requestPermission.launch(Manifest.permission.CAMERA)
+        }
+
+        viewModel.validationResult.observe(this) { result ->
+            result ?: return@observe
+            when (result) {
+                is QrValidationResult.Success -> showSuccessDialog(result.userData.nombre)
+                is QrValidationResult.Error -> showErrorDialog(result.type)
+            }
+            viewModel.onResultConsumed()
+        }
+    }
+
+    private fun startCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        cameraProviderFuture.addListener({
+            cameraProvider = cameraProviderFuture.get()
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(binding.previewView.surfaceProvider)
+            }
+            val scanner = BarcodeScanning.getClient(
+                BarcodeScannerOptions.Builder()
+                    .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+                    .build()
+            )
+            analysisUseCase = ImageAnalysis.Builder()
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .build().also { analysis ->
+                    analysis.setAnalyzer(ContextCompat.getMainExecutor(this)) { proxy ->
+                        processImageProxy(scanner, proxy)
+                    }
+                }
+            cameraProvider?.unbindAll()
+            cameraProvider?.bindToLifecycle(
+                this, CameraSelector.DEFAULT_BACK_CAMERA, preview, analysisUseCase!!
+            )
+        }, ContextCompat.getMainExecutor(this))
+    }
+
+    @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
+    private fun processImageProxy(scanner: BarcodeScanner, imageProxy: ImageProxy) {
+        if (scanHandled) {
+            imageProxy.close()
+            return
+        }
+        val mediaImage = imageProxy.image ?: run { imageProxy.close(); return }
+        val inputImage = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+        scanner.process(inputImage)
+            .addOnSuccessListener { barcodes ->
+                val rawValue = barcodes.firstOrNull()?.rawValue
+                if (!rawValue.isNullOrEmpty() && !scanHandled) {
+                    scanHandled = true
+                    analysisUseCase?.clearAnalyzer()
+                    viewModel.validateQrContent(rawValue)
+                }
+            }
+            .addOnCompleteListener { imageProxy.close() }
+    }
+
+    private fun showSuccessDialog(userName: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_qr_success)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setDimAmount(0.6f)
+        dialog.setCancelable(true)
+        dialog.findViewById<TextView>(R.id.tvSuccessUserName).text = userName
+        dialog.findViewById<MaterialButton>(R.id.btnAceptar).setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
+        dialog.show()
+    }
+
+    private fun showErrorDialog(error: QrException) {
+        val msg = when (error) {
+            is QrException.InvalidFormat ->
+                "El contenido escaneado no es un código QR de acceso válido."
+            is QrException.NotFound ->
+                "Este código QR no corresponde a ningún usuario registrado."
+            is QrException.Expired ->
+                "Este código QR ha expirado. El usuario debe generar uno nuevo."
+        }
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_qr_error)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setDimAmount(0.6f)
+        dialog.setCancelable(true)
+        dialog.findViewById<TextView>(R.id.tvErrorMessage).text = msg
+        dialog.findViewById<MaterialButton>(R.id.btnEntendido).setOnClickListener {
+            dialog.dismiss()
+            scanHandled = false
+            startCamera()
+        }
         dialog.show()
     }
 }
