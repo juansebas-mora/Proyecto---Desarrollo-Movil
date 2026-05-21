@@ -25,4 +25,21 @@ class RutaRepository {
                 callback(Result.failure(exception))
             }
     }
+
+    fun obtenerTodasLasRutas(callback: (Result<List<Ruta>>) -> Unit) {
+        coleccion.get()
+            .addOnSuccessListener { querySnapshot ->
+                val list = mutableListOf<Ruta>()
+                for (doc in querySnapshot.documents) {
+                    val ruta = doc.toObject(Ruta::class.java)
+                    if (ruta != null) {
+                        list.add(ruta)
+                    }
+                }
+                callback(Result.success(list))
+            }
+            .addOnFailureListener { exception ->
+                callback(Result.failure(exception))
+            }
+    }
 }
