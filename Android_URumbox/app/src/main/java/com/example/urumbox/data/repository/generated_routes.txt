@@ -1,0 +1,266 @@
+        val ruta_casur = Ruta(
+            id_ruta = "ruta_casur",
+            nombre = "Ruta de Acceso a Casur",
+            origen = "Entrada Principal",
+            destino = "Casur",
+            coordenadas = listOf(
+                com.example.urumbox.data.model.Coordenada(448.0f, 325.0f, 1),
+                com.example.urumbox.data.model.Coordenada(287.0f, 325.0f, 1),
+                com.example.urumbox.data.model.Coordenada(287.0f, 247.0f, 1),
+                com.example.urumbox.data.model.Coordenada(228.0f, 321.0f, 2),
+                com.example.urumbox.data.model.Coordenada(231.0f, 686.0f, 2),
+                com.example.urumbox.data.model.Coordenada(236.0f, 794.0f, 2),
+                com.example.urumbox.data.model.Coordenada(236.0f, 914.0f, 2)
+            ),
+            pasos = listOf(
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 1,
+                    titulo = "Ubicate en la entrada principal",
+                    descripcion = "Aqui comienza el trayecto",
+                    icono = "ic_walk",
+                    pasos_requeridos = 4,
+                    piso = 1,
+                    x = 448.0f,
+                    y = 325.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 2,
+                    titulo = "Camina hasta las escaleras",
+                    descripcion = "Gira a la derecha y camina hasta llegar a las escaleras",
+                    icono = "ic_walk",
+                    pasos_requeridos = 7,
+                    piso = 1,
+                    x = 287.0f,
+                    y = 325.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 3,
+                    titulo = "Sube las escaleras",
+                    descripcion = "",
+                    icono = "ic_stairs",
+                    pasos_requeridos = 28,
+                    piso = 1,
+                    x = 287.0f,
+                    y = 247.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 4,
+                    titulo = "Sal de las escaleras",
+                    descripcion = "",
+                    icono = "ic_walk",
+                    pasos_requeridos = 2,
+                    piso = 2,
+                    x = 228.0f,
+                    y = 321.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 5,
+                    titulo = "Camina derecho",
+                    descripcion = "Camina recto hasta el pasillo",
+                    icono = "ic_walk",
+                    pasos_requeridos = 24,
+                    piso = 2,
+                    x = 231.0f,
+                    y = 686.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 6,
+                    titulo = "Atraviesa el pasillo",
+                    descripcion = "Camina por el pasillo hasta Casur",
+                    icono = "ic_walk",
+                    pasos_requeridos = 8,
+                    piso = 2,
+                    x = 236.0f,
+                    y = 794.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 7,
+                    titulo = "Llega a Casur",
+                    descripcion = "Entra a Casur",
+                    icono = "ic_arrive",
+                    pasos_requeridos = 20,
+                    piso = 2,
+                    x = 236.0f,
+                    y = 914.0f
+                )
+            )
+        )
+        db.collection("rutas").document("ruta_casur").set(ruta_casur)
+
+        val ruta_rectoria = Ruta(
+            id_ruta = "ruta_rectoria",
+            nombre = "Ruta de Acceso a Rectoria",
+            origen = "Teatrino",
+            destino = "Rectoria",
+            coordenadas = listOf(
+                com.example.urumbox.data.model.Coordenada(230.0f, 827.0f, 1),
+                com.example.urumbox.data.model.Coordenada(287.0f, 325.0f, 1),
+                com.example.urumbox.data.model.Coordenada(287.0f, 247.0f, 1),
+                com.example.urumbox.data.model.Coordenada(228.0f, 321.0f, 2),
+                com.example.urumbox.data.model.Coordenada(667.0f, 325.0f, 2),
+                com.example.urumbox.data.model.Coordenada(675.0f, 450.0f, 2),
+                com.example.urumbox.data.model.Coordenada(722.0f, 453.0f, 2)
+            ),
+            pasos = listOf(
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 1,
+                    titulo = "Ubicate en el Teatrino",
+                    descripcion = "Aqui comienza el trayecto",
+                    icono = "ic_walk",
+                    pasos_requeridos = 4,
+                    piso = 1,
+                    x = 230.0f,
+                    y = 827.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 2,
+                    titulo = "Camina hasta las escaleras",
+                    descripcion = "Camina recto hasta las escaleras",
+                    icono = "ic_walk",
+                    pasos_requeridos = 24,
+                    piso = 1,
+                    x = 287.0f,
+                    y = 325.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 3,
+                    titulo = "Sube las escaleras",
+                    descripcion = "",
+                    icono = "ic_stairs",
+                    pasos_requeridos = 28,
+                    piso = 1,
+                    x = 287.0f,
+                    y = 247.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 4,
+                    titulo = "Sal de las escaleras",
+                    descripcion = "",
+                    icono = "ic_walk",
+                    pasos_requeridos = 2,
+                    piso = 2,
+                    x = 228.0f,
+                    y = 321.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 5,
+                    titulo = "Camina por la izquierda",
+                    descripcion = "Camina por la izquierda hasta llegar a la esquina",
+                    icono = "ic_walk",
+                    pasos_requeridos = 24,
+                    piso = 2,
+                    x = 667.0f,
+                    y = 325.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 6,
+                    titulo = "Gira y Camina",
+                    descripcion = "Gira a tu derecha y camina hasta rectoría",
+                    icono = "ic_walk",
+                    pasos_requeridos = 8,
+                    piso = 2,
+                    x = 675.0f,
+                    y = 450.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 7,
+                    titulo = "Llega a rectoria",
+                    descripcion = "Entra a Rectoria",
+                    icono = "ic_arrive",
+                    pasos_requeridos = 4,
+                    piso = 2,
+                    x = 722.0f,
+                    y = 453.0f
+                )
+            )
+        )
+        db.collection("rutas").document("ruta_rectoria").set(ruta_rectoria)
+
+        val ruta_auditorio = Ruta(
+            id_ruta = "ruta_auditorio",
+            nombre = "Ruta de Acceso a Auditorio",
+            origen = "Casur",
+            destino = "Auditorio",
+            coordenadas = listOf(
+                com.example.urumbox.data.model.Coordenada(236.0f, 794.0f, 2),
+                com.example.urumbox.data.model.Coordenada(228.0f, 321.0f, 2),
+                com.example.urumbox.data.model.Coordenada(229.0f, 249.0f, 2),
+                com.example.urumbox.data.model.Coordenada(287.0f, 247.0f, 1),
+                com.example.urumbox.data.model.Coordenada(667.0f, 333.0f, 1),
+                com.example.urumbox.data.model.Coordenada(667.0f, 551.0f, 1),
+                com.example.urumbox.data.model.Coordenada(723.0f, 551.0f, 1)
+            ),
+            pasos = listOf(
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 1,
+                    titulo = "Ubicate en el Pasillo de Casur",
+                    descripcion = "Aqui comienza el trayecto",
+                    icono = "ic_walk",
+                    pasos_requeridos = 4,
+                    piso = 2,
+                    x = 236.0f,
+                    y = 794.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 2,
+                    titulo = "Camina derecho",
+                    descripcion = "Camina recto hasta las escaleras",
+                    icono = "ic_walk",
+                    pasos_requeridos = 24,
+                    piso = 2,
+                    x = 228.0f,
+                    y = 321.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 3,
+                    titulo = "Baja las escaleras",
+                    descripcion = "",
+                    icono = "ic_stairs",
+                    pasos_requeridos = 28,
+                    piso = 2,
+                    x = 229.0f,
+                    y = 249.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 4,
+                    titulo = "Sal de las escaleras",
+                    descripcion = "",
+                    icono = "ic_walk",
+                    pasos_requeridos = 2,
+                    piso = 1,
+                    x = 287.0f,
+                    y = 247.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 5,
+                    titulo = "Gira y Camina",
+                    descripcion = "Gira a tu izquierda y camina hasta la esquina",
+                    icono = "ic_walk",
+                    pasos_requeridos = 32,
+                    piso = 1,
+                    x = 667.0f,
+                    y = 333.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 6,
+                    titulo = "Gira y Camina",
+                    descripcion = "Gira a tu derecha y camina hasta el auditorio",
+                    icono = "ic_walk",
+                    pasos_requeridos = 20,
+                    piso = 1,
+                    x = 667.0f,
+                    y = 551.0f
+                ),
+                com.example.urumbox.data.model.PasoNav(
+                    num_paso = 7,
+                    titulo = "Llega al auditorio",
+                    descripcion = "Entra al auditorio",
+                    icono = "ic_arrive",
+                    pasos_requeridos = 5,
+                    piso = 1,
+                    x = 723.0f,
+                    y = 551.0f
+                )
+            )
+        )
+        db.collection("rutas").document("ruta_auditorio").set(ruta_auditorio)
