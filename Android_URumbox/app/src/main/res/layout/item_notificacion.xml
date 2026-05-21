@@ -31,6 +31,11 @@
             app:layout_constraintBottom_toBottomOf="@id/tvHora" />
 
         <!-- Hora -->
+
+        <!-- Badge de tipo -->
+
+        <!-- Divider horizontal -->
+
         <TextView
             android:id="@+id/tvHora"
             android:layout_width="0dp"
@@ -41,15 +46,16 @@
             android:textColor="@color/primario"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/indicadorNoLeido"
             app:layout_constraintEnd_toStartOf="@id/tvTipo"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/indicadorNoLeido"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Badge de tipo -->
         <TextView
             android:id="@+id/tvTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/bg_button_blue_rounded"
             android:paddingStart="10dp"
             android:paddingTop="3dp"
@@ -58,11 +64,11 @@
             android:text="Solicitud"
             android:textColor="@color/white"
             android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvHora"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/tvHora" />
+            app:layout_constraintVertical_bias="0.0" />
 
-        <!-- Divider horizontal -->
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"
