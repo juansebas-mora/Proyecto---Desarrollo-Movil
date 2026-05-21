@@ -11,7 +11,10 @@ data class PasoNav(
     val titulo: String = "",
     val descripcion: String = "",
     val icono: String = "ic_walk",
-    val pasos_requeridos: Int = 10
+    val pasos_requeridos: Int = 10,
+    val piso: Int = 1,
+    val x: Float = 0f,
+    val y: Float = 0f
 )
 
 data class Ruta(

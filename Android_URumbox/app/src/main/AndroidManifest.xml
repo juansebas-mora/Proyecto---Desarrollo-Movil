@@ -34,7 +34,6 @@
 
         <activity android:name=".mapasactivity.BusquedaActivity" android:exported="false" />
         <activity android:name=".mapasactivity.MapaActivity" android:exported="false" />
-        <activity android:name=".mapasactivity.PasosActivity" android:exported="false" />
         <activity android:name=".objetosactivity.ObjetosActivity" android:exported="false" />
 
         <activity android:name=".useractivity.PerfilActivity" android:exported="false" />
@@ -59,6 +58,7 @@
         <activity android:name=".accessactivity.AccessRequestActivity" android:exported="false" />
         <activity android:name=".accessactivity.AccessRequestConsultActivity" android:exported="false" />
         <activity android:name=".accessactivity.AccessQrActivity" android:exported="false" />
+        <activity android:name=".accessactivity.QrScannerActivity" android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
