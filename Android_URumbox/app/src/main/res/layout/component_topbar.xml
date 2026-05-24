@@ -11,7 +11,20 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Back Button -->
+    <!-- Volver Button -->
+    <ImageButton
+        android:id="@+id/btnVolver"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/circle_button_bg"
+        android:contentDescription="Volver"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+    <!-- Back Button (oculto) -->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="50dp"
@@ -23,7 +36,7 @@
         android:visibility="gone"
         app:tint="@color/fondo"
         app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnVolver"
         app:layout_constraintTop_toTopOf="@+id/tvTitle" />
 
     <!-- Title -->
@@ -31,14 +44,14 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="12dp"
         android:paddingTop="25dp"
         android:paddingBottom="25dp"
         android:text="Accesos"
         android:textColor="@color/fondo"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/btnBack"
+        app:layout_constraintStart_toEndOf="@+id/btnVolver"
         app:layout_constraintEnd_toStartOf="@+id/btnNotification"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

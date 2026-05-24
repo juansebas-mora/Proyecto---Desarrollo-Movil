@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
 
@@ -17,7 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.URumbox">
 
-        <!-- Ventana de Inicio (Bienvenida/Login/Registro) -->
         <activity
             android:name=".useractivity.InicioActivity"
             android:exported="true">
@@ -27,15 +26,10 @@
             </intent-filter>
         </activity>
 
-        <!-- Ventana principal del Dashboard -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-
+        <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".mapasactivity.BusquedaActivity" android:exported="false" />
         <activity android:name=".mapasactivity.MapaActivity" android:exported="false" />
         <activity android:name=".objetosactivity.ObjetosActivity" android:exported="false" />
-
         <activity android:name=".useractivity.PerfilActivity" android:exported="false" />
         <activity android:name=".useractivity.LoginSActivity" android:exported="false" />
         <activity android:name=".useractivity.RegistroActivity" android:exported="false" />
@@ -46,13 +40,12 @@
         <activity android:name=".useractivity.ComentarioActivity" android:exported="false" />
         <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
         <activity android:name=".useractivity.VersionActivity" android:exported="false" />
-
-        <activity android:name=".ReportarEmergenciaActivity" android:exported="false" />
-        <activity android:name=".RutaEvacuacionActivity" android:exported="false" />
-        <activity android:name=".PuntosEncuentroActivity" android:exported="false" />
+        <activity android:name=".emergencyactivity.EmergenciasActivity" android:exported="false" />
+        <activity android:name=".emergencyactivity.ReportarEmergenciaActivity" android:exported="false" />
+        <activity android:name=".emergencyactivity.RutaEvacuacionActivity" android:exported="false" />
+        <activity android:name=".emergencyactivity.PuntosEncuentroActivity" android:exported="false" />
         <activity android:name=".ConfirmacionActivity" android:exported="false" />
         <activity android:name=".notificationactivity.NotificationActivity" android:exported="false" />
-
         <activity android:name=".accessactivity.AccessMainActivity" android:exported="false" />
         <activity android:name=".accessactivity.AccessHistoryActivity" android:exported="false" />
         <activity android:name=".accessactivity.AccessRequestActivity" android:exported="false" />
@@ -60,9 +53,10 @@
         <activity android:name=".accessactivity.AccessQrActivity" android:exported="false" />
         <activity android:name=".accessactivity.QrScannerActivity" android:exported="false" />
 
+        <!-- UN SOLO provider con authority fileprovider -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
+            android:authorities="com.example.urumbox.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
