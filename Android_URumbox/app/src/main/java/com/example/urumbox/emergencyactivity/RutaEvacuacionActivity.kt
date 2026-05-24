@@ -1,11 +1,13 @@
 package com.example.urumbox.emergencyactivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.urumbox.R
+import com.example.urumbox.mapasactivity.MapaActivity
+import com.example.urumbox.ui.InteractiveMapView
 
 class RutaEvacuacionActivity : AppCompatActivity() {
 
@@ -13,14 +15,15 @@ class RutaEvacuacionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ruta_evacuacion)
 
-        // Botón volver
-        findViewById<ImageButton>(R.id.btnVolver).setOnClickListener {
-            finish()
-        }
+        // Mapa sin ruta por ahora
+        findViewById<InteractiveMapView>(R.id.interactiveMapView)
+            .setRouteData(emptyList(), null)
 
-        // Botón SIGA LA RUTA
+        // Botón SIGA LA RUTA abre MapaActivity con la ruta completa
         findViewById<Button>(R.id.btnSigueLaRuta).setOnClickListener {
-            Toast.makeText(this, "Iniciando navegación...", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MapaActivity::class.java)
+            intent.putExtra("id_ruta", "ruta_claustro_test")
+            startActivity(intent)
         }
     }
 }

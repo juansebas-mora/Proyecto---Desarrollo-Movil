@@ -6,15 +6,12 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- TOP BAR -->
     <com.example.urumbox.TopbarView
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:topbarTitle="Puntos de Encuentro"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:topbarTitle="Puntos de Encuentro" />
 
-    <!-- BOTTOM NAVIGATION -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -26,7 +23,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- MAP PLACEHOLDER -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -34,29 +30,22 @@
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp">
 
-                <FrameLayout
+                <com.example.urumbox.ui.InteractiveMapView
+                    android:id="@+id/interactiveMapView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#E0E0E0">
+                    android:scaleType="fitCenter" />
 
-                    <ImageView
-                        android:id="@+id/imgMapPuntos"
-                        android:layout_width="match_parent"
-                        android:layout_height="201dp"
-                        android:scaleType="centerCrop"/>
-                </FrameLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- PUNTOS LIST -->
             <!-- Punto A -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
-                android:gravity="center_vertical"
                 android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -67,7 +56,6 @@
                     android:textColor="#FFFFFF"
                     android:textSize="25sp"
                     android:textStyle="bold" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,7 +72,6 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -95,7 +82,6 @@
                     android:textColor="#FFFFFF"
                     android:textSize="25sp"
                     android:textStyle="bold" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,7 +98,6 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -123,7 +108,6 @@
                     android:textColor="#FFFFFF"
                     android:textSize="25sp"
                     android:textStyle="bold" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,15 +115,13 @@
                     android:textColor="#333333"
                     android:textSize="25sp" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="80dp" />
 
 </LinearLayout>

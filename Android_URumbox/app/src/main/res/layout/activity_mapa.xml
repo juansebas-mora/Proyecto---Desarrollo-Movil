@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo">
+    android:background="@color/primario">
 
     <com.example.urumbox.TopbarView
         android:id="@+id/topBar"
@@ -24,6 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
+        <!-- Map Container Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardMap"
             android:layout_width="0dp"
@@ -42,115 +43,487 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#F5F5F5">
-                <ImageView
+                <com.example.urumbox.ui.InteractiveMapView
+                    android:id="@+id/interactiveMapView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_box"
-                    android:alpha="0.1" />
-
-                <ImageButton
-                    android:id="@+id/btnGoToPasos"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="bottom|end"
-                    android:layout_margin="16dp"
-                    android:background="@color/secundario"
-                    android:elevation="4dp"
-                    android:src="@drawable/ic_go_to_pasos"
-                    android:contentDescription="Ir a pasos"
-                    app:tint="@color/white" />
+                    android:scaleType="fitCenter" />
             </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/card_bottom_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <!-- Steps List Container ScrollView (initially hidden, matches cardMap constraints) -->
+        <ScrollView
+            android:id="@+id/scrollViewPasos"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/card_bottom_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:id="@+id/layout_rooms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical"
+                android:paddingBottom="12dp">
 
+                <!-- Paso 1 -->
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="0dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardUseCompatPadding="true"
-                    app:strokeColor="#1A000000"
-                    app:strokeWidth="1dp"
-                    app:cardBackgroundColor="@color/white">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dp"
-                        android:text="Sala 2172\nCASUR"
-                        android:textStyle="bold"
-                        android:textColor="@color/primario" />
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardReunion"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
-                    app:cardUseCompatPadding="true"
-                    app:strokeColor="#1A000000"
-                    app:strokeWidth="1dp"
-                    app:cardBackgroundColor="@color/white">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dp"
-                        android:text="Reunión general de la\njunta de directivos..."
-                        android:textStyle="bold"
-                        android:textColor="@color/primario"
-                        android:maxLines="2"
-                        android:ellipsize="end" />
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:cardUseCompatPadding="true"
-                app:strokeColor="#1A000000"
-                app:strokeWidth="1dp"
-                app:cardBackgroundColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/layout_rooms">
-                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="14dp"
-                    android:text="Faltan 15 min | 9:00 a.m."
+                    android:layout_marginBottom="9dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="#1A000000"
+                    app:strokeWidth="1dp"
+                    app:cardBackgroundColor="#F4F7FB">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+                        <TextView
+                            android:id="@+id/tvStep1Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Paso 1"
+                            android:textStyle="bold"
+                            android:textColor="@color/azul_ur"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep1Icon" />
+                        <TextView
+                            android:id="@+id/tvStep1Desc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Descripción"
+                            android:textSize="13sp"
+                            android:textColor="#888888"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep1Title"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep1Icon" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnStep1"
+                            android:layout_width="110dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="12dp"
+                            android:text="Volver aquí"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:background="@drawable/bg_button_rounded_10"
+                            android:textColor="@color/blanco"
+                            android:elevation="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep1Desc" />
+
+                        <ImageView
+                            android:id="@+id/ivStep1Icon"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_location_current"
+                            android:background="@drawable/bg_status_badge"
+                            android:padding="8dp"
+                            android:elevation="4dp"
+                            app:tint="@color/azul_ur"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Paso 2 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="#1A000000"
+                    app:strokeWidth="1dp"
+                    app:cardBackgroundColor="#F4F7FB">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+                        <TextView
+                            android:id="@+id/tvStep2Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Paso 2"
+                            android:textStyle="bold"
+                            android:textColor="@color/azul_ur"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep2Icon" />
+                        <TextView
+                            android:id="@+id/tvStep2Desc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Descripción"
+                            android:textSize="13sp"
+                            android:textColor="#888888"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep2Title"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep2Icon" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnStep2"
+                            android:layout_width="110dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="12dp"
+                            android:text="Saltar aquí"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:background="@drawable/bg_button_rounded_10"
+                            android:textColor="@color/blanco"
+                            android:elevation="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep2Desc" />
+
+                        <ImageView
+                            android:id="@+id/ivStep2Icon"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_location_current"
+                            android:background="@drawable/bg_status_badge"
+                            android:padding="8dp"
+                            android:elevation="4dp"
+                            app:tint="@color/azul_ur"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Paso 3 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="#1A000000"
+                    app:strokeWidth="1dp"
+                    app:cardBackgroundColor="#F4F7FB">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+                        <TextView
+                            android:id="@+id/tvStep3Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Paso 3"
+                            android:textStyle="bold"
+                            android:textColor="@color/azul_ur"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep3Icon" />
+                        <TextView
+                            android:id="@+id/tvStep3Desc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Descripción"
+                            android:textSize="13sp"
+                            android:textColor="#888888"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep3Title"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep3Icon" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnStep3"
+                            android:layout_width="110dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="12dp"
+                            android:text="Saltar aquí"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:background="@drawable/bg_button_rounded_10"
+                            android:textColor="@color/blanco"
+                            android:elevation="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep3Desc" />
+
+                        <ImageView
+                            android:id="@+id/ivStep3Icon"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_location_current"
+                            android:background="@drawable/bg_status_badge"
+                            android:padding="8dp"
+                            android:elevation="4dp"
+                            app:tint="@color/azul_ur"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Paso 4 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="#1A000000"
+                    app:strokeWidth="1dp"
+                    app:cardBackgroundColor="#F4F7FB">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+                        <TextView
+                            android:id="@+id/tvStep4Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Paso 4"
+                            android:textStyle="bold"
+                            android:textColor="@color/azul_ur"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep4Icon" />
+                        <TextView
+                            android:id="@+id/tvStep4Desc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Descripción"
+                            android:textSize="13sp"
+                            android:textColor="#888888"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep4Title"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep4Icon" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnStep4"
+                            android:layout_width="110dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="12dp"
+                            android:text="Saltar aquí"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:background="@drawable/bg_button_rounded_10"
+                            android:textColor="@color/blanco"
+                            android:elevation="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep4Desc" />
+
+                        <ImageView
+                            android:id="@+id/ivStep4Icon"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_location_current"
+                            android:background="@drawable/bg_status_badge"
+                            android:padding="8dp"
+                            android:elevation="4dp"
+                            app:tint="@color/azul_ur"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Paso 5 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="#1A000000"
+                    app:strokeWidth="1dp"
+                    app:cardBackgroundColor="#F4F7FB">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+                        <TextView
+                            android:id="@+id/tvStep5Title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Paso 5"
+                            android:textStyle="bold"
+                            android:textColor="@color/azul_ur"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep5Icon" />
+                        <TextView
+                            android:id="@+id/tvStep5Desc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Descripción"
+                            android:textSize="13sp"
+                            android:textColor="#888888"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep5Title"
+                            app:layout_constraintEnd_toStartOf="@+id/ivStep5Icon" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnStep5"
+                            android:layout_width="110dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="12dp"
+                            android:text="Llegué"
+                            android:textSize="12sp"
+                            android:textAllCaps="false"
+                            android:background="@drawable/bg_button_rounded_10"
+                            android:textColor="@color/blanco"
+                            android:elevation="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvStep5Desc" />
+
+                        <ImageView
+                            android:id="@+id/ivStep5Icon"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_location_current"
+                            android:background="@drawable/bg_status_badge"
+                            android:padding="8dp"
+                            android:elevation="4dp"
+                            app:tint="@color/azul_ur"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Single Floating Action Button for Seamless Map/Steps transition -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnMapToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:src="@drawable/ic_go_to_pasos"
+            android:contentDescription="Alternar mapa e instrucciones"
+            app:backgroundTint="@color/secundario"
+            app:tint="@color/white"
+            app:elevation="8dp"
+            app:maxImageSize="32dp"
+            app:layout_constraintBottom_toTopOf="@id/card_bottom_info"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Card bottom info for active navigation step -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_bottom_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/white"
+            app:strokeColor="#1A000000"
+            app:strokeWidth="1dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvDestinationName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sala 2172 CASUR"
                     android:textStyle="bold"
+                    android:textSize="18sp"
                     android:textColor="@color/primario" />
-            </com.google.android.material.card.MaterialCardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvRouteStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Piso 1 | Paso 1 de 5"
+                    android:textSize="14sp"
+                    android:textColor="@color/texto_secundario" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@color/gris_linea" />
+
+                <!-- General Title of active navigation step -->
+                <TextView
+                    android:id="@+id/tvStepTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Título del Paso"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/primario" />
+
+                <!-- Specific Description of active navigation step -->
+                <TextView
+                    android:id="@+id/tvNextInstruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Descripción o instrucción específica del paso"
+                    android:textSize="14sp"
+                    android:textColor="@color/texto_secundario" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPrevStep"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Anterior"
+                        android:textColor="#64748B" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNextStep"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Siguiente"
+                        app:backgroundTint="@color/secundario" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Fondo extra para tapar el azul en los bordes redondeados -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#F4F7FB"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"

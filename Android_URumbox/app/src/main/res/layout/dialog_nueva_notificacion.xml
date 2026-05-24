@@ -136,6 +136,31 @@
                 android:inputType="text"
                 android:layout_marginBottom="20dp" />
 
+            <!-- Ubicación exacta -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UBICACIÓN EXACTA"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.08"
+                android:textColor="@color/primario"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etNuevaUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_field"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:hint="Ej: Entrada norte, frente al ascensor"
+                android:textColorHint="@color/texto_secundario"
+                android:textColor="@color/primario"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:layout_marginBottom="20dp" />
+
             <!-- Descripción -->
             <TextView
                 android:layout_width="wrap_content"

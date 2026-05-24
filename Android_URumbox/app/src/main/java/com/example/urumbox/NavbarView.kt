@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.LayoutInflater
 import com.example.urumbox.accessactivity.AccessMainActivity
+import com.example.urumbox.objetosactivity.ObjetosActivity
 import com.example.urumbox.emergencyactivity.EmergenciasActivity
 
 class NavbarView @JvmOverloads constructor(
@@ -58,6 +59,7 @@ class NavbarView @JvmOverloads constructor(
         }
     }
 
+    // Keep this method for backwards compatibility or overrides
     fun setOnButtonsClickListener(
         onHome: () -> Unit,
         onBox: () -> Unit,

@@ -1,8 +1,8 @@
 package com.example.urumbox.data.repository
 
 import com.example.urumbox.data.model.AccessRequest
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.firestore
+import com.google.firebase.Firebase
 
 class AccessRequestRepository {
 
@@ -18,8 +18,9 @@ class AccessRequestRepository {
             .addOnFailureListener { e -> onResult(Result.failure(e)) }
     }
 
-    fun getAccessRequests(onResult: (Result<List<AccessRequest>>) -> Unit) {
-        collection.get()
+    fun getAccessRequests(userId: String, onResult: (Result<List<AccessRequest>>) -> Unit) {
+        collection.whereEqualTo("userId", userId)
+            .get()
             .addOnSuccessListener { snapshot ->
                 val requests = snapshot.documents.mapNotNull { doc ->
                     doc.toObject(AccessRequest::class.java)

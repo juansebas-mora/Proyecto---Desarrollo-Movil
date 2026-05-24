@@ -87,14 +87,14 @@
                     app:layout_constraintStart_toEndOf="@+id/avatarContainer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/avatarContainer"
-                    app:layout_constraintBottom_toTopOf="@+id/tvUserCC" />
+                    app:layout_constraintBottom_toTopOf="@+id/tvUserEmail" />
 
                 <!-- User CC -->
                 <TextView
-                    android:id="@+id/tvUserCC"
+                    android:id="@+id/tvUserEmail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="C.C: 1000000000"
+                    android:text="test.test@urosario.edu.co"
                     android:textSize="13sp"
                     android:textColor="#666666"
                     android:layout_marginStart="16dp"

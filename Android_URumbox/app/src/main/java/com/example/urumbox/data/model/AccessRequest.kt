@@ -6,5 +6,6 @@ data class AccessRequest(
     val apellidos: String = "",
     val correo: String = "",
     val documento: String = "",
-    val fecha: String = ""
+    val fecha: String = "",
+    val userId: String = ""
 )

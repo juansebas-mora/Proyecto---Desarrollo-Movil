@@ -6,9 +6,6 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <!-- HEADER -->
-
-    <!-- CONTENIDO -->
     <com.example.urumbox.TopbarView
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -27,11 +24,9 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- TARJETAS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
@@ -42,19 +37,16 @@
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardBackgroundColor="#F0F4F8">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <ImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:src="@drawable/ic_map_route"
                             app:tint="#1B3E63" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -72,19 +64,16 @@
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardBackgroundColor="#F0F4F8">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <ImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:src="@drawable/ic_location_pin"
                             app:tint="#1B3E63" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -102,23 +91,16 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#E0E0E0">
+                app:cardCornerRadius="12dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="📍 Tu ubicación actual"
-                    android:textColor="#1B3E63"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                <com.example.urumbox.ui.InteractiveMapView
+                    android:id="@+id/interactiveMapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter" />
 
             </androidx.cardview.widget.CardView>
 
-            <!-- BOTÓN REPORTAR EMERGENCIA -->
-
-            <!-- AVISO -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReportarEmergencia"
                 android:layout_width="match_parent"
@@ -144,7 +126,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- NAVBAR -->
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
