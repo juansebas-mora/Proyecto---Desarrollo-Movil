@@ -2,6 +2,7 @@ package com.example.urumbox.useractivity
 
 import android.Manifest
 import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -11,6 +12,8 @@ import android.os.Environment
 import android.provider.Settings
 import android.util.Patterns
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.Switch
@@ -41,9 +44,11 @@ import com.example.urumbox.databinding.ActivityPerfilBinding
 import com.example.urumbox.databinding.ActivityPermisosBinding
 import com.example.urumbox.databinding.ActivityRegistroBinding
 import com.example.urumbox.databinding.ActivityVersionBinding
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.firestore.FirebaseFirestore
@@ -95,12 +100,7 @@ class CambiarContrasenaActivity : AppCompatActivity() {
                     is AuthResult.Loading -> binding.btnGuardar.isEnabled = false
                     is AuthResult.Success -> {
                         binding.btnGuardar.isEnabled = true
-                        MaterialAlertDialogBuilder(this@CambiarContrasenaActivity)
-                            .setTitle("Contraseña actualizada")
-                            .setMessage("Tu contraseña ha sido cambiada correctamente.")
-                            .setPositiveButton("Aceptar") { _, _ -> finish() }
-                            .setCancelable(false)
-                            .show()
+                        mostrarDialogoContrasenaActualizada()
                     }
                     is AuthResult.Error -> {
                         binding.btnGuardar.isEnabled = true
@@ -114,6 +114,24 @@ class CambiarContrasenaActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun mostrarDialogoContrasenaActualizada() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_contrasena_actualizada)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setDimAmount(0.6f)
+        dialog.setCancelable(false)
+        dialog.findViewById<MaterialButton>(R.id.btnAceptar).setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
+        dialog.show()
     }
 
     private fun validarCampos(actual: String, nueva: String, confirmar: String): Boolean {
@@ -161,6 +179,43 @@ class ComentarioActivity : AppCompatActivity() {
         }
 
         binding.topBar.setOnBackClickListener { finish() }
+
+        binding.btnEnviar.setOnClickListener {
+            val asunto = binding.etAsunto.text.toString().trim()
+            val comentario = binding.etComentario.text.toString().trim()
+
+            if (asunto.isEmpty()) {
+                Toast.makeText(this, "El asunto no puede estar vacío", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (comentario.isEmpty()) {
+                Toast.makeText(this, "El comentario no puede estar vacío", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+            val correo = FirebaseAuth.getInstance().currentUser?.email ?: ""
+
+            val nuevoComentario = hashMapOf(
+                "uid" to uid,
+                "correo" to correo,
+                "asunto" to asunto,
+                "comentario" to comentario,
+                "fecha" to Timestamp.now(),
+                "estado" to "pendiente"
+            )
+
+            FirebaseFirestore.getInstance().collection("comentarios")
+                .add(nuevoComentario)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Comentario enviado correctamente", Toast.LENGTH_SHORT).show()
+                    binding.etAsunto.setText("")
+                    binding.etComentario.setText("")
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error al enviar: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 }
 
@@ -292,6 +347,7 @@ class InfoPersonalActivity : AppCompatActivity() {
                 binding.tvUsuarioValor.text = usuario
                 binding.tvCorreoValor.text = correo
                 binding.tvRolValor.text = rol
+                binding.tvDocumentoValor.text = doc.getString("documentoIdentidad") ?: ""
                 binding.etTelefono.setText(doc.getString("telefono") ?: "")
                 binding.tvNacimientoValor.text = doc.getString("fechaNacimiento") ?: ""
             }
@@ -385,6 +441,18 @@ class PerfilActivity : AppCompatActivity() {
             startActivity(Intent(this, ConfiguracionActivity::class.java))
         }
 
+        binding.itemUsuarios.setOnClickListener {
+            startActivity(Intent(this, GestionUsuariosActivity::class.java))
+        }
+
+        binding.itemVerComentarios.setOnClickListener {
+            startActivity(Intent(this, VerComentariosActivity::class.java))
+        }
+
+        binding.itemValidarQR.setOnClickListener {
+            Toast.makeText(this, "Módulo de validación QR próximamente disponible.", Toast.LENGTH_SHORT).show()
+        }
+
         binding.itemCerrarSesion.setOnClickListener {
             auth.signOut()
             startActivity(Intent(this, InicioActivity::class.java))
@@ -407,15 +475,48 @@ class PerfilActivity : AppCompatActivity() {
                 val nombreCompleto = doc.getString("nombreCompleto")
                     ?: "${doc.getString("nombre") ?: ""} ${doc.getString("apellido") ?: ""}".trim()
                 binding.tvNombre.text = nombreCompleto.ifEmpty { user.email ?: "" }
-                binding.tvRol.text = doc.getString("rol") ?: ""
+                val rol = doc.getString("rol") ?: ""
+                binding.tvRol.text = rol
                 val fotoUrl = doc.getString("fotoPerfil")
                 if (!fotoUrl.isNullOrEmpty()) {
                     Glide.with(this).load(fotoUrl).circleCrop().into(binding.imgAvatar)
                 }
+                // Aplicar visibilidad de ítems del menú según el rol
+                aplicarPermisosPorRol(rol)
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Error al cargar datos del usuario", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun aplicarPermisosPorRol(rol: String) {
+        when (rol) {
+            "Administrador" -> {
+                binding.itemUsuarios.visibility = View.VISIBLE
+                binding.dividerUsuarios.visibility = View.VISIBLE
+                binding.itemVerComentarios.visibility = View.VISIBLE
+                binding.dividerVerComentarios.visibility = View.VISIBLE
+                binding.itemValidarQR.visibility = View.GONE
+                binding.dividerValidarQR.visibility = View.GONE
+            }
+            "Vigilante" -> {
+                binding.itemInfoPersonal.visibility = View.GONE
+                binding.dividerInfoPersonal.visibility = View.GONE
+                binding.itemConfiguracion.visibility = View.GONE
+                binding.dividerConfiguracion.visibility = View.GONE
+                binding.itemUsuarios.visibility = View.GONE
+                binding.dividerUsuarios.visibility = View.GONE
+                binding.itemValidarQR.visibility = View.VISIBLE
+                binding.dividerValidarQR.visibility = View.VISIBLE
+            }
+            else -> {
+                // "Usuario UR" o rol vacío: sin acceso a gestión de usuarios ni validación QR
+                binding.itemUsuarios.visibility = View.GONE
+                binding.dividerUsuarios.visibility = View.GONE
+                binding.itemValidarQR.visibility = View.GONE
+                binding.dividerValidarQR.visibility = View.GONE
+            }
+        }
     }
 
     private fun showPhotoSourceDialog() {
@@ -459,7 +560,7 @@ class PerfilActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Error al subir la foto", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al subir the foto", Toast.LENGTH_SHORT).show()
             }
     }
 }
@@ -607,7 +708,7 @@ class RegistroActivity : AppCompatActivity() {
             insets
         }
 
-        binding.btnBack.setOnClickListener { finish() }
+
 
         binding.etFecha.apply {
             isFocusable = false
@@ -624,8 +725,14 @@ class RegistroActivity : AppCompatActivity() {
             val fecha = binding.etFecha.text.toString().trim()
             val correo = binding.etCorreoReg.text.toString().trim()
             val contrasena = binding.etContrasenaReg.text.toString().trim()
+            val documento = binding.etDocumento.text.toString().trim()
 
             if (!validarCampos(nombre, apellido, telefono, fecha, correo, contrasena)) return@setOnClickListener
+
+            if (documento.isEmpty()) {
+                Toast.makeText(this, "El número de documento es obligatorio", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             if (!correo.endsWith("@urosario.edu.co")) {
                 Toast.makeText(
@@ -645,7 +752,7 @@ class RegistroActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                     } else {
-                        viewModel.registrar(correo, contrasena, nombre, apellido, telefono, fecha)
+                        viewModel.registrar(correo, contrasena, nombre, apellido, telefono, fecha, documento)
                     }
                 }
                 .addOnFailureListener { e ->
@@ -669,15 +776,7 @@ class RegistroActivity : AppCompatActivity() {
                     is AuthResult.Loading -> setLoading(true)
                     is AuthResult.Success -> {
                         setLoading(false)
-                        MaterialAlertDialogBuilder(this@RegistroActivity)
-                            .setTitle("Registro exitoso")
-                            .setMessage("Tu cuenta ha sido creada correctamente. Ya puedes iniciar sesión.")
-                            .setPositiveButton("Iniciar sesión") { _, _ ->
-                                startActivity(Intent(this@RegistroActivity, LoginSActivity::class.java))
-                                finish()
-                            }
-                            .setCancelable(false)
-                            .show()
+                        mostrarDialogoRegistroExitoso()
                     }
                     is AuthResult.Error -> {
                         setLoading(false)
@@ -687,6 +786,25 @@ class RegistroActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun mostrarDialogoRegistroExitoso() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_registro_exitoso)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setDimAmount(0.6f)
+        dialog.setCancelable(false)
+        dialog.findViewById<MaterialButton>(R.id.btnIniciarSesion).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, LoginSActivity::class.java))
+            finish()
+        }
+        dialog.show()
     }
 
     private fun mostrarSelectorFecha() {
@@ -834,8 +952,25 @@ class LoginSActivity : AppCompatActivity() {
                     is AuthResult.Loading -> setLoading(true)
                     is AuthResult.Success -> {
                         setLoading(false)
-                        startActivity(Intent(this@LoginSActivity, MainActivity::class.java))
-                        finish()
+                        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return@collect
+                        FirebaseFirestore.getInstance().collection("usuarios").document(uid).get()
+                            .addOnSuccessListener { doc ->
+                                if (doc.getString("estado") == "inactivo") {
+                                    FirebaseAuth.getInstance().signOut()
+                                    Toast.makeText(
+                                        this@LoginSActivity,
+                                        "Tu cuenta ha sido desactivada. Contacta al administrador.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } else {
+                                    startActivity(Intent(this@LoginSActivity, MainActivity::class.java))
+                                    finish()
+                                }
+                            }
+                            .addOnFailureListener {
+                                startActivity(Intent(this@LoginSActivity, MainActivity::class.java))
+                                finish()
+                            }
                     }
                     is AuthResult.Error -> {
                         setLoading(false)
@@ -873,55 +1008,47 @@ class LoginSActivity : AppCompatActivity() {
     }
 
     private fun mostrarDialogoRecuperacion() {
-        val inputLayout = TextInputLayout(this)
-        val inputField = TextInputEditText(this).apply {
-            hint = "nombre@urosario.edu.co"
-            inputType = android.text.InputType.TYPE_CLASS_TEXT or
-                    android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-        }
-        inputLayout.addView(inputField)
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_recuperar_contrasena)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setDimAmount(0.6f)
+        dialog.setCancelable(true)
 
-        val padding = (20 * resources.displayMetrics.density).toInt()
-        val container = FrameLayout(this).apply {
-            setPadding(padding, padding / 4, padding, 0)
-        }
-        container.addView(inputLayout)
-
-        val dialog = MaterialAlertDialogBuilder(this)
-            .setTitle("Recuperar contraseña")
-            .setMessage("Ingresa tu correo institucional @urosario.edu.co")
-            .setView(container)
-            .setPositiveButton("Enviar", null)
-            .setNegativeButton("Cancelar", null)
-            .show()
-
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            val correo = inputField.text.toString().trim()
-            if (correo.isEmpty() || !correo.endsWith("@urosario.edu.co")) {
-                Toast.makeText(this, "Ingresa un correo válido @urosario.edu.co", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+        val correoUsuario = binding.etCorreo.text.toString().trim()
+        dialog.findViewById<android.widget.TextView>(R.id.tvCorreoSoporte).setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:urumbox@gmail.com")
+                putExtra(Intent.EXTRA_SUBJECT, "Recuperación de contraseña - $correoUsuario")
             }
-            FirebaseAuth.getInstance().sendPasswordResetEmail(correo)
-                .addOnSuccessListener {
-                    Toast.makeText(
-                        this,
-                        "Se envió un enlace de restablecimiento a tu correo institucional. Revisa tu bandeja de entrada y spam.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    dialog.dismiss()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+            startActivity(intent)
         }
+        dialog.findViewById<MaterialButton>(R.id.btnEntendido).setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun mostrarError(mensaje: String) {
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Error al iniciar sesión")
-            .setMessage(mensaje)
-            .setPositiveButton("Aceptar", null)
-            .show()
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_error_login)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.90).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setDimAmount(0.6f)
+        dialog.setCancelable(true)
+        dialog.findViewById<android.widget.TextView>(R.id.tvMensajeError).text = mensaje
+        dialog.findViewById<MaterialButton>(R.id.btnIntentarDeNuevo).setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }
 

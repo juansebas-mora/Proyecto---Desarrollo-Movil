@@ -17,7 +17,8 @@ class AuthRepository {
         nombre: String,
         apellido: String,
         telefono: String,
-        fechaNacimiento: String
+        fechaNacimiento: String,
+        documentoIdentidad: String
     ): AuthResult<Unit> = try {
         val result = auth.createUserWithEmailAndPassword(email, password).await()
         val uid = result.user?.uid ?: return AuthResult.Error("No se pudo obtener el usuario")
@@ -27,7 +28,9 @@ class AuthRepository {
                 "nombreCompleto" to "$nombre $apellido",
                 "usuario" to usuario,
                 "correo" to email,
-                "rol" to "Estudiante",
+                "rol" to "",
+                "estado" to "activo",
+                "documentoIdentidad" to documentoIdentidad,
                 "telefono" to telefono,
                 "fechaNacimiento" to fechaNacimiento
             )

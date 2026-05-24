@@ -40,11 +40,12 @@ class RegistroViewModel : ViewModel() {
         nombre: String,
         apellido: String,
         telefono: String,
-        fechaNacimiento: String
+        fechaNacimiento: String,
+        documentoIdentidad: String
     ) {
         _registroState.value = AuthResult.Loading
         viewModelScope.launch {
-            _registroState.value = repository.registrarUsuario(email, password, nombre, apellido, telefono, fechaNacimiento)
+            _registroState.value = repository.registrarUsuario(email, password, nombre, apellido, telefono, fechaNacimiento, documentoIdentidad)
         }
     }
 }

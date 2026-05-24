@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import com.example.urumbox.accessactivity.AccessMainActivity
 import com.example.urumbox.objetosactivity.ObjetosActivity
 
-
 class NavbarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

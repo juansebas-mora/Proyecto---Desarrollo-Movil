@@ -46,6 +46,8 @@
         <activity android:name=".useractivity.ComentarioActivity" android:exported="false" />
         <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
         <activity android:name=".useractivity.VersionActivity" android:exported="false" />
+        <activity android:name=".useractivity.GestionUsuariosActivity" android:exported="false" />
+        <activity android:name=".useractivity.VerComentariosActivity" android:exported="false" />
 
         <activity android:name=".ReportarEmergenciaActivity" android:exported="false" />
         <activity android:name=".RutaEvacuacionActivity" android:exported="false" />

@@ -22,7 +22,7 @@ import java.util.Locale
 
 // region AccessMain
 
-private val zxing: Any
+
 
 sealed class AccessMainEvent {
     object ShowAddVisitorDialog : AccessMainEvent()

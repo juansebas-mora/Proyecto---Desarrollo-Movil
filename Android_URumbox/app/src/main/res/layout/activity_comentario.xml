@@ -78,6 +78,7 @@
                         app:boxBackgroundColor="@color/blanco">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etAsunto"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Ej: Problema con el mapa"
@@ -107,6 +108,7 @@
                         app:boxBackgroundColor="@color/blanco">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etComentario"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:hint="Escribe tu comentario aquí..."

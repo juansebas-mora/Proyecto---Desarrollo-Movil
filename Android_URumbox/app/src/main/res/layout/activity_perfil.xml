@@ -144,6 +144,7 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/dividerInfoPersonal"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="0dp"
@@ -188,10 +189,143 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/dividerConfiguracion"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="0dp"
                         android:background="@color/gris_linea" />
+
+                    <!-- Ítem: Usuarios (solo Administrador) -->
+                    <LinearLayout
+                        android:id="@+id/itemUsuarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_icono_menu"
+                            android:contentDescription="Usuarios"
+                            android:padding="6dp"
+                            android:src="@drawable/ic_persona"
+                            app:tint="@color/azul_ur" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:text="Usuarios"
+                            android:textColor="@color/texto_principal"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Ir"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/dividerUsuarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gris_linea"
+                        android:visibility="gone" />
+
+                    <!-- Ítem: Ver Comentarios (solo Administrador) -->
+                    <LinearLayout
+                        android:id="@+id/itemVerComentarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_icono_menu"
+                            android:contentDescription="Ver comentarios"
+                            android:padding="6dp"
+                            android:src="@drawable/ic_info_circle"
+                            app:tint="@color/azul_ur" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:text="Ver comentarios"
+                            android:textColor="@color/texto_principal"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Ir"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/dividerVerComentarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gris_linea"
+                        android:visibility="gone" />
+
+                    <!-- Ítem: Validar QR (solo Vigilante) -->
+                    <LinearLayout
+                        android:id="@+id/itemValidarQR"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_icono_menu"
+                            android:contentDescription="Validar QR"
+                            android:padding="6dp"
+                            android:src="@drawable/ic_qrcode"
+                            app:tint="@color/azul_ur" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:text="Validar QR"
+                            android:textColor="@color/texto_principal"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Ir"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/dividerValidarQR"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gris_linea"
+                        android:visibility="gone" />
 
                     <!-- Ítem: Cerrar Sesión -->
                     <LinearLayout
