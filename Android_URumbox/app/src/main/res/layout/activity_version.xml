@@ -43,62 +43,71 @@
     </LinearLayout>
 
     <!-- CONTENIDO -->
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="24dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintBottom_toTopOf="@id/navbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Logo -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="#162d55">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- Logo -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#162d55">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="UR"
+                    android:textColor="@color/rojo_ur"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="UR"
-                android:textColor="@color/rojo_ur"
-                android:textSize="28sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="URumbox"
+                android:textColor="@color/azul_ur"
+                android:textSize="24sp"
                 android:textStyle="bold" />
-        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="URumbox"
-            android:textColor="@color/azul_ur"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Versión 1.0.0"
+                android:textColor="@color/texto_secundario"
+                android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Versión 1.0.0"
-            android:textColor="@color/texto_secundario"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Universidad del Rosario · 2026"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Universidad del Rosario · 2026"
-            android:textColor="@color/texto_secundario"
-            android:textSize="13sp" />
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <!-- BOTTOM NAvegacion -->
     <com.example.urumbox.NavbarView

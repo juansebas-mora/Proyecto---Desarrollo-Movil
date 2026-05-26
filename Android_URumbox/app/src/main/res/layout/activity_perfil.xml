@@ -4,66 +4,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo">
+    android:background="@color/azul_ur">
 
-    <!-- TOP BAR -->
-    <LinearLayout
+    <com.example.urumbox.TopbarView
         android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:background="@color/primario"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topbarTitle="Perfil"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Perfil"
-            android:textColor="@color/blanco"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/btnCampana"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/bg_icono_topbar"
-            android:src="@drawable/ic_notificationes"
-            android:padding="10dp"
-            android:contentDescription="Notificaciones" />
-
-        <ImageButton
-            android:id="@+id/btnUsuario"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_icono_topbar"
-            android:src="@drawable/ic_personaa"
-            android:padding="10dp"
-            android:contentDescription="Usuario" />
-    </LinearLayout>
-
-    <!-- SCROLL para el contenido -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@id/navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        android:background="@color/fondo">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
             <!-- CARD AVATAR -->
             <androidx.cardview.widget.CardView
@@ -174,6 +144,7 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/dividerInfoPersonal"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="0dp"
@@ -218,10 +189,143 @@
                     </LinearLayout>
 
                     <View
+                        android:id="@+id/dividerConfiguracion"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="0dp"
                         android:background="@color/gris_linea" />
+
+                    <!-- Ítem: Usuarios (solo Administrador) -->
+                    <LinearLayout
+                        android:id="@+id/itemUsuarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_icono_menu"
+                            android:contentDescription="Usuarios"
+                            android:padding="6dp"
+                            android:src="@drawable/ic_persona"
+                            app:tint="@color/azul_ur" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:text="Usuarios"
+                            android:textColor="@color/texto_principal"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Ir"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/dividerUsuarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gris_linea"
+                        android:visibility="gone" />
+
+                    <!-- Ítem: Ver Comentarios (solo Administrador) -->
+                    <LinearLayout
+                        android:id="@+id/itemVerComentarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_icono_menu"
+                            android:contentDescription="Ver comentarios"
+                            android:padding="6dp"
+                            android:src="@drawable/ic_info_circle"
+                            app:tint="@color/azul_ur" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:text="Ver comentarios"
+                            android:textColor="@color/texto_principal"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Ir"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/dividerVerComentarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gris_linea"
+                        android:visibility="gone" />
+
+                    <!-- Ítem: Validar QR (solo Vigilante) -->
+                    <LinearLayout
+                        android:id="@+id/itemValidarQR"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_icono_menu"
+                            android:contentDescription="Validar QR"
+                            android:padding="6dp"
+                            android:src="@drawable/ic_qrcode"
+                            app:tint="@color/azul_ur" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:text="Validar QR"
+                            android:textColor="@color/texto_principal"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Ir"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/dividerValidarQR"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gris_linea"
+                        android:visibility="gone" />
 
                     <!-- Ítem: Cerrar Sesión -->
                     <LinearLayout
@@ -268,13 +372,22 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTTOM NAvegacion -->
+
+    <!-- ============================= -->
+    <!-- BOTTOM NAVIGATION BAR         -->
+    <!-- ============================= -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/fondo"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        app:layout_constraintTop_toBottomOf="@id/mainContent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
