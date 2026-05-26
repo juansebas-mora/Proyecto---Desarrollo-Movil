@@ -175,7 +175,6 @@ class AccessHistoryActivity : AppCompatActivity() {
         binding = ActivityAccessHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
     }
 }
 
