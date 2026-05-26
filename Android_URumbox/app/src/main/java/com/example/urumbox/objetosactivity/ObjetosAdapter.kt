@@ -43,22 +43,25 @@ class ObjetosAdapter(
         b.tvUbicacion.text = objeto.ubicacion
 
         if (objeto.estado == EstadoObjeto.PERDIDO) {
+
             b.tvEstado.text = "Perdido"
             b.tvEstado.setBackgroundResource(R.drawable.badge_perdido)
             b.tvEstado.setTextColor(
                 ContextCompat.getColor(context, R.color.white)
             )
-            b.tvDescripcion.visibility = View.VISIBLE
-            b.tvDescripcion.text = objeto.descripcion
+
         } else {
+
             b.tvEstado.text = "Encontrado"
             b.tvEstado.setBackgroundResource(R.drawable.badge_encontrado)
             b.tvEstado.setTextColor(
                 ContextCompat.getColor(context, R.color.badge_encontrado_text)
             )
-            b.tvDescripcion.visibility = View.GONE
         }
 
+        // SIEMPRE mostrar descripción
+        b.tvDescripcion.visibility = View.VISIBLE
+        b.tvDescripcion.text = objeto.descripcion
         b.btnVerDetalles.setOnClickListener {
             onVerDetalles(objeto)
         }
