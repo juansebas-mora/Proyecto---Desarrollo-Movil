@@ -1,11 +1,12 @@
-package com.example.urumbox
+package com.example.urumbox.emergencyactivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import com.example.urumbox.R
+import com.example.urumbox.ui.InteractiveMapView
 
 class EmergenciasActivity : AppCompatActivity() {
 
@@ -13,7 +14,8 @@ class EmergenciasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_emergencias)
 
-        findViewById<ImageButton>(R.id.btnVolver).setOnClickListener { finish() }
+        findViewById<com.example.urumbox.TopbarView>(R.id.topBar)
+            .setOnBackClickListener { finish() }
 
         findViewById<CardView>(R.id.btnRutasEvacuacion).setOnClickListener {
             startActivity(Intent(this, RutaEvacuacionActivity::class.java))
@@ -24,7 +26,11 @@ class EmergenciasActivity : AppCompatActivity() {
         }
 
         findViewById<AppCompatButton>(R.id.btnReportarEmergencia).setOnClickListener {
-            startActivity(Intent(this, VerificacionVigilanteActivity::class.java))
+            startActivity(Intent(this, ReportarEmergenciaActivity::class.java))
         }
+
+        // Mapa sin ruta, solo muestra el plano
+        findViewById<InteractiveMapView>(R.id.interactiveMapView)
+            .setRouteData(emptyList(), null)
     }
 }

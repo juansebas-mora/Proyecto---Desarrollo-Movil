@@ -6,57 +6,12 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- TOP BAR -->
-    <LinearLayout
+    <com.example.urumbox.TopbarView
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="107dp"
-        android:background="#1B3E63"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:layout_height="wrap_content"
+        app:topbarTitle="Puntos de Encuentro" />
 
-        <ImageButton
-            android:id="@+id/btnVolver"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/circle_button_bg"
-            android:contentDescription="Volver"
-            android:src="@drawable/ic_arrow_back" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingStart="8dp"
-            android:text="Puntos de encuentro"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/topbar_button_background"
-            android:src="@drawable/ic_notifications"
-            android:contentDescription="@string/notifications_description"
-            app:tint="@color/blanco" />
-
-        <ImageButton
-            android:id="@+id/btnProfile"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/topbar_button_background"
-            android:src="@drawable/ic_profile"
-            android:contentDescription="@string/profile_description"
-            app:tint="@color/blanco" />
-    </LinearLayout>
-    <!-- SUBTITLE -->
-
-    <!-- BOTTOM NAVIGATION -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -68,7 +23,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- MAP PLACEHOLDER -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -76,29 +30,22 @@
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp">
 
-                <FrameLayout
+                <com.example.urumbox.ui.InteractiveMapView
+                    android:id="@+id/interactiveMapView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#E0E0E0">
+                    android:scaleType="fitCenter" />
 
-                    <ImageView
-                        android:id="@+id/imgMapPuntos"
-                        android:layout_width="match_parent"
-                        android:layout_height="201dp"
-                        android:scaleType="centerCrop"/>
-                </FrameLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- PUNTOS LIST -->
             <!-- Punto A -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
-                android:gravity="center_vertical"
                 android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -109,7 +56,6 @@
                     android:textColor="#FFFFFF"
                     android:textSize="25sp"
                     android:textStyle="bold" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,7 +72,6 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -137,7 +82,6 @@
                     android:textColor="#FFFFFF"
                     android:textSize="25sp"
                     android:textStyle="bold" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -154,7 +98,6 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -165,7 +108,6 @@
                     android:textColor="#FFFFFF"
                     android:textSize="25sp"
                     android:textStyle="bold" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -174,27 +116,12 @@
                     android:textSize="25sp" />
             </LinearLayout>
 
-            <!-- VOLVER AL INICIO BUTTON -->
-            <Button
-                android:id="@+id/btnVolverInicio"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/bg_button_rounded"
-                android:text="Volver al inicio"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
         </LinearLayout>
     </ScrollView>
 
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="80dp" />
 
 </LinearLayout>

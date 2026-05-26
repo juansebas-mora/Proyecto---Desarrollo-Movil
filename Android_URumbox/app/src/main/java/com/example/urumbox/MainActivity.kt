@@ -1,5 +1,7 @@
+
 package com.example.urumbox
 
+import com.example.urumbox.emergencyactivity.EmergenciasActivity
 import android.content.Intent
 import com.example.urumbox.notificationactivity.NotificationActivity
 import android.os.Bundle

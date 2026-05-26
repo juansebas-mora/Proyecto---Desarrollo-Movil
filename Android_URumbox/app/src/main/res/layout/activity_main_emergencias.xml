@@ -6,56 +6,13 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <!-- HEADER -->
-    <LinearLayout
+    <com.example.urumbox.TopbarView
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="107dp"
-        android:background="#1B3E63"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:layout_height="wrap_content"
+        app:topbarTitle="Emergencias"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btnVolver"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/circle_button_bg"
-            android:contentDescription="Volver"
-            android:src="@drawable/ic_arrow_back" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Emergencias"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:paddingStart="8dp"/>
-
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/topbar_button_background"
-            android:src="@drawable/ic_notifications"
-            android:contentDescription="@string/notifications_description"
-            app:tint="@color/blanco" />
-
-        <ImageButton
-            android:id="@+id/btnProfile"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/topbar_button_background"
-            android:src="@drawable/ic_profile"
-            android:contentDescription="@string/profile_description"
-            app:tint="@color/blanco" />
-    </LinearLayout>
-
-    <!-- CONTENIDO -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -67,11 +24,9 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- TARJETAS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
@@ -82,19 +37,16 @@
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardBackgroundColor="#F0F4F8">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <ImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:src="@drawable/ic_map_route"
                             app:tint="#1B3E63" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -112,19 +64,16 @@
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardBackgroundColor="#F0F4F8">
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical">
-
                         <ImageView
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:src="@drawable/ic_location_pin"
                             app:tint="#1B3E63" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -142,23 +91,16 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="#E0E0E0">
+                app:cardCornerRadius="12dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="📍 Tu ubicación actual"
-                    android:textColor="#1B3E63"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                <com.example.urumbox.ui.InteractiveMapView
+                    android:id="@+id/interactiveMapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter" />
 
             </androidx.cardview.widget.CardView>
 
-            <!-- BOTÓN REPORTAR EMERGENCIA -->
-
-            <!-- AVISO -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReportarEmergencia"
                 android:layout_width="match_parent"
@@ -184,7 +126,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- NAVBAR -->
     <com.example.urumbox.NavbarView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
