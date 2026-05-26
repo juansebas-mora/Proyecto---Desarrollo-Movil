@@ -22,3 +22,4 @@
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
 .gradle/buildOutputCleanup/outputFiles.bin
 .idea/workspace.xml
+.build/reports/problems/problems-report.html
