@@ -65,20 +65,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- Expiry Date Badge -->
-        <TextView
-            android:id="@+id/tvValidDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="Valido para: 12/03/2026"
-            android:textColor="#C0392B"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
     </LinearLayout>
 
 
