@@ -41,6 +41,8 @@
         <activity android:name=".useractivity.PermisosActivity" android:exported="false" />
         <activity android:name=".useractivity.CambiarContrasenaActivity" android:exported="false" />
         <activity android:name=".useractivity.ComentarioActivity" android:exported="false" />
+        <activity android:name=".useractivity.GestionUsuariosActivity" android:exported="false" />
+        <activity android:name=".useractivity.VerComentariosActivity" android:exported="false" />
         <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
         <activity android:name=".useractivity.VersionActivity" android:exported="false" />
         <activity android:name=".emergencyactivity.EmergenciasActivity" android:exported="false" />

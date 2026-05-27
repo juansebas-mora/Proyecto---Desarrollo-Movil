@@ -20,15 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_chevron_right"
-            android:rotation="180"
-            app:tint="@color/blanco"
-            android:contentDescription="Volver" />
 
         <TextView
             android:layout_width="0dp"

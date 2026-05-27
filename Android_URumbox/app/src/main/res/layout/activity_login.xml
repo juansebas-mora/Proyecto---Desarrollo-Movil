@@ -119,6 +119,7 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/gris_linea"
+            app:hintTextColor="@color/secundario"
             app:endIconDrawable="@drawable/ic_email"
             app:endIconMode="custom"
             app:endIconTint="@color/texto_secundario"
@@ -131,6 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="nombre@urosario.edu.co"
+                android:textColorHint="#1565C0"
                 android:inputType="textEmailAddress"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -161,6 +163,7 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/gris_linea"
+            app:hintTextColor="@color/secundario"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -171,6 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="••••••••••••"
+                android:textColorHint="#1565C0"
                 android:inputType="textPassword"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
