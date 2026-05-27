@@ -1,10 +1,15 @@
 package com.example.urumbox.notificationactivity
 
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -20,7 +25,9 @@ import com.example.urumbox.R
 import com.example.urumbox.data.model.Notificacion
 import com.example.urumbox.databinding.ActivityNotificacionesBinding
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class NotificationActivity : AppCompatActivity() {
@@ -32,6 +39,8 @@ class NotificationActivity : AppCompatActivity() {
     private val listaFiltrada = mutableListOf<Notificacion>()
     private var filtroActual = "Todos"
     private var dialogActivo: AlertDialog? = null
+
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +62,11 @@ class NotificationActivity : AppCompatActivity() {
 
         configurarRecyclerView()
         configurarFiltros()
-        configurarFab()
+        configurarBotonNueva()
         observarViewModel()
+
+        val uid = auth.currentUser?.uid ?: ""
+        viewModel.cargarRolUsuario(uid)
     }
 
     private fun observarViewModel() {
@@ -75,6 +87,23 @@ class NotificationActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error al publicar: ${error.message}", Toast.LENGTH_SHORT).show()
                 viewModel.onEstadoCreacionConsumed()
             }
+        }
+
+        viewModel.estadoActualizacion.observe(this) { result ->
+            result ?: return@observe
+            result.onSuccess {
+                dialogActivo?.dismiss()
+                dialogActivo = null
+                Toast.makeText(this, "Aviso actualizado correctamente.", Toast.LENGTH_SHORT).show()
+                viewModel.onEstadoActualizacionConsumed()
+            }.onFailure { error ->
+                Toast.makeText(this, "Error al actualizar: ${error.message}", Toast.LENGTH_SHORT).show()
+                viewModel.onEstadoActualizacionConsumed()
+            }
+        }
+
+        viewModel.rolUsuario.observe(this) { rol ->
+            adapter.setRol(rol)
         }
 
         viewModel.error.observe(this) { error ->
@@ -148,12 +177,18 @@ class NotificationActivity : AppCompatActivity() {
             .setView(dialogView)
             .show()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialogView.findViewById<ImageButton>(R.id.btnCerrarDetalles)
+            .setOnClickListener { dialog.dismiss() }
     }
 
     private fun configurarRecyclerView() {
+        val uidActual = auth.currentUser?.uid ?: ""
+
         adapter = NotificacionAdapter(
             lista = listaFiltrada,
-            rolUsuario = "Admin",
+            rolUsuario = "Visitante",
+            uidUsuarioActual = uidActual,
             onVerDetalles = { n, _ ->
                 viewModel.marcarLeida(n.id, n.estado)
                 mostrarDialogDetalles(n)
@@ -173,6 +208,9 @@ class NotificationActivity : AppCompatActivity() {
             onEliminarDefinitivo = { n, _ ->
                 viewModel.eliminarNotificacion(n.id)
                 Toast.makeText(this, "Aviso eliminado definitivamente", Toast.LENGTH_SHORT).show()
+            },
+            onEditar = { n, _ ->
+                mostrarDialogEditarAviso(n)
             }
         )
 
@@ -207,8 +245,38 @@ class NotificationActivity : AppCompatActivity() {
         }
     }
 
-    private fun configurarFab() {
-        binding.fabNueva.setOnClickListener { mostrarDialogNuevoAviso() }
+    private fun configurarBotonNueva() {
+        binding.btnNueva.setOnClickListener { mostrarDialogNuevoAviso() }
+    }
+
+    private fun nombreUsuarioActual(): String {
+        val user = auth.currentUser ?: return "Usuario"
+        return user.displayName?.takeIf { it.isNotBlank() }
+            ?: user.email?.substringBefore('@')?.takeIf { it.isNotBlank() }
+            ?: "Usuario"
+    }
+
+    private fun configurarSelectorHora(container: View, etHora: EditText) {
+        val listener = View.OnClickListener {
+            val cal = Calendar.getInstance()
+            TimePickerDialog(
+                ContextThemeWrapper(this, R.style.TimePickerTheme),
+                { _, hourOfDay, minute ->
+                    val cal2 = Calendar.getInstance().apply {
+                        set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        set(Calendar.MINUTE, minute)
+                    }
+                    etHora.setText(
+                        SimpleDateFormat("h:mm a", Locale.forLanguageTag("es")).format(cal2.time)
+                    )
+                },
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                false
+            ).show()
+        }
+        container.setOnClickListener(listener)
+        etHora.setOnClickListener(listener)
     }
 
     private fun mostrarDialogNuevoAviso() {
@@ -230,13 +298,16 @@ class NotificationActivity : AppCompatActivity() {
             .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
         spinnerPrioridad.setSelection(1)
 
+        val llHora = dialogView.findViewById<LinearLayout>(R.id.llHoraExpiracion)
+        configurarSelectorHora(llHora, etHoraExp)
+
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .show()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialogActivo = dialog
 
-        dialogView.findViewById<android.widget.ImageButton>(R.id.btnCerrarDialog)
+        dialogView.findViewById<ImageButton>(R.id.btnCerrarDialog)
             .setOnClickListener { dialog.dismiss() }
 
         dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCrearNotificacion)
@@ -253,11 +324,13 @@ class NotificationActivity : AppCompatActivity() {
 
                 val tipo      = spinnerTipo.selectedItem.toString()
                 val prioridad = spinnerPrioridad.selectedItem.toString()
+                val nombre    = nombreUsuarioActual()
+                val uid       = auth.currentUser?.uid ?: ""
 
                 val nueva = Notificacion(
                     timestamp        = Timestamp.now(),
                     tipo             = tipo,
-                    nombreReportante = "Admin",
+                    nombreReportante = nombre,
                     zonaAfectada     = zona,
                     iconoResId       = iconoPorTipo(tipo),
                     ubicacion        = ubicacion,
@@ -266,9 +339,80 @@ class NotificationActivity : AppCompatActivity() {
                     horaExpiracion   = horaExp,
                     rolOrigen        = "Admin",
                     estado           = "activa",
-                    afectaRuta       = tipo != "Actividad"
+                    afectaRuta       = tipo != "Actividad",
+                    uidCreador       = uid
                 )
                 viewModel.crearNotificacion(nueva)
             }
+    }
+
+    private fun mostrarDialogEditarAviso(notificacion: Notificacion) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_nueva_notificacion, null)
+
+        dialogView.findViewById<TextView>(R.id.tvDialogTitle).text = "Editar aviso"
+        dialogView.findViewById<TextView>(R.id.tvDialogSubtitle).text = "Modifica los campos del aviso"
+
+        val spinnerTipo      = dialogView.findViewById<Spinner>(R.id.spinnerTipo)
+        val spinnerPrioridad = dialogView.findViewById<Spinner>(R.id.spinnerPrioridad)
+        val etZona           = dialogView.findViewById<EditText>(R.id.etNuevoArea)
+        val etUbicacion      = dialogView.findViewById<EditText>(R.id.etNuevaUbicacion)
+        val etDescripcion    = dialogView.findViewById<EditText>(R.id.etNuevoAsunto)
+        val etHoraExp        = dialogView.findViewById<EditText>(R.id.etHoraExpiracion)
+
+        val tipos = listOf("Incidente", "Limpieza", "Actividad", "Acceso Restringido", "Ruta Alternativa")
+        spinnerTipo.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, tipos)
+            .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        spinnerTipo.setSelection(tipos.indexOf(notificacion.tipo).coerceAtLeast(0))
+
+        val prioridades = listOf("Alta", "Media", "Baja")
+        spinnerPrioridad.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, prioridades)
+            .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        spinnerPrioridad.setSelection(prioridades.indexOf(notificacion.prioridad).coerceAtLeast(0))
+
+        etZona.setText(notificacion.zonaAfectada)
+        etUbicacion.setText(notificacion.ubicacion)
+        etDescripcion.setText(notificacion.descripcion)
+        etHoraExp.setText(notificacion.horaExpiracion)
+
+        val llHora = dialogView.findViewById<LinearLayout>(R.id.llHoraExpiracion)
+        configurarSelectorHora(llHora, etHoraExp)
+
+        val btnPublicar = dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCrearNotificacion)
+        btnPublicar.text = "Actualizar aviso"
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialogActivo = dialog
+
+        dialogView.findViewById<ImageButton>(R.id.btnCerrarDialog)
+            .setOnClickListener { dialog.dismiss() }
+
+        btnPublicar.setOnClickListener {
+            val zona        = etZona.text.toString().trim()
+            val ubicacion   = etUbicacion.text.toString().trim()
+            val descripcion = etDescripcion.text.toString().trim()
+            val horaExp     = etHoraExp.text.toString().trim()
+
+            if (zona.isEmpty() || descripcion.isEmpty()) {
+                Toast.makeText(this, "Por favor completa los campos requeridos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val tipo      = spinnerTipo.selectedItem.toString()
+            val prioridad = spinnerPrioridad.selectedItem.toString()
+
+            val campos = mapOf(
+                "tipo"           to tipo,
+                "zonaAfectada"   to zona,
+                "ubicacion"      to ubicacion,
+                "descripcion"    to descripcion,
+                "prioridad"      to prioridad,
+                "horaExpiracion" to horaExp,
+                "afectaRuta"     to (tipo != "Actividad")
+            )
+            viewModel.actualizarNotificacion(notificacion.id, campos)
+        }
     }
 }
