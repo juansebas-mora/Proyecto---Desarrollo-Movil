@@ -30,6 +30,7 @@
                 android:paddingEnd="32dp">
 
                 <TextView
+                    android:id="@+id/tvDialogTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nuevo aviso de ruta"
@@ -39,6 +40,7 @@
                     android:gravity="start" />
 
                 <TextView
+                    android:id="@+id/tvDialogSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Completa los campos para publicar un aviso"
@@ -220,19 +222,43 @@
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/etHoraExpiracion"
+            <LinearLayout
+                android:id="@+id/llHoraExpiracion"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_input_field"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:hint="Ej: 3:00 p.m."
-                android:textColorHint="@color/texto_secundario"
-                android:textColor="@color/primario"
-                android:textSize="14sp"
-                android:inputType="text"
-                android:layout_marginBottom="20dp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="false"
+                android:layout_marginBottom="20dp">
+
+                <EditText
+                    android:id="@+id/etHoraExpiracion"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="8dp"
+                    android:hint="Toca para elegir la hora"
+                    android:textColorHint="@color/texto_secundario"
+                    android:textColor="@color/primario"
+                    android:textSize="14sp"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:cursorVisible="false" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_fechanoti"
+                    android:alpha="0.6"
+                    android:contentDescription="@null" />
+
+            </LinearLayout>
 
             <!-- Prioridad -->
             <TextView

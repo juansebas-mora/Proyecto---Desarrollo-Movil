@@ -119,6 +119,7 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/gris_linea"
+            app:hintTextColor="@color/secundario"
             app:endIconDrawable="@drawable/ic_email"
             app:endIconMode="custom"
             app:endIconTint="@color/texto_secundario"
@@ -131,6 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="nombre@urosario.edu.co"
+                android:textColorHint="#1565C0"
                 android:inputType="textEmailAddress"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -161,6 +163,7 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             app:boxStrokeColor="@color/gris_linea"
+            app:hintTextColor="@color/secundario"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -171,16 +174,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="••••••••••••"
+                android:textColorHint="#1565C0"
                 android:inputType="textPassword"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Link olvidé mi contraseña -->
+        <TextView
+            android:id="@+id/tvOlvidasteTuContrasena"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="¿Olvidaste tu contraseña?"
+            android:textColor="@color/azul_ur"
+            android:textSize="13sp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutContrasena" />
 
         <!-- Botón Ingresar -->
         <Button
             android:id="@+id/btnIngresar"
             android:layout_width="0dp"
             android:layout_height="54dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/rojo_ur"
             android:stateListAnimator="@null"
             android:text="Ingresar"
@@ -190,7 +209,7 @@
             app:cornerRadius="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputLayoutContrasena" />
+            app:layout_constraintTop_toBottomOf="@id/tvOlvidasteTuContrasena" />
 
         <!-- ProgressBar loading -->
         <ProgressBar

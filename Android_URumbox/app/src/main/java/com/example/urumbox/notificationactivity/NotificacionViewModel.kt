@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.urumbox.data.model.Notificacion
 import com.example.urumbox.data.repository.NotificacionRepository
+import com.google.firebase.Firebase
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.firestore
 
 class NotificacionViewModel : ViewModel() {
 
@@ -16,6 +18,12 @@ class NotificacionViewModel : ViewModel() {
 
     private val _estadoCreacion = MutableLiveData<Result<Unit>?>()
     val estadoCreacion: LiveData<Result<Unit>?> = _estadoCreacion
+
+    private val _estadoActualizacion = MutableLiveData<Result<Unit>?>()
+    val estadoActualizacion: LiveData<Result<Unit>?> = _estadoActualizacion
+
+    private val _rolUsuario = MutableLiveData<String>("Visitante")
+    val rolUsuario: LiveData<String> = _rolUsuario
 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
@@ -39,6 +47,16 @@ class NotificacionViewModel : ViewModel() {
         repository.crearNotificacion(notificacion) { result ->
             _estadoCreacion.value = result
         }
+    }
+
+    fun actualizarNotificacion(id: String, campos: Map<String, Any>) {
+        repository.actualizarNotificacion(id, campos) { result ->
+            _estadoActualizacion.value = result
+        }
+    }
+
+    fun onEstadoActualizacionConsumed() {
+        _estadoActualizacion.value = null
     }
 
     fun marcarLeida(id: String, estadoActual: String) {
@@ -68,6 +86,20 @@ class NotificacionViewModel : ViewModel() {
 
     fun onEstadoCreacionConsumed() {
         _estadoCreacion.value = null
+    }
+
+    fun cargarRolUsuario(uid: String) {
+        if (uid.isEmpty()) return
+        Firebase.firestore.collection("usuarios").document(uid)
+            .get()
+            .addOnSuccessListener { doc ->
+                _rolUsuario.value = when (doc.getString("rol") ?: "") {
+                    "Administrador" -> "Admin"
+                    "Vigilante"     -> "Operador"
+                    else            -> "Visitante"
+                }
+            }
+            .addOnFailureListener { _rolUsuario.value = "Visitante" }
     }
 
     fun onErrorConsumed() {

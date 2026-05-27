@@ -17,7 +17,8 @@ class AuthRepository {
         nombre: String,
         apellido: String,
         telefono: String,
-        fechaNacimiento: String
+        fechaNacimiento: String,
+        documentoIdentidad: String
     ): AuthResult<Unit> = try {
         val result = auth.createUserWithEmailAndPassword(email, password).await()
         val uid = result.user?.uid ?: return AuthResult.Error("No se pudo obtener el usuario")
@@ -27,7 +28,9 @@ class AuthRepository {
                 "nombreCompleto" to "$nombre $apellido",
                 "usuario" to usuario,
                 "correo" to email,
-                "rol" to "Estudiante",
+                "rol" to "",
+                "estado" to "activo",
+                "documentoIdentidad" to documentoIdentidad,
                 "telefono" to telefono,
                 "fechaNacimiento" to fechaNacimiento
             )
@@ -45,7 +48,7 @@ class AuthRepository {
     } catch (e: FirebaseAuthException) {
         AuthResult.Error(mapAuthError(e.errorCode))
     } catch (e: Exception) {
-        AuthResult.Error(e.message ?: "Error desconocido")
+        AuthResult.Error(mapGeneralError(e))
     }
 
     suspend fun cambiarContrasena(contrasenaActual: String, contrasenaNueva: String): AuthResult<Unit> = try {
@@ -76,5 +79,19 @@ class AuthRepository {
         "ERROR_TOO_MANY_REQUESTS" -> "Demasiados intentos. Intenta más tarde"
         "ERROR_NETWORK_REQUEST_FAILED" -> "Error de conexión. Verifica tu internet"
         else -> "Error de autenticación. Intenta de nuevo"
+    }
+
+    private fun mapGeneralError(e: Exception): String {
+        val msg = e.message ?: ""
+        return if (msg.contains("REQUESTS_FROM_THIS_CLIENT_ARE_BLOCKED", ignoreCase = true) ||
+            msg.contains("requests from this android client", ignoreCase = true)) {
+            // SHA-1 del dispositivo no registrado en Firebase Console.
+            // Agregar huella: Firebase Console → Configuracion del proyecto → Tu app Android → Agregar huella digital
+            "Error de configuracion del servidor. Contacta al administrador."
+        } else if (msg.contains("network", ignoreCase = true) || msg.contains("unable to resolve", ignoreCase = true)) {
+            "Error de conexion. Verifica tu internet"
+        } else {
+            "Error inesperado. Intenta de nuevo"
+        }
     }
 }

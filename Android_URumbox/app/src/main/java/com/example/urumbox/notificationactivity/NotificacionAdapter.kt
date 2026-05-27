@@ -15,12 +15,14 @@ import java.util.Locale
 
 class NotificacionAdapter(
     private val lista: MutableList<Notificacion>,
-    private val rolUsuario: String,
+    private var rolUsuario: String,
+    private val uidUsuarioActual: String = "",
     private val onVerDetalles: (Notificacion, Int) -> Unit,
     private val onAceptar: (Notificacion, Int) -> Unit,
     private val onRechazar: (Notificacion, Int) -> Unit,
     private val onRestaurar: (Notificacion, Int) -> Unit,
-    private val onEliminarDefinitivo: (Notificacion, Int) -> Unit
+    private val onEliminarDefinitivo: (Notificacion, Int) -> Unit,
+    private val onEditar: (Notificacion, Int) -> Unit = { _, _ -> }
 ) : RecyclerView.Adapter<NotificacionAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,6 +34,7 @@ class NotificacionAdapter(
         val tvArea: TextView                        = view.findViewById(R.id.tvArea)
         val indicadorNoLeido: View                  = view.findViewById(R.id.indicadorNoLeido)
         val btnVerDetalles: android.widget.Button   = view.findViewById(R.id.btnVerDetalles)
+        val btnEditar: ImageButton                  = view.findViewById(R.id.btnEditar)
         val btnAceptar: ImageButton                 = view.findViewById(R.id.btnAceptar)
         val btnRechazar: ImageButton                = view.findViewById(R.id.btnRechazar)
         val btnRestaurar: android.widget.Button     = view.findViewById(R.id.btnRestaurar)
@@ -57,35 +60,26 @@ class NotificacionAdapter(
         holder.indicadorNoLeido.visibility =
             if (n.leida || n.eliminada) View.INVISIBLE else View.VISIBLE
 
+        val puedeEditar = rolUsuario == "Admin" || (uidUsuarioActual.isNotEmpty() && n.uidCreador == uidUsuarioActual)
+
         if (n.eliminada) {
             holder.btnVerDetalles.visibility        = View.GONE
+            holder.btnEditar.visibility             = View.GONE
             holder.btnAceptar.visibility            = View.GONE
             holder.btnRechazar.visibility           = View.GONE
-            if (rolUsuario == "Admin" || rolUsuario == "Operador") {
-                holder.btnRestaurar.visibility          = View.VISIBLE
-                holder.btnEliminarDefinitivo.visibility = View.VISIBLE
-            } else {
-                holder.btnRestaurar.visibility          = View.GONE
-                holder.btnEliminarDefinitivo.visibility = View.GONE
-            }
+            holder.btnRestaurar.visibility          = View.VISIBLE
+            holder.btnEliminarDefinitivo.visibility = if (rolUsuario == "Admin") View.VISIBLE else View.GONE
         } else {
             holder.btnRestaurar.visibility          = View.GONE
             holder.btnEliminarDefinitivo.visibility = View.GONE
             holder.btnVerDetalles.visibility        = View.VISIBLE
-
-            when (rolUsuario) {
-                "Visitante" -> {
-                    holder.btnAceptar.visibility  = View.GONE
-                    holder.btnRechazar.visibility = View.GONE
-                }
-                "Operador", "Admin" -> {
-                    holder.btnAceptar.visibility  = View.VISIBLE
-                    holder.btnRechazar.visibility = View.VISIBLE
-                }
-            }
+            holder.btnEditar.visibility             = if (puedeEditar) View.VISIBLE else View.GONE
+            holder.btnAceptar.visibility            = View.VISIBLE
+            holder.btnRechazar.visibility           = View.VISIBLE
         }
 
         holder.btnVerDetalles.setOnClickListener        { onVerDetalles(n, position) }
+        holder.btnEditar.setOnClickListener             { onEditar(n, position) }
         holder.btnAceptar.setOnClickListener            { onAceptar(n, position) }
         holder.btnRechazar.setOnClickListener           { onRechazar(n, position) }
         holder.btnRestaurar.setOnClickListener          { onRestaurar(n, position) }
@@ -108,18 +102,17 @@ class NotificacionAdapter(
                 .format(it.toDate())
         } ?: "Sin fecha"
 
+    fun setRol(rol: String) {
+        rolUsuario = rol
+        notifyDataSetChanged()
+    }
+
     fun filtrar(filtro: String, listaCompleta: List<Notificacion>) {
         lista.clear()
         when (filtro) {
             "Sin ver"    -> lista.addAll(listaCompleta.filter { !it.leida && !it.eliminada })
             "Vistos"     -> lista.addAll(listaCompleta.filter { it.leida && !it.eliminada })
-            "Archivados" -> {
-                if (rolUsuario == "Admin" || rolUsuario == "Operador") {
-                    lista.addAll(listaCompleta.filter { it.eliminada })
-                } else {
-                    lista.addAll(listaCompleta.filter { !it.eliminada })
-                }
-            }
+            "Archivados" -> lista.addAll(listaCompleta.filter { it.eliminada })
             else -> lista.addAll(listaCompleta.filter { !it.eliminada })
         }
         notifyDataSetChanged()
