@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.urumbox.ui.objetosperdidos.ObjetoViewModel
 import com.example.urumbox.R
-import com.example.urumbox.objetosactivity.ReportarObjetoFragment
+import com.example.urumbox.ui.objetosperdidos.ReportarObjetoFragment
 import com.example.urumbox.data.model.objetosperdidos.EstadoObjeto
 import com.example.urumbox.data.model.objetosperdidos.ObjetoPerdido
 import com.example.urumbox.databinding.FragmentObjetosPerdidosBinding

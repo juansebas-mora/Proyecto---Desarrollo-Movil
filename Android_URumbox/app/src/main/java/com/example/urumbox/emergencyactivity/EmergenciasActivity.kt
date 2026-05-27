@@ -29,7 +29,7 @@ class EmergenciasActivity : AppCompatActivity() {
             startActivity(Intent(this, ReportarEmergenciaActivity::class.java))
         }
 
-        // Mapa sin ruta, solo muestra el plano
+
         findViewById<InteractiveMapView>(R.id.interactiveMapView)
             .setRouteData(emptyList(), null)
     }

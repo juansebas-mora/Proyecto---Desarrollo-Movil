@@ -271,10 +271,10 @@
                             android:id="@+id/btnAudifonosRoute"
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
-                            android:text="Cómo llegar"
                             android:textAllCaps="false"
                             app:cornerRadius="8dp"
                             android:backgroundTint="@color/azul_ur"
+                            android:text="Cómo llegar"
                             android:layout_marginEnd="16dp" />
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnAudifonosDetails"

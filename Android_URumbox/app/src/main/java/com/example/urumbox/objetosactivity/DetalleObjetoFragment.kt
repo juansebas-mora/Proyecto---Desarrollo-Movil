@@ -17,6 +17,7 @@ import com.example.urumbox.databinding.FragmentDetalleObjetoBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import com.bumptech.glide.Glide
 
 class DetalleObjetoFragment : Fragment() {
 
@@ -86,7 +87,12 @@ class DetalleObjetoFragment : Fragment() {
     private fun configurarUI() {
         // Foto
         if (!objeto.fotoUri.isNullOrEmpty()) {
-            binding.ivFotoDetalle.setImageURI(Uri.parse(objeto.fotoUri))
+
+            Glide.with(requireContext())
+                .load(objeto.fotoUri)
+                .placeholder(R.drawable.ic_image_placeholder)
+                .error(R.drawable.ic_image_placeholder)
+                .into(binding.ivFotoDetalle)
         }
 
         // Badge estado
@@ -112,9 +118,9 @@ class DetalleObjetoFragment : Fragment() {
         // Reportante
         binding.tvNombreReportante.text = objeto.nombreReportante
         binding.tvRolReportante.text = if (objeto.estado == EstadoObjeto.PERDIDO)
-            "Propietario Reportante"
+            "Reportante"
         else
-            "Quien lo encontró\nReportante"
+            "Reportante"
 
         // Botón volver
         binding.btnVolver.setOnClickListener {
