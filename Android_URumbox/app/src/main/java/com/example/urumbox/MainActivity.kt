@@ -1,8 +1,8 @@
-
 package com.example.urumbox
 
 import com.example.urumbox.emergencyactivity.EmergenciasActivity
 import android.content.Intent
+import android.content.pm.PackageManager
 import com.example.urumbox.notificationactivity.NotificationActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +22,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // TODO: DIAGNOSTICO TEMPORAL — Eliminar despues de registrar el SHA-1 en Firebase Console
+        // Este bloque imprime el SHA-1 del dispositivo en Logcat (tag: SHA1_KEY).
+        // Pasos: 1) Corre la app  2) Filtra Logcat por "SHA1_KEY"  3) Copia el SHA-1
+        //        4) Firebase Console → Configuracion del proyecto → Tu app Android → Agregar huella digital
+        //        5) Elimina este bloque
+        try {
+            @Suppress("DEPRECATION")
+            val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+            @Suppress("DEPRECATION")
+            info.signatures?.forEach { signature ->
+                val md = java.security.MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val hashKey = android.util.Base64.encodeToString(md.digest(), android.util.Base64.DEFAULT)
+                android.util.Log.d("SHA1_KEY", "SHA1: $hashKey")
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("SHA1_KEY", "Error obteniendo SHA1: ${e.message}")
+        }
+
         enableEdgeToEdge()
         androidx.core.view.WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
         binding = ActivityMainBinding.inflate(layoutInflater)

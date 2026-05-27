@@ -16,6 +16,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders["AIzaSyCfW-FfOnf2jQSCpvqTy78U4lru4cIqaiY"] =
+            project.findProperty("AIzaSyCfW-FfOnf2jQSCpvqTy78U4lru4cIqaiY") ?: ""
     }
 
     buildFeatures {
@@ -48,6 +51,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.ui.text)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -60,6 +64,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation("com.google.firebase:firebase-storage-ktx")
 
     implementation(libs.camerax.core)
     implementation(libs.camerax.camera2)
@@ -67,4 +72,8 @@ dependencies {
     implementation(libs.camerax.view)
     implementation(libs.mlkit.barcode)
     implementation(libs.zxing.core)
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 }
