@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -708,7 +709,20 @@ class RegistroActivity : AppCompatActivity() {
             insets
         }
 
-
+        val hintColors = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_focused), intArrayOf()),
+            intArrayOf(
+                ContextCompat.getColor(this, R.color.secundario),
+                ContextCompat.getColor(this, R.color.azul_ur)
+            )
+        )
+        binding.inputLayoutNombre.defaultHintTextColor = hintColors
+        binding.inputLayoutApellido.defaultHintTextColor = hintColors
+        binding.inputLayoutTelefono.defaultHintTextColor = hintColors
+        binding.inputLayoutDocumento.defaultHintTextColor = hintColors
+        binding.inputLayoutFecha.defaultHintTextColor = hintColors
+        binding.inputLayoutCorreoReg.defaultHintTextColor = hintColors
+        binding.inputLayoutContrasenaReg.defaultHintTextColor = hintColors
 
         binding.etFecha.apply {
             isFocusable = false
@@ -885,7 +899,7 @@ class VersionActivity : AppCompatActivity() {
             insets
         }
 
-        binding.btnBack.setOnClickListener { finish() }
+
     }
 }
 
@@ -929,6 +943,16 @@ class LoginSActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val hintColors = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_focused), intArrayOf()),
+            intArrayOf(
+                ContextCompat.getColor(this, R.color.secundario),
+                ContextCompat.getColor(this, R.color.azul_ur)
+            )
+        )
+        binding.inputLayoutCorreo.defaultHintTextColor = hintColors
+        binding.inputLayoutContrasena.defaultHintTextColor = hintColors
 
         binding.btnIngresar.setOnClickListener {
             val correo = binding.etCorreo.text.toString().trim()
