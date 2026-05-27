@@ -52,6 +52,7 @@
         <activity android:name=".accessactivity.AccessRequestConsultActivity" android:exported="false" />
         <activity android:name=".accessactivity.AccessQrActivity" android:exported="false" />
         <activity android:name=".accessactivity.QrScannerActivity" android:exported="false" />
+        <activity android:name=".vigilante.VigilanteMainActivity" android:exported="false" />
 
         <!-- UN SOLO provider con authority fileprovider -->
         <provider

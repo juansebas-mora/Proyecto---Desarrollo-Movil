@@ -9,14 +9,33 @@
     <!-- ======= -->
     <!-- TOP APP BAR -->
     <!-- ======= -->
-    <com.example.urumbox.TopbarView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:topbarTitle="Verificar Acceso"
+        android:background="@color/primario"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/contentLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
+            android:text="Verificar Acceso"
+            android:textColor="@color/fondo"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- CONTENT AREA -->
     <LinearLayout
@@ -39,9 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:text="Tu QR de Acceso"
+            android:text="Toca el QR para verificar acceso"
             android:textColor="#1A2E4A"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <!-- QR Code Card -->
@@ -49,7 +68,6 @@
             android:id="@+id/cardQr"
             android:layout_width="290dp"
             android:layout_height="290dp"
-            android:layout_marginBottom="32dp"
             app:cardBackgroundColor="@color/fondo"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp">
@@ -64,6 +82,40 @@
                 android:scaleType="fitCenter" />
 
         </androidx.cardview.widget.CardView>
+
+        <!-- Zona label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="Elegir zona de ingreso"
+            android:textColor="@color/texto_secundario"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!-- Spinner zona -->
+        <FrameLayout
+            android:layout_width="290dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_input_field">
+
+            <Spinner
+                android:id="@+id/spinnerZona"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:paddingStart="12dp"
+                android:paddingEnd="40dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_arrow_down"
+                android:contentDescription="@null" />
+        </FrameLayout>
 
     </LinearLayout>
 
