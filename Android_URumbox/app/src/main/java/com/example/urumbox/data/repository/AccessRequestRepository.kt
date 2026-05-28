@@ -29,4 +29,22 @@ class AccessRequestRepository {
             }
             .addOnFailureListener { e -> onResult(Result.failure(e)) }
     }
+
+    fun getAllAccessRequests(onResult: (Result<List<AccessRequest>>) -> Unit) {
+        collection.get()
+            .addOnSuccessListener { snapshot ->
+                val requests = snapshot.documents.mapNotNull { doc ->
+                    doc.toObject(AccessRequest::class.java)
+                }
+                onResult(Result.success(requests))
+            }
+            .addOnFailureListener { e -> onResult(Result.failure(e)) }
+    }
+
+    fun updateAccessRequestStatus(id: String, estado: String, onResult: (Result<Unit>) -> Unit) {
+        collection.document(id)
+            .update("estado", estado)
+            .addOnSuccessListener { onResult(Result.success(Unit)) }
+            .addOnFailureListener { e -> onResult(Result.failure(e)) }
+    }
 }

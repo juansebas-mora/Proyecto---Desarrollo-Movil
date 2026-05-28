@@ -34,6 +34,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.urumbox.MainActivity
 import com.example.urumbox.R
+import com.example.urumbox.accessactivity.AdminSolicitudesActivity
 import com.example.urumbox.vigilante.VigilanteMainActivity
 import com.example.urumbox.data.AuthResult
 import com.example.urumbox.databinding.ActivityCambiarContrasenaBinding
@@ -452,6 +453,10 @@ class PerfilActivity : AppCompatActivity() {
             startActivity(Intent(this, VerComentariosActivity::class.java))
         }
 
+        binding.itemSolicitudesAcceso.setOnClickListener {
+            startActivity(Intent(this, AdminSolicitudesActivity::class.java))
+        }
+
         binding.itemValidarQR.setOnClickListener {
             Toast.makeText(this, "Módulo de validación QR próximamente disponible.", Toast.LENGTH_SHORT).show()
         }
@@ -509,6 +514,8 @@ class PerfilActivity : AppCompatActivity() {
             "Administrador" -> {
                 binding.itemUsuarios.visibility = View.VISIBLE
                 binding.dividerUsuarios.visibility = View.VISIBLE
+                binding.itemSolicitudesAcceso.visibility = View.VISIBLE
+                binding.dividerSolicitudesAcceso.visibility = View.VISIBLE
                 binding.itemVerComentarios.visibility = View.VISIBLE
                 binding.dividerVerComentarios.visibility = View.VISIBLE
                 binding.itemValidarQR.visibility = View.GONE
@@ -521,6 +528,8 @@ class PerfilActivity : AppCompatActivity() {
                 binding.dividerConfiguracion.visibility = View.GONE
                 binding.itemUsuarios.visibility = View.GONE
                 binding.dividerUsuarios.visibility = View.GONE
+                binding.itemSolicitudesAcceso.visibility = View.GONE
+                binding.dividerSolicitudesAcceso.visibility = View.GONE
                 binding.itemValidarQR.visibility = View.VISIBLE
                 binding.dividerValidarQR.visibility = View.VISIBLE
 
@@ -554,6 +563,8 @@ class PerfilActivity : AppCompatActivity() {
                 // "Usuario UR" o rol vacío: sin acceso a gestión de usuarios ni validación QR
                 binding.itemUsuarios.visibility = View.GONE
                 binding.dividerUsuarios.visibility = View.GONE
+                binding.itemSolicitudesAcceso.visibility = View.GONE
+                binding.dividerSolicitudesAcceso.visibility = View.GONE
                 binding.itemValidarQR.visibility = View.GONE
                 binding.dividerValidarQR.visibility = View.GONE
             }
