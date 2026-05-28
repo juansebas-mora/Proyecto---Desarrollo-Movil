@@ -2,6 +2,7 @@ package com.example.urumbox.accessactivity
 
 import android.Manifest
 import android.app.Dialog
+import android.graphics.drawable.GradientDrawable
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -82,7 +83,7 @@ class AccessMainActivity : AppCompatActivity() {
         }
 
         binding.btnQrCode.setOnClickListener {
-            showQrOptionsDialog()
+            startActivity(Intent(this, AccessQrActivity::class.java))
         }
 
         viewModel.uiEvent.observe(this) { event ->
@@ -104,6 +105,20 @@ class AccessMainActivity : AppCompatActivity() {
                 null -> Unit
             }
         }
+
+        val quickAdapter = AccessHistoryAdapter()
+        binding.rvQuickHistory.layoutManager = LinearLayoutManager(this)
+        binding.rvQuickHistory.adapter = quickAdapter
+
+        viewModel.recentHistory.observe(this) { items ->
+            quickAdapter.submitList(items)
+            binding.tvQuickHistoryEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadRecentAccessHistory()
     }
 
     private fun showAddVisitorDialog() {
@@ -129,29 +144,6 @@ class AccessMainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showQrOptionsDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_qr_options)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.window?.setLayout(
-            (resources.displayMetrics.widthPixels * 0.90).toInt(),
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window?.setDimAmount(0.6f)
-        dialog.setCancelable(true)
-
-        dialog.findViewById<MaterialButton>(R.id.btnVerMiQr).setOnClickListener {
-            dialog.dismiss()
-            startActivity(Intent(this, AccessQrActivity::class.java))
-        }
-        dialog.findViewById<MaterialButton>(R.id.btnLeerQr).setOnClickListener {
-            dialog.dismiss()
-            startActivity(Intent(this, QrScannerActivity::class.java))
-        }
-
-        dialog.show()
-    }
 }
 
 // endregion
@@ -175,7 +167,22 @@ class AccessHistoryActivity : AppCompatActivity() {
         binding = ActivityAccessHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
+        val adapter = AccessHistoryAdapter()
+        binding.rvHistory.layoutManager = LinearLayoutManager(this)
+        binding.rvHistory.adapter = adapter
+
+        viewModel.history.observe(this) { items ->
+            adapter.submitList(items)
+            binding.tvHistoryEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        }
+
+        viewModel.loadFullAccessHistory()
     }
 }
 
@@ -496,6 +503,33 @@ class AccessRequestConsultActivity : AppCompatActivity() {
         dialog.findViewById<TextView>(R.id.tvDetailCorreo).text = request.correo
         dialog.findViewById<TextView>(R.id.tvDetailDocumento).text = request.documento
         dialog.findViewById<TextView>(R.id.tvDetailFecha).text = request.fecha
+
+        val tvEstado = dialog.findViewById<TextView>(R.id.tvDetailEstado)
+        val (estadoLabel, badgeColor, textColor) = when (request.estado) {
+            "aceptada" -> Triple(
+                "Aceptada",
+                ContextCompat.getColor(this, R.color.badge_encontrado_bg),
+                ContextCompat.getColor(this, R.color.badge_encontrado_text)
+            )
+            "denegada" -> Triple(
+                "Denegada",
+                0xFFFFE0E0.toInt(),
+                ContextCompat.getColor(this, R.color.text_alto)
+            )
+            else -> Triple(
+                "Pendiente",
+                0xFFF0F0F0.toInt(),
+                ContextCompat.getColor(this, R.color.texto_secundario)
+            )
+        }
+        tvEstado.text = estadoLabel
+        tvEstado.setTextColor(textColor)
+        tvEstado.background = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = 20f * resources.displayMetrics.density
+            setColor(badgeColor)
+        }
+
         dialog.findViewById<ImageButton>(R.id.btnCloseDetail).setOnClickListener {
             dialog.dismiss()
         }
@@ -511,11 +545,16 @@ class AccessRequestConsultActivity : AppCompatActivity() {
 
 class QrScannerActivity : AppCompatActivity() {
 
+    companion object {
+        const val EXTRA_ZONA = "extra_zona"
+    }
+
     private val viewModel: QrScannerViewModel by viewModels()
     private lateinit var binding: ActivityQrScannerBinding
     private var cameraProvider: ProcessCameraProvider? = null
     private var analysisUseCase: ImageAnalysis? = null
     private var scanHandled = false
+    private var zona: String = ""
 
     private val requestPermission = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -534,6 +573,8 @@ class QrScannerActivity : AppCompatActivity() {
 
         binding = ActivityQrScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        zona = intent.getStringExtra(EXTRA_ZONA) ?: ""
 
         binding.btnCloseScanner.setOnClickListener { finish() }
 
@@ -595,7 +636,7 @@ class QrScannerActivity : AppCompatActivity() {
                 if (!rawValue.isNullOrEmpty() && !scanHandled) {
                     scanHandled = true
                     analysisUseCase?.clearAnalyzer()
-                    viewModel.validateQrContent(rawValue)
+                    viewModel.validateQrContent(rawValue, zona)
                 }
             }
             .addOnCompleteListener { imageProxy.close() }

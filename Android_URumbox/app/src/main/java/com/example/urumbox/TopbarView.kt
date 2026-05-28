@@ -71,6 +71,10 @@ class TopbarView @JvmOverloads constructor(
         btnBack.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
+    fun setNotificationButtonVisible(visible: Boolean) {
+        btnNotification.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
     fun setOnBackClickListener(listener: OnClickListener) {
         btnBack.setOnClickListener(listener)
     }
