@@ -82,7 +82,7 @@ class AccessMainActivity : AppCompatActivity() {
         }
 
         binding.btnQrCode.setOnClickListener {
-            showQrOptionsDialog()
+            startActivity(Intent(this, AccessQrActivity::class.java))
         }
 
         viewModel.uiEvent.observe(this) { event ->
@@ -104,6 +104,20 @@ class AccessMainActivity : AppCompatActivity() {
                 null -> Unit
             }
         }
+
+        val quickAdapter = AccessHistoryAdapter()
+        binding.rvQuickHistory.layoutManager = LinearLayoutManager(this)
+        binding.rvQuickHistory.adapter = quickAdapter
+
+        viewModel.recentHistory.observe(this) { items ->
+            quickAdapter.submitList(items)
+            binding.tvQuickHistoryEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadRecentAccessHistory()
     }
 
     private fun showAddVisitorDialog() {
@@ -129,29 +143,6 @@ class AccessMainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showQrOptionsDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_qr_options)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.window?.setLayout(
-            (resources.displayMetrics.widthPixels * 0.90).toInt(),
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window?.setDimAmount(0.6f)
-        dialog.setCancelable(true)
-
-        dialog.findViewById<MaterialButton>(R.id.btnVerMiQr).setOnClickListener {
-            dialog.dismiss()
-            startActivity(Intent(this, AccessQrActivity::class.java))
-        }
-        dialog.findViewById<MaterialButton>(R.id.btnLeerQr).setOnClickListener {
-            dialog.dismiss()
-            startActivity(Intent(this, QrScannerActivity::class.java))
-        }
-
-        dialog.show()
-    }
 }
 
 // endregion
@@ -175,6 +166,16 @@ class AccessHistoryActivity : AppCompatActivity() {
         binding = ActivityAccessHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val adapter = AccessHistoryAdapter()
+        binding.rvHistory.layoutManager = LinearLayoutManager(this)
+        binding.rvHistory.adapter = adapter
+
+        viewModel.history.observe(this) { items ->
+            adapter.submitList(items)
+            binding.tvHistoryEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        }
+
+        viewModel.loadFullAccessHistory()
     }
 }
 
@@ -510,11 +511,16 @@ class AccessRequestConsultActivity : AppCompatActivity() {
 
 class QrScannerActivity : AppCompatActivity() {
 
+    companion object {
+        const val EXTRA_ZONA = "extra_zona"
+    }
+
     private val viewModel: QrScannerViewModel by viewModels()
     private lateinit var binding: ActivityQrScannerBinding
     private var cameraProvider: ProcessCameraProvider? = null
     private var analysisUseCase: ImageAnalysis? = null
     private var scanHandled = false
+    private var zona: String = ""
 
     private val requestPermission = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -533,6 +539,8 @@ class QrScannerActivity : AppCompatActivity() {
 
         binding = ActivityQrScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        zona = intent.getStringExtra(EXTRA_ZONA) ?: ""
 
         binding.btnCloseScanner.setOnClickListener { finish() }
 
@@ -594,7 +602,7 @@ class QrScannerActivity : AppCompatActivity() {
                 if (!rawValue.isNullOrEmpty() && !scanHandled) {
                     scanHandled = true
                     analysisUseCase?.clearAnalyzer()
-                    viewModel.validateQrContent(rawValue)
+                    viewModel.validateQrContent(rawValue, zona)
                 }
             }
             .addOnCompleteListener { imageProxy.close() }

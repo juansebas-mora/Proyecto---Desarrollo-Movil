@@ -54,17 +54,36 @@ class RegistroViewModel : ViewModel() {
 
 // region LoginViewModel
 
+sealed class LoginDestination {
+    object Main : LoginDestination()
+    object Vigilante : LoginDestination()
+}
+
 class LoginViewModel : ViewModel() {
     private val repository = AuthRepository()
 
     private val _loginState = MutableStateFlow<AuthResult<Unit>?>(null)
     val loginState: StateFlow<AuthResult<Unit>?> = _loginState
 
+    private val _destination = MutableStateFlow<LoginDestination?>(null)
+    val destination: StateFlow<LoginDestination?> = _destination
+
     fun login(email: String, password: String) {
         _loginState.value = AuthResult.Loading
         viewModelScope.launch {
             _loginState.value = repository.loginUsuario(email, password)
         }
+    }
+
+    fun resolveDestination(uid: String) {
+        viewModelScope.launch {
+            val rol = repository.getUserRole(uid)
+            _destination.value = if (rol == "Vigilante") LoginDestination.Vigilante else LoginDestination.Main
+        }
+    }
+
+    fun onDestinationConsumed() {
+        _destination.value = null
     }
 }
 

@@ -9,33 +9,16 @@
     <!-- ======= -->
     <!-- TOP APP BAR -->
     <!-- ======= -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.example.urumbox.TopbarView
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primario"
+        android:layout_height="80dp"
+        app:topbarTitle="Verificar Acceso"
+        app:showBackButton="false"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/contentLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Title -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp"
-            android:text="Verificar Acceso"
-            android:textColor="@color/fondo"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/contentLayout"/>
 
     <!-- CONTENT AREA -->
     <LinearLayout
@@ -68,6 +51,9 @@
             android:id="@+id/cardQr"
             android:layout_width="290dp"
             android:layout_height="290dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="@color/fondo"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp">
@@ -116,6 +102,16 @@
                 android:src="@drawable/ic_arrow_down"
                 android:contentDescription="@null" />
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvZonaError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Selecciona una zona primero"
+            android:textColor="@color/rojo_ur"
+            android:textSize="12sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
