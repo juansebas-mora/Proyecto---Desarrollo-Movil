@@ -4,8 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -38,6 +41,8 @@
         <activity android:name=".useractivity.PermisosActivity" android:exported="false" />
         <activity android:name=".useractivity.CambiarContrasenaActivity" android:exported="false" />
         <activity android:name=".useractivity.ComentarioActivity" android:exported="false" />
+        <activity android:name=".useractivity.GestionUsuariosActivity" android:exported="false" />
+        <activity android:name=".useractivity.VerComentariosActivity" android:exported="false" />
         <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
         <activity android:name=".useractivity.VersionActivity" android:exported="false" />
         <activity android:name=".emergencyactivity.EmergenciasActivity" android:exported="false" />
@@ -52,6 +57,7 @@
         <activity android:name=".accessactivity.AccessRequestConsultActivity" android:exported="false" />
         <activity android:name=".accessactivity.AccessQrActivity" android:exported="false" />
         <activity android:name=".accessactivity.QrScannerActivity" android:exported="false" />
+        <activity android:name=".vigilante.VigilanteMainActivity" android:exported="false" />
 
         <!-- UN SOLO provider con authority fileprovider -->
         <provider
@@ -63,6 +69,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBQPO1DschhexpgDvmRCBB0ktdwXnajoMc"/>
 
     </application>
 

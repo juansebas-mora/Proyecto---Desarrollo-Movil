@@ -55,6 +55,13 @@ class NotificacionRepository {
             .addOnFailureListener { e -> onResult(Result.failure(e)) }
     }
 
+    fun actualizarNotificacion(id: String, campos: Map<String, Any>, onResult: (Result<Unit>) -> Unit) {
+        coleccion.document(id)
+            .update(campos)
+            .addOnSuccessListener { onResult(Result.success(Unit)) }
+            .addOnFailureListener { e -> onResult(Result.failure(e)) }
+    }
+
     fun eliminarNotificacion(id: String, onResult: (Result<Unit>) -> Unit) {
         coleccion.document(id)
             .delete()

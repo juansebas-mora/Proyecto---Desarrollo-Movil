@@ -21,5 +21,6 @@ data class Notificacion(
     val horaExpiracion: String = "",
     val rolOrigen: String = "Admin",
     var estado: String = "activa",
-    val afectaRuta: Boolean = true
+    val afectaRuta: Boolean = true,
+    val uidCreador: String = ""
 )

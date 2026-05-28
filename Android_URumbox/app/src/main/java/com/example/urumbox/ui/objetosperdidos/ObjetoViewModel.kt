@@ -10,7 +10,7 @@ class ObjetoViewModel : ViewModel() {
 
     private val repository = ObjetoRepository()
 
-    // ── Estado de la lista de objetos ──────────────────────────────────────
+    // ── Lista de objetos ───────────────────────────────────────────────────
     private val _objetos = MutableLiveData<List<ObjetoPerdido>>()
     val objetos: LiveData<List<ObjetoPerdido>> get() = _objetos
 
@@ -18,9 +18,14 @@ class ObjetoViewModel : ViewModel() {
     private val _cargando = MutableLiveData<Boolean>()
     val cargando: LiveData<Boolean> get() = _cargando
 
-    // ── Mensajes de éxito o error para mostrar al usuario ─────────────────
+    // ── Mensajes de éxito o error ──────────────────────────────────────────
     private val _mensaje = MutableLiveData<String>()
     val mensaje: LiveData<String> get() = _mensaje
+
+    // ── Datos del usuario autenticado ──────────────────────────────────────
+    // Triple: (nombreCompleto, telefono, correo)
+    private val _datosUsuario = MutableLiveData<Triple<String, String, String>>()
+    val datosUsuario: LiveData<Triple<String, String, String>> get() = _datosUsuario
 
     // ── CONSULTA: carga los objetos desde Firestore ────────────────────────
     fun cargarObjetos() {
@@ -37,6 +42,19 @@ class ObjetoViewModel : ViewModel() {
         )
     }
 
+    // ── CONSULTA USUARIO: carga los datos del usuario autenticado ─────────
+    fun cargarDatosUsuario() {
+        repository.obtenerDatosUsuarioActual(
+            onExito = { nombre, telefono, correo ->
+                _datosUsuario.value = Triple(nombre, telefono, correo)
+            },
+            onError = { e ->
+                _mensaje.value = "No se pudieron cargar tus datos: ${e.message}"
+                _datosUsuario.value = Triple("", "", "")
+            }
+        )
+    }
+
     // ── REGISTRO: guarda un nuevo objeto en Firestore ─────────────────────
     fun registrarObjeto(objeto: ObjetoPerdido) {
         _cargando.value = true
@@ -45,7 +63,7 @@ class ObjetoViewModel : ViewModel() {
             onExito = {
                 _mensaje.value = "Objeto reportado exitosamente"
                 _cargando.value = false
-                cargarObjetos() // refresca la lista después de registrar
+                cargarObjetos()
             },
             onError = { e ->
                 _mensaje.value = "Error al reportar objeto: ${e.message}"

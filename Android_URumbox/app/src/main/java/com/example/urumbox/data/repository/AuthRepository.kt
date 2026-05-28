@@ -48,7 +48,7 @@ class AuthRepository {
     } catch (e: FirebaseAuthException) {
         AuthResult.Error(mapAuthError(e.errorCode))
     } catch (e: Exception) {
-        AuthResult.Error(e.message ?: "Error desconocido")
+        AuthResult.Error(mapGeneralError(e))
     }
 
     suspend fun cambiarContrasena(contrasenaActual: String, contrasenaNueva: String): AuthResult<Unit> = try {
@@ -62,6 +62,13 @@ class AuthRepository {
         AuthResult.Error(mapAuthError(e.errorCode))
     } catch (e: Exception) {
         AuthResult.Error(e.message ?: "Error desconocido")
+    }
+
+    suspend fun getUserRole(uid: String): String = try {
+        val doc = firestore.collection("usuarios").document(uid).get().await()
+        doc.getString("rol") ?: ""
+    } catch (e: Exception) {
+        ""
     }
 
     fun cerrarSesion() = auth.signOut()
@@ -79,5 +86,19 @@ class AuthRepository {
         "ERROR_TOO_MANY_REQUESTS" -> "Demasiados intentos. Intenta más tarde"
         "ERROR_NETWORK_REQUEST_FAILED" -> "Error de conexión. Verifica tu internet"
         else -> "Error de autenticación. Intenta de nuevo"
+    }
+
+    private fun mapGeneralError(e: Exception): String {
+        val msg = e.message ?: ""
+        return if (msg.contains("REQUESTS_FROM_THIS_CLIENT_ARE_BLOCKED", ignoreCase = true) ||
+            msg.contains("requests from this android client", ignoreCase = true)) {
+            // SHA-1 del dispositivo no registrado en Firebase Console.
+            // Agregar huella: Firebase Console → Configuracion del proyecto → Tu app Android → Agregar huella digital
+            "Error de configuracion del servidor. Contacta al administrador."
+        } else if (msg.contains("network", ignoreCase = true) || msg.contains("unable to resolve", ignoreCase = true)) {
+            "Error de conexion. Verifica tu internet"
+        } else {
+            "Error inesperado. Intenta de nuevo"
+        }
     }
 }

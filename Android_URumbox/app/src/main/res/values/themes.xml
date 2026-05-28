@@ -9,6 +9,20 @@
         <item name="android:statusBarColor">@color/primario</item>
         <item name="android:windowLightStatusBar">false</item>
 
+        <!-- Colores Material3 para componentes interactivos -->
+        <item name="colorPrimary">@color/secundario</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/bg_dark_blue_soft</item>
+        <item name="colorOnPrimaryContainer">@color/primario</item>
+
+    </style>
+
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputHint</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputHint" parent="">
+        <item name="colorOnSurfaceVariant">@color/azul_ur</item>
     </style>
 
     <style name="Widget.App.Button" parent="Widget.Material3.Button">
@@ -18,4 +32,24 @@
 
 
     <style name="Theme.URumbox" parent="Base.Theme.URumbox" />
+
+    <style name="TimePickerTheme" parent="Theme.Material3.Light.Dialog">
+        <item name="colorPrimary">@color/secundario</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/bg_dark_blue_soft</item>
+        <item name="colorOnPrimaryContainer">@color/primario</item>
+        <item name="colorSecondary">@color/secundario</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/bg_dark_blue_soft</item>
+        <item name="colorOnSecondaryContainer">@color/primario</item>
+        <item name="colorTertiary">@color/secundario</item>
+        <item name="colorOnTertiary">@color/white</item>
+        <item name="colorTertiaryContainer">@color/bg_dark_blue_soft</item>
+        <item name="colorOnTertiaryContainer">@color/primario</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/primario</item>
+        <item name="colorSurfaceVariant">@color/fondo</item>
+        <item name="colorOnSurfaceVariant">@color/primario</item>
+        <item name="colorOutline">@color/gris_linea</item>
+    </style>
 </resources>

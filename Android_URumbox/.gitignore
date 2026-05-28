@@ -23,3 +23,4 @@
 .gradle/buildOutputCleanup/outputFiles.bin
 .idea/workspace.xml
 /local.properties
+.build/reports/problems/problems-report.html
