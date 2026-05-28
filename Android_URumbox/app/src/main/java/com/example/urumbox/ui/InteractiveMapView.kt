@@ -1,5 +1,7 @@
 package com.example.urumbox.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
@@ -62,6 +64,11 @@ class InteractiveMapView @JvmOverloads constructor(
 
     private var pendingCenter: PointF? = null
     private var matrixAnimator: ValueAnimator? = null
+    private var arrowX = -1f
+    private var arrowY = -1f
+    private var arrowAngle = 0f
+    private var arrowAnimator: ValueAnimator? = null
+    private var rotationAnimator: ValueAnimator? = null
 
     // Paints
     private val routePaint = Paint().apply {
@@ -101,10 +108,10 @@ class InteractiveMapView @JvmOverloads constructor(
     init {
         density = context.resources.displayMetrics.density
         
-        contentLeft = 100f * density
-        contentTop = 110f * density
-        contentRight = 820f * density
-        contentBottom = 820f * density
+        contentLeft = 0f
+        contentTop = 0f
+        contentRight = 1000f * density
+        contentBottom = 1000f * density
         contentWidth = contentRight - contentLeft
         contentHeight = contentBottom - contentTop
 
@@ -113,14 +120,129 @@ class InteractiveMapView @JvmOverloads constructor(
         setImageResource(R.drawable.mapa_claustro_p1)
     }
 
+    private fun getAngleAtCoordinateIndex(index: Int): Float {
+        var angleDegrees = arrowAngle
+        var foundDirection = false
+        if (index + 1 < coordenadas.size) {
+            val nextCoord = coordenadas[index + 1]
+            if (nextCoord.piso == currentPiso) {
+                val dx = nextCoord.x - coordenadas[index].x
+                val dy = nextCoord.y - coordenadas[index].y
+                if (Math.hypot(dx.toDouble(), dy.toDouble()) > 1.0) {
+                    angleDegrees = Math.toDegrees(Math.atan2(dy.toDouble(), dx.toDouble())).toFloat()
+                    foundDirection = true
+                }
+            }
+        }
+        if (!foundDirection && index > 0) {
+            val prevCoord = coordenadas[index - 1]
+            if (prevCoord.piso == currentPiso) {
+                val dx = coordenadas[index].x - prevCoord.x
+                val dy = coordenadas[index].y - prevCoord.y
+                if (Math.hypot(dx.toDouble(), dy.toDouble()) > 1.0) {
+                    angleDegrees = Math.toDegrees(Math.atan2(dy.toDouble(), dx.toDouble())).toFloat()
+                    foundDirection = true
+                }
+            }
+        }
+        return angleDegrees
+    }
+
     fun setRouteData(coordenadas: List<Coordenada>, pasoActual: PasoNav?) {
         this.coordenadas = coordenadas
+        val oldPaso = this.pasoActual
         this.pasoActual = pasoActual
         
-        pasoActual?.let {
-            val floorChanged = setFloor(it.piso)
-            centerOnCoordinate(it.x, it.y, animate = !floorChanged)
+        pasoActual?.let { targetPaso ->
+            val floorChanged = setFloor(targetPaso.piso)
+            
+            // Find coordinate index for targetPaso
+            var targetIndex = -1
+            var minDistance = Float.MAX_VALUE
+            for (i in coordenadas.indices) {
+                val coord = coordenadas[i]
+                if (coord.piso == targetPaso.piso) {
+                    val dist = Math.hypot((coord.x - targetPaso.x).toDouble(), (coord.y - targetPaso.y).toDouble()).toFloat()
+                    if (dist < minDistance) {
+                        minDistance = dist
+                        targetIndex = i
+                    }
+                }
+            }
+            
+            val finalTargetAngle = if (targetIndex != -1) {
+                getAngleAtCoordinateIndex(targetIndex)
+            } else {
+                0f
+            }
+            
+            if (arrowX == -1f || arrowY == -1f || floorChanged) {
+                arrowAnimator?.cancel()
+                rotationAnimator?.cancel()
+                arrowX = targetPaso.x
+                arrowY = targetPaso.y
+                arrowAngle = finalTargetAngle
+                invalidate()
+            } else {
+                arrowAnimator?.cancel()
+                rotationAnimator?.cancel()
+                
+                val startX = arrowX
+                val startY = arrowY
+                val endX = targetPaso.x
+                val endY = targetPaso.y
+                
+                val dx = endX - startX
+                val dy = endY - startY
+                val translationAngle = if (Math.hypot(dx.toDouble(), dy.toDouble()) > 0.1) {
+                    Math.toDegrees(Math.atan2(dy.toDouble(), dx.toDouble())).toFloat()
+                } else {
+                    arrowAngle
+                }
+                
+                // Phase 1: Translate the arrow to the target position
+                arrowAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+                    duration = 320 // Muy ligeramente más rápido que el desplazamiento del mapa (400ms)
+                    addUpdateListener { animator ->
+                        val fraction = animator.animatedValue as Float
+                        arrowX = startX + fraction * (endX - startX)
+                        arrowY = startY + fraction * (endY - startY)
+                        arrowAngle = translationAngle // Keep translation angle during movement
+                        invalidate()
+                    }
+                    
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            // Phase 2: Rotation to target path angle
+                            // Normalize angle difference for shortest rotation path
+                            var diff = finalTargetAngle - translationAngle
+                            while (diff < -180f) diff += 360f
+                            while (diff > 180f) diff -= 360f
+                            val shortestEndAngle = translationAngle + diff
+                            
+                            rotationAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+                                duration = 200 // smooth and rapid rotation at the end
+                                addUpdateListener { rotAnimator ->
+                                    val rotFraction = rotAnimator.animatedValue as Float
+                                    arrowAngle = translationAngle + rotFraction * (shortestEndAngle - translationAngle)
+                                    invalidate()
+                                }
+                                start()
+                            }
+                        }
+                    })
+                    
+                    start()
+                }
+            }
+            
+            centerOnCoordinate(targetPaso.x, targetPaso.y, animate = !floorChanged)
         } ?: run {
+            arrowAnimator?.cancel()
+            rotationAnimator?.cancel()
+            arrowX = -1f
+            arrowY = -1f
+            arrowAngle = 0f
             resetMapTransform()
         }
         
@@ -209,9 +331,9 @@ class InteractiveMapView @JvmOverloads constructor(
         mapMatrix.getValues(values)
         var currentScale = values[Matrix.MSCALE_X]
         
-        // If current scale is base scale, zoom in slightly for better focus
+        // If current scale is base scale, zoom in slightly for better focus (gentler zoom level)
         if (currentScale <= baseScale * 1.1f) {
-            currentScale = baseScale * 2.2f
+            currentScale = baseScale * 1.5f
         }
         
         // Use density scaled coordinates
@@ -404,7 +526,6 @@ class InteractiveMapView @JvmOverloads constructor(
         val pts = FloatArray(2)
 
         // Find the index of coordinates list corresponding to the current step.
-        // Clean remaining path by only drawing from this point forward.
         var startIndex = 0
         pasoActual?.let { paso ->
             var minDistance = Float.MAX_VALUE
@@ -424,20 +545,41 @@ class InteractiveMapView @JvmOverloads constructor(
             }
         }
 
-        for (i in startIndex until coordenadas.size) {
-            val coord = coordenadas[i]
-            if (coord.piso == currentPiso) {
-                pts[0] = coord.x * density
-                pts[1] = coord.y * density
-                imageMatrix.mapPoints(pts)
-                val px = pts[0]
-                val py = pts[1]
+        // Draw path starting from arrow's current position to the target step and subsequent coordinates
+        if (pasoActual != null && pasoActual!!.piso == currentPiso && arrowX != -1f && arrowY != -1f) {
+            pts[0] = arrowX * density
+            pts[1] = arrowY * density
+            imageMatrix.mapPoints(pts)
+            routePath.moveTo(pts[0], pts[1])
+            pathStarted = true
 
-                if (!pathStarted) {
-                    routePath.moveTo(px, py)
-                    pathStarted = true
-                } else {
-                    routePath.lineTo(px, py)
+            // Add the remaining coordinates starting from the current target step (startIndex)
+            for (i in startIndex until coordenadas.size) {
+                val coord = coordenadas[i]
+                if (coord.piso == currentPiso) {
+                    pts[0] = coord.x * density
+                    pts[1] = coord.y * density
+                    imageMatrix.mapPoints(pts)
+                    routePath.lineTo(pts[0], pts[1])
+                }
+            }
+        } else {
+            // Fallback: draw from startIndex onwards if arrow is not active
+            for (i in startIndex until coordenadas.size) {
+                val coord = coordenadas[i]
+                if (coord.piso == currentPiso) {
+                    pts[0] = coord.x * density
+                    pts[1] = coord.y * density
+                    imageMatrix.mapPoints(pts)
+                    val px = pts[0]
+                    val py = pts[1]
+
+                    if (!pathStarted) {
+                        routePath.moveTo(px, py)
+                        pathStarted = true
+                    } else {
+                        routePath.lineTo(px, py)
+                    }
                 }
             }
         }
@@ -447,16 +589,55 @@ class InteractiveMapView @JvmOverloads constructor(
         }
 
         pasoActual?.let { paso ->
-            if (paso.piso == currentPiso) {
-                pts[0] = paso.x * density
-                pts[1] = paso.y * density
+            if (paso.piso == currentPiso && arrowX != -1f && arrowY != -1f) {
+                pts[0] = arrowX * density
+                pts[1] = arrowY * density
                 imageMatrix.mapPoints(pts)
                 val px = pts[0]
                 val py = pts[1]
 
-                canvas.drawCircle(px, py, 36f, pinOuterPaint) // Radius 36f (72f diameter)
-                canvas.drawCircle(px, py, 18f, pinInnerPaint) // Radius 18f (36f diameter)
-                canvas.drawCircle(px, py, 18f, pinBorderPaint) // Radius 18f
+                // Draw semi-transparent background pulse (slightly larger)
+                canvas.drawCircle(px, py, 42f, pinOuterPaint)
+
+                // Use the updated arrowAngle
+                val hasPath = coordenadas.size > 1 && (startIndex < coordenadas.size)
+                if (hasPath) {
+                    canvas.save()
+                    canvas.translate(px, py)
+                    canvas.rotate(arrowAngle)
+
+                    // Stylized GPS navigation arrow, slightly larger
+                    val arrowPath = Path().apply {
+                        moveTo(24f * density, 0f)
+                        lineTo(-18f * density, -15f * density)
+                        lineTo(-9f * density, 0f)
+                        lineTo(-18f * density, 15f * density)
+                        close()
+                    }
+
+                    val arrowPaint = Paint().apply {
+                        color = Color.parseColor("#0A7EBF") // Secondary blue
+                        style = Paint.Style.FILL
+                        isAntiAlias = true
+                    }
+
+                    val arrowBorderPaint = Paint().apply {
+                        color = Color.WHITE
+                        style = Paint.Style.STROKE
+                        strokeWidth = 5f
+                        strokeCap = Paint.Cap.ROUND
+                        strokeJoin = Paint.Join.ROUND
+                        isAntiAlias = true
+                    }
+
+                    canvas.drawPath(arrowPath, arrowPaint)
+                    canvas.drawPath(arrowPath, arrowBorderPaint)
+                    canvas.restore()
+                } else {
+                    // Fallback to solid circle if at the very end of the route
+                    canvas.drawCircle(px, py, 18f, pinInnerPaint)
+                    canvas.drawCircle(px, py, 18f, pinBorderPaint)
+                }
             }
         }
     }
