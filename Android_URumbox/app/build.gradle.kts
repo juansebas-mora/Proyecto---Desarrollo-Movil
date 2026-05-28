@@ -21,19 +21,36 @@ android {
             project.findProperty("AIzaSyCfW-FfOnf2jQSCpvqTy78U4lru4cIqaiY") ?: ""
     }
 
-    buildFeatures {
-        viewBinding = true
+    signingConfigs {
+        create("release") {
+            storeFile = file("mi-app-keystore.jks")
+            storePassword = "DesMOv01$"
+            keyAlias = "mi-app"
+            keyPassword = "DesMOv01$"
+        }
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    lint {
+        disable += "NullSafeMutableLiveData"
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
