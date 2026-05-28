@@ -2,6 +2,7 @@ package com.example.urumbox.accessactivity
 
 import android.Manifest
 import android.app.Dialog
+import android.graphics.drawable.GradientDrawable
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -165,6 +166,12 @@ class AccessHistoryActivity : AppCompatActivity() {
 
         binding = ActivityAccessHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         val adapter = AccessHistoryAdapter()
         binding.rvHistory.layoutManager = LinearLayoutManager(this)
@@ -496,6 +503,33 @@ class AccessRequestConsultActivity : AppCompatActivity() {
         dialog.findViewById<TextView>(R.id.tvDetailCorreo).text = request.correo
         dialog.findViewById<TextView>(R.id.tvDetailDocumento).text = request.documento
         dialog.findViewById<TextView>(R.id.tvDetailFecha).text = request.fecha
+
+        val tvEstado = dialog.findViewById<TextView>(R.id.tvDetailEstado)
+        val (estadoLabel, badgeColor, textColor) = when (request.estado) {
+            "aceptada" -> Triple(
+                "Aceptada",
+                ContextCompat.getColor(this, R.color.badge_encontrado_bg),
+                ContextCompat.getColor(this, R.color.badge_encontrado_text)
+            )
+            "denegada" -> Triple(
+                "Denegada",
+                0xFFFFE0E0.toInt(),
+                ContextCompat.getColor(this, R.color.text_alto)
+            )
+            else -> Triple(
+                "Pendiente",
+                0xFFF0F0F0.toInt(),
+                ContextCompat.getColor(this, R.color.texto_secundario)
+            )
+        }
+        tvEstado.text = estadoLabel
+        tvEstado.setTextColor(textColor)
+        tvEstado.background = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = 20f * resources.displayMetrics.density
+            setColor(badgeColor)
+        }
+
         dialog.findViewById<ImageButton>(R.id.btnCloseDetail).setOnClickListener {
             dialog.dismiss()
         }

@@ -199,7 +199,7 @@ class AccessRequestViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val namePattern = Regex("^[\\p{L} ]+$")
-    private val emailPattern = Regex("^[a-zA-Z]+\\.[a-zA-Z]+@urosario\\.edu\\.co$")
+    private val emailPattern = Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
 
     fun validateNombres(value: String, showEmptyError: Boolean = false) {
         _nombresError.value = when {
@@ -220,7 +220,7 @@ class AccessRequestViewModel : ViewModel() {
     fun validateCorreo(value: String, showEmptyError: Boolean = false) {
         _correoError.value = when {
             value.isBlank() -> if (showEmptyError) "Campo obligatorio" else null
-            !emailPattern.matches(value) -> "El correo debe tener el formato nombre.apellido@urosario.edu.co"
+            !emailPattern.matches(value) -> "Ingresa un correo válido (ej: nombre@dominio.com)"
             else -> null
         }
     }
