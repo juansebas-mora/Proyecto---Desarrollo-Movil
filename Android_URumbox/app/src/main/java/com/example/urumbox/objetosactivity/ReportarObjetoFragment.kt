@@ -41,6 +41,8 @@ class ReportarObjetoFragment : Fragment() {
     private var fotoUri: Uri? = null
     private var cameraUri: Uri? = null
 
+    private var categoriaPersonalizada: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,6 +63,7 @@ class ReportarObjetoFragment : Fragment() {
 
         // ── Carga automática de datos del usuario al abrir el formulario ──
         viewModel.cargarDatosUsuario()
+        configurarCategoriaOtro()
     }
 
     private fun configurarObservadores() {
@@ -145,7 +148,7 @@ class ReportarObjetoFragment : Fragment() {
                     R.id.chipDocumentos -> "Documentos"
                     R.id.chipPrendas -> "Prendas"
                     R.id.chipAccesorios -> "Accesorios"
-                    R.id.chipOtro -> "Otro"
+                    R.id.chipOtro -> categoriaPersonalizada.ifEmpty { "Otro" }
                     else -> "Otro"
                 }
 
@@ -176,6 +179,8 @@ class ReportarObjetoFragment : Fragment() {
         binding.btnSubirFoto.setOnClickListener {
             mostrarDialogoFoto()
         }
+
+        configurarCategoriaOtro()
     }
 
     private fun validarFormulario(): Boolean {
@@ -279,6 +284,56 @@ class ReportarObjetoFragment : Fragment() {
 
             permisoCamaraLauncher.launch(Manifest.permission.CAMERA)
         }
+    }
+    private fun configurarCategoriaOtro() {
+
+        binding.chipGroupCategorias.setOnCheckedStateChangeListener { _, checkedIds ->
+
+            if (checkedIds.contains(R.id.chipOtro)) {
+                mostrarDialogoCategoriaOtro()
+            }
+        }
+    }
+    private fun mostrarDialogoCategoriaOtro() {
+
+        val input = android.widget.EditText(requireContext()).apply {
+            hint = "Ej: Llaves, Botella, Carnet..."
+            setPadding(40, 30, 40, 30)
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Otra categoría")
+            .setMessage("Ingresa la categoría del objeto")
+            .setView(input)
+
+            .setPositiveButton("Guardar") { _, _ ->
+
+                val texto = input.text.toString().trim()
+
+                if (texto.isNotEmpty()) {
+
+                    categoriaPersonalizada = texto
+
+                    binding.chipOtro.text = texto
+                } else {
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Debes ingresar una categoría",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    binding.chipTecnologia.isChecked = true
+                }
+            }
+
+            .setNegativeButton("Cancelar") { _, _ ->
+
+                binding.chipTecnologia.isChecked = true
+            }
+
+            .setCancelable(false)
+            .show()
     }
 
 }
