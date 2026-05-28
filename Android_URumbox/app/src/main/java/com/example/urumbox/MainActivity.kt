@@ -14,6 +14,7 @@ import com.example.urumbox.objetosactivity.ObjetosActivity
 import com.example.urumbox.mapasactivity.BusquedaActivity
 import com.example.urumbox.mapasactivity.MapaActivity
 import androidx.activity.viewModels
+import android.view.View
 
 class MainActivity : AppCompatActivity() {
 
@@ -64,36 +65,58 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent, options.toBundle())
         }
 
+        // Búsqueda dedicada de Rutas
+        binding.cardBuscarRuta.setOnClickListener {
+            val intent = Intent(this, BusquedaActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Configuración de Notificaciones en Dashboard
+        val notiAdapter = com.example.urumbox.notificationactivity.DashboardNotificacionAdapter { noti ->
+            startActivity(Intent(this, NotificationActivity::class.java))
+        }
+        binding.rvDashboardNotifications.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        binding.rvDashboardNotifications.adapter = notiAdapter
+
+        viewModel.latestNotifications.observe(this) { list ->
+            if (list.isEmpty()) {
+                binding.cardNoNotifications.visibility = View.VISIBLE
+                binding.rvDashboardNotifications.visibility = View.GONE
+            } else {
+                binding.cardNoNotifications.visibility = View.GONE
+                binding.rvDashboardNotifications.visibility = View.VISIBLE
+                notiAdapter.submitList(list)
+            }
+        }
+
         // Emergencias y Evacuación
         binding.btnSimulacroRoute.setOnClickListener {
-            // Simulacro - Sin redirigir por ahora (módulo de emergencias)
+            val intent = Intent(this, EmergenciasActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)
         }
 
         binding.btnReportIncident.setOnClickListener {
             startActivity(Intent(this, EmergenciasActivity::class.java))
         }
 
-        // Objetos Perdidos
-        binding.btnAudifonosRoute.setOnClickListener {
-            val intent = Intent(this, MapaActivity::class.java).apply {
-                putExtra("id_ruta", "ruta_casur")
-            }
-            startActivity(intent)
-        }
-
-        binding.btnAudifonosDetails.setOnClickListener {
+        // Configuración de Objetos Perdidos en Dashboard
+        val lostAdapter = com.example.urumbox.objetosactivity.DashboardLostObjectsAdapter { objeto ->
             startActivity(Intent(this, ObjetosActivity::class.java))
         }
+        binding.rvDashboardLostObjects.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        binding.rvDashboardLostObjects.adapter = lostAdapter
 
-        binding.btnCelularRoute.setOnClickListener {
-            val intent = Intent(this, MapaActivity::class.java).apply {
-                putExtra("id_ruta", "ruta_casur")
+        viewModel.latestLostObjects.observe(this) { list ->
+            if (list.isEmpty()) {
+                binding.cardNoLostObjects.visibility = View.VISIBLE
+                binding.rvDashboardLostObjects.visibility = View.GONE
+            } else {
+                binding.cardNoLostObjects.visibility = View.GONE
+                binding.rvDashboardLostObjects.visibility = View.VISIBLE
+                lostAdapter.submitList(list)
             }
-            startActivity(intent)
-        }
-
-        binding.btnCelularDetails.setOnClickListener {
-            startActivity(Intent(this, ObjetosActivity::class.java))
         }
 
         binding.btnAddObject.setOnClickListener {
@@ -108,5 +131,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnNavProfile.setOnClickListener {
             startActivity(Intent(this, com.example.urumbox.useractivity.PerfilActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.cargarObjetosPerdidos()
     }
 }
