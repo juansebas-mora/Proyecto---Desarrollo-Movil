@@ -64,6 +64,13 @@ class AuthRepository {
         AuthResult.Error(e.message ?: "Error desconocido")
     }
 
+    suspend fun getUserRole(uid: String): String = try {
+        val doc = firestore.collection("usuarios").document(uid).get().await()
+        doc.getString("rol") ?: ""
+    } catch (e: Exception) {
+        ""
+    }
+
     fun cerrarSesion() = auth.signOut()
 
     fun sesionActiva() = auth.currentUser != null

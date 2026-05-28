@@ -34,6 +34,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.urumbox.MainActivity
 import com.example.urumbox.R
+import com.example.urumbox.vigilante.VigilanteMainActivity
 import com.example.urumbox.data.AuthResult
 import com.example.urumbox.databinding.ActivityCambiarContrasenaBinding
 import com.example.urumbox.databinding.ActivityComentarioBinding
@@ -396,6 +397,7 @@ class PerfilActivity : AppCompatActivity() {
     private val storage = FirebaseStorage.getInstance()
 
     private var cameraImageUri: Uri? = null
+    private var userRol: String = ""
 
     private val galleryLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
@@ -463,7 +465,18 @@ class PerfilActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
+        if (userRol == "Vigilante") {
+            navigateToVigilanteMain()
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun navigateToVigilanteMain() {
+        val intent = Intent(this, VigilanteMainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
         finish()
@@ -477,6 +490,7 @@ class PerfilActivity : AppCompatActivity() {
                     ?: "${doc.getString("nombre") ?: ""} ${doc.getString("apellido") ?: ""}".trim()
                 binding.tvNombre.text = nombreCompleto.ifEmpty { user.email ?: "" }
                 val rol = doc.getString("rol") ?: ""
+                userRol = rol
                 binding.tvRol.text = rol
                 val fotoUrl = doc.getString("fotoPerfil")
                 if (!fotoUrl.isNullOrEmpty()) {
@@ -509,6 +523,32 @@ class PerfilActivity : AppCompatActivity() {
                 binding.dividerUsuarios.visibility = View.GONE
                 binding.itemValidarQR.visibility = View.VISIBLE
                 binding.dividerValidarQR.visibility = View.VISIBLE
+
+                binding.topBar.setNotificationButtonVisible(false)
+                binding.navbar.visibility = View.GONE
+
+                binding.itemValidarQR.setOnClickListener {
+                    navigateToVigilanteMain()
+                }
+
+                binding.navbar.setOnButtonsClickListener(
+                    onHome = {
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        startActivity(intent)
+                    },
+                    onBox = {
+                        val intent = Intent(this, com.example.urumbox.objetosactivity.ObjetosActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        startActivity(intent)
+                    },
+                    onAccess = { navigateToVigilanteMain() },
+                    onEmergency = {
+                        val intent = Intent(this, com.example.urumbox.emergencyactivity.EmergenciasActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        startActivity(intent)
+                    }
+                )
             }
             else -> {
                 // "Usuario UR" o rol vacío: sin acceso a gestión de usuarios ni validación QR
@@ -911,9 +951,24 @@ class InicioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (FirebaseAuth.getInstance().currentUser != null) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            FirebaseFirestore.getInstance().collection("usuarios").document(currentUser.uid).get()
+                .addOnSuccessListener { doc ->
+                    val rol = doc.getString("rol") ?: ""
+                    if (rol == "Vigilante") {
+                        startActivity(Intent(this, VigilanteMainActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        })
+                    } else {
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                }
+                .addOnFailureListener {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
             return
         }
 
@@ -987,13 +1042,11 @@ class LoginSActivity : AppCompatActivity() {
                                         Toast.LENGTH_LONG
                                     ).show()
                                 } else {
-                                    startActivity(Intent(this@LoginSActivity, MainActivity::class.java))
-                                    finish()
+                                    viewModel.resolveDestination(uid)
                                 }
                             }
                             .addOnFailureListener {
-                                startActivity(Intent(this@LoginSActivity, MainActivity::class.java))
-                                finish()
+                                viewModel.resolveDestination(uid)
                             }
                     }
                     is AuthResult.Error -> {
@@ -1002,6 +1055,24 @@ class LoginSActivity : AppCompatActivity() {
                     }
                     null -> Unit
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.destination.collect { dest ->
+                dest ?: return@collect
+                when (dest) {
+                    is LoginDestination.Vigilante -> {
+                        startActivity(Intent(this@LoginSActivity, VigilanteMainActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        })
+                    }
+                    is LoginDestination.Main -> {
+                        startActivity(Intent(this@LoginSActivity, MainActivity::class.java))
+                        finish()
+                    }
+                }
+                viewModel.onDestinationConsumed()
             }
         }
     }
