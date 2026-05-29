@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/tvReporteCategoria"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#1B3E63"
+                android:text="🔥  Incendio" />
+
+            <TextView
+                android:id="@+id/tvReporteGravedad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chip_unselected_bg"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:text="Alta" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvReporteDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Descripción del reporte…"
+            android:textColor="#555555"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvReporteFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="#999999"
+            android:text="01/01/2025 10:00" />
+
+        <ImageView
+            android:id="@+id/ivReporteFoto"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/input_background" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

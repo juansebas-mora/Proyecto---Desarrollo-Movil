@@ -10,7 +10,11 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:topbarTitle="Puntos de Encuentro" />
+        app:topbarTitle="Puntos de Encuentro"
+        app:showBackButton="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,18 +27,54 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Aviso -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#E8F5E9"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="¡Mantenga la calma!"
+                        android:textColor="#1B5E20"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Siga las instrucciones del personal"
+                        android:textColor="#2E7D32"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Mapa Google Maps -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp">
 
-                <com.example.urumbox.ui.InteractiveMapView
-                    android:id="@+id/interactiveMapView"
+                <fragment
+                    android:id="@+id/mapPuntosEncuentro"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter" />
+                    android:layout_height="match_parent" />
 
             </androidx.cardview.widget.CardView>
 
@@ -43,9 +83,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
@@ -54,14 +95,30 @@
                     android:gravity="center"
                     android:text="A"
                     android:textColor="#FFFFFF"
-                    android:textSize="25sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="-Plaza principal"
-                    android:textColor="#333333"
-                    android:textSize="25sp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Plaza principal"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.600436, -74.073101"
+                        android:textColor="#888888"
+                        android:textSize="12sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Punto B -->
@@ -69,51 +126,63 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
-                android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/bg_circle_blue"
-                    android:gravity="center"
-                    android:text="B"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="-Parqueadero norte"
-                    android:textColor="#333333"
-                    android:textSize="25sp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Punto C -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginBottom="14dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/bg_circle_blue"
-                    android:gravity="center"
-                    android:text="C"
-                    android:textColor="#FFFFFF"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="-Entrada principal"
-                    android:textColor="#333333"
-                    android:textSize="25sp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Punto D -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
