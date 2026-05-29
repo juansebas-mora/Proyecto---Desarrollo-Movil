@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_dialog_rounded">
+
+    <TextView
+        android:id="@+id/tvDetalleCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#1B3E63"
+        android:layout_marginBottom="4dp"
+        android:text="🔥  Incendio"/>
+
+    <TextView
+        android:id="@+id/tvDetalleGravedad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/chip_unselected_bg"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:text="Alta"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DESCRIPCIÓN"
+        android:textColor="#888888"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:id="@+id/tvDetalleDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
+        android:text="Descripción completa aquí..."/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FECHA"
+        android:textColor="#888888"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:id="@+id/tvDetalleFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
+        android:text="01/01/2025 10:00"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UBICACIÓN"
+        android:textColor="#888888"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:id="@+id/tvDetalleUbicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
+        android:text="No especificada"/>
+
+    <TextView
+        android:id="@+id/tvDetalleFotoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FOTO"
+        android:textColor="#888888"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivDetalleFoto"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/input_background"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCerrarDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_button_background"
+        android:text="Cerrar"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+</LinearLayout>
