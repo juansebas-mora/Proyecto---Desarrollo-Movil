@@ -7,5 +7,6 @@ data class AccessRequest(
     val correo: String = "",
     val documento: String = "",
     val fecha: String = "",
-    val userId: String = ""
+    val userId: String = "",
+    val estado: String = "pendiente"
 )

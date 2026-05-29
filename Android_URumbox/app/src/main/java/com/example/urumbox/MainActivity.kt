@@ -1,8 +1,8 @@
-
 package com.example.urumbox
 
 import com.example.urumbox.emergencyactivity.EmergenciasActivity
 import android.content.Intent
+import android.content.pm.PackageManager
 import com.example.urumbox.notificationactivity.NotificationActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +14,7 @@ import com.example.urumbox.objetosactivity.ObjetosActivity
 import com.example.urumbox.mapasactivity.BusquedaActivity
 import com.example.urumbox.mapasactivity.MapaActivity
 import androidx.activity.viewModels
+import android.view.View
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // TODO: DIAGNOSTICO TEMPORAL — Eliminar despues de registrar el SHA-1 en Firebase Console
+        // Este bloque imprime el SHA-1 del dispositivo en Logcat (tag: SHA1_KEY).
+        // Pasos: 1) Corre la app  2) Filtra Logcat por "SHA1_KEY"  3) Copia el SHA-1
+        //        4) Firebase Console → Configuracion del proyecto → Tu app Android → Agregar huella digital
+        //        5) Elimina este bloque
+        try {
+            @Suppress("DEPRECATION")
+            val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+            @Suppress("DEPRECATION")
+            info.signatures?.forEach { signature ->
+                val md = java.security.MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val hashKey = android.util.Base64.encodeToString(md.digest(), android.util.Base64.DEFAULT)
+                android.util.Log.d("SHA1_KEY", "SHA1: $hashKey")
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("SHA1_KEY", "Error obteniendo SHA1: ${e.message}")
+        }
+
         enableEdgeToEdge()
         androidx.core.view.WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -44,36 +65,58 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent, options.toBundle())
         }
 
+        // Búsqueda dedicada de Rutas
+        binding.cardBuscarRuta.setOnClickListener {
+            val intent = Intent(this, BusquedaActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Configuración de Notificaciones en Dashboard
+        val notiAdapter = com.example.urumbox.notificationactivity.DashboardNotificacionAdapter { noti ->
+            startActivity(Intent(this, NotificationActivity::class.java))
+        }
+        binding.rvDashboardNotifications.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        binding.rvDashboardNotifications.adapter = notiAdapter
+
+        viewModel.latestNotifications.observe(this) { list ->
+            if (list.isEmpty()) {
+                binding.cardNoNotifications.visibility = View.VISIBLE
+                binding.rvDashboardNotifications.visibility = View.GONE
+            } else {
+                binding.cardNoNotifications.visibility = View.GONE
+                binding.rvDashboardNotifications.visibility = View.VISIBLE
+                notiAdapter.submitList(list)
+            }
+        }
+
         // Emergencias y Evacuación
         binding.btnSimulacroRoute.setOnClickListener {
-            // Simulacro - Sin redirigir por ahora (módulo de emergencias)
+            val intent = Intent(this, EmergenciasActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            startActivity(intent)
         }
 
         binding.btnReportIncident.setOnClickListener {
             startActivity(Intent(this, EmergenciasActivity::class.java))
         }
 
-        // Objetos Perdidos
-        binding.btnAudifonosRoute.setOnClickListener {
-            val intent = Intent(this, MapaActivity::class.java).apply {
-                putExtra("id_ruta", "ruta_casur")
-            }
-            startActivity(intent)
-        }
-
-        binding.btnAudifonosDetails.setOnClickListener {
+        // Configuración de Objetos Perdidos en Dashboard
+        val lostAdapter = com.example.urumbox.objetosactivity.DashboardLostObjectsAdapter { objeto ->
             startActivity(Intent(this, ObjetosActivity::class.java))
         }
+        binding.rvDashboardLostObjects.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        binding.rvDashboardLostObjects.adapter = lostAdapter
 
-        binding.btnCelularRoute.setOnClickListener {
-            val intent = Intent(this, MapaActivity::class.java).apply {
-                putExtra("id_ruta", "ruta_casur")
+        viewModel.latestLostObjects.observe(this) { list ->
+            if (list.isEmpty()) {
+                binding.cardNoLostObjects.visibility = View.VISIBLE
+                binding.rvDashboardLostObjects.visibility = View.GONE
+            } else {
+                binding.cardNoLostObjects.visibility = View.GONE
+                binding.rvDashboardLostObjects.visibility = View.VISIBLE
+                lostAdapter.submitList(list)
             }
-            startActivity(intent)
-        }
-
-        binding.btnCelularDetails.setOnClickListener {
-            startActivity(Intent(this, ObjetosActivity::class.java))
         }
 
         binding.btnAddObject.setOnClickListener {
@@ -88,5 +131,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnNavProfile.setOnClickListener {
             startActivity(Intent(this, com.example.urumbox.useractivity.PerfilActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.cargarObjetosPerdidos()
     }
 }

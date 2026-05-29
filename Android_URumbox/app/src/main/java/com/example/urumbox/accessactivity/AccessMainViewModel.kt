@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.urumbox.data.model.AccessHistoryItem
 import com.example.urumbox.data.model.AccessRequest
 import com.example.urumbox.data.model.UserQrData
 import com.example.urumbox.data.repository.AccessRequestRepository
@@ -74,13 +75,46 @@ class AccessMainViewModel : ViewModel() {
     fun onEventConsumed() {
         _uiEvent.value = null
     }
+
+    private val _recentHistory = MutableLiveData<List<AccessHistoryItem>>(emptyList())
+    val recentHistory: LiveData<List<AccessHistoryItem>> = _recentHistory
+
+    fun loadRecentAccessHistory() {
+        val uid = auth.currentUser?.uid ?: return
+        viewModelScope.launch {
+            QrRepository().getRecentAccessHistory(uid, 5).onSuccess {
+                _recentHistory.value = it
+            }
+        }
+    }
 }
 
 // endregion
 
 // region AccessHistory
 
-class AccessHistoryViewModel : ViewModel()
+class AccessHistoryViewModel : ViewModel() {
+
+    private val repo = QrRepository()
+    private val auth = FirebaseAuth.getInstance()
+
+    private val _history = MutableLiveData<List<AccessHistoryItem>>(emptyList())
+    val history: LiveData<List<AccessHistoryItem>> = _history
+
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    fun loadFullAccessHistory() {
+        val uid = auth.currentUser?.uid ?: return
+        _isLoading.value = true
+        viewModelScope.launch {
+            repo.getFullAccessHistory(uid).onSuccess {
+                _history.value = it
+            }
+            _isLoading.value = false
+        }
+    }
+}
 
 // endregion
 
@@ -165,7 +199,7 @@ class AccessRequestViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val namePattern = Regex("^[\\p{L} ]+$")
-    private val emailPattern = Regex("^[a-zA-Z]+\\.[a-zA-Z]+@urosario\\.edu\\.co$")
+    private val emailPattern = Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
 
     fun validateNombres(value: String, showEmptyError: Boolean = false) {
         _nombresError.value = when {
@@ -186,7 +220,7 @@ class AccessRequestViewModel : ViewModel() {
     fun validateCorreo(value: String, showEmptyError: Boolean = false) {
         _correoError.value = when {
             value.isBlank() -> if (showEmptyError) "Campo obligatorio" else null
-            !emailPattern.matches(value) -> "El correo debe tener el formato nombre.apellido@urosario.edu.co"
+            !emailPattern.matches(value) -> "Ingresa un correo válido (ej: nombre@dominio.com)"
             else -> null
         }
     }
@@ -326,16 +360,19 @@ sealed class QrValidationResult {
 class QrScannerViewModel : ViewModel() {
 
     private val repo = QrRepository()
+    private val auth = FirebaseAuth.getInstance()
 
     private val _validationResult = MutableLiveData<QrValidationResult?>()
     val validationResult: LiveData<QrValidationResult?> = _validationResult
 
-    fun validateQrContent(scannedContent: String) {
+    fun validateQrContent(scannedContent: String, zona: String) {
         val todayDate = SimpleDateFormat("ddMMyyyy", Locale.getDefault())
             .format(Calendar.getInstance().time)
+        val vigilanteUid = auth.currentUser?.uid ?: ""
         viewModelScope.launch {
             try {
                 val userData = repo.validateQrToken(scannedContent, todayDate)
+                repo.saveAccessRecord(userData.uid, zona, vigilanteUid)
                 _validationResult.value = QrValidationResult.Success(userData)
             } catch (e: QrException) {
                 _validationResult.value = QrValidationResult.Error(e)

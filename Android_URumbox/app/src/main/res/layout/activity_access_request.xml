@@ -197,7 +197,7 @@
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginTop="4dp"
-                        android:hint="nombre.apellido@urosario.edu.co"
+                        android:hint="Ej: nombre@dominio.com"
                         android:textSize="14sp"
                         android:textColor="#212121"
                         android:textColorHint="#AAAAAA"

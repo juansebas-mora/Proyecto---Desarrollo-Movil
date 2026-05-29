@@ -88,6 +88,74 @@
             android:orientation="vertical"
             android:padding="24dp">
 
+            <!-- Navegación y Rutas -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NAVEGACIÓN Y RUTAS"
+                android:textColor="@color/texto_secundario"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBuscarRuta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/topbar_button_background"
+                        android:backgroundTint="@color/azul_ur"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_map_route"
+                        app:tint="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="¿A dónde deseas ir?"
+                            android:textColor="@color/azul_ur"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Trazar una ruta en el mapa"
+                            android:textColor="@color/texto_secundario"
+                            android:textSize="13sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_arrow_back"
+                        android:rotation="180"
+                        app:tint="@color/azul_ur" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- Emergencias y Evacuación -->
             <TextView
                 android:layout_width="wrap_content"
@@ -202,6 +270,56 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Avisos y Notificaciones -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AVISOS Y NOTIFICACIONES"
+                android:textColor="@color/texto_secundario"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNoNotifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/circle_avatar_background_blue"
+                        android:backgroundTint="#D1FAE5"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_info_circle"
+                        app:tint="#065F46" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="No hay alertas activas. Todo en orden."
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDashboardNotifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:nestedScrollingEnabled="false" />
+
             <!-- Objetos Perdidos -->
             <TextView
                 android:layout_width="wrap_content"
@@ -212,157 +330,46 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp" />
 
-            <!-- Audifonos Card -->
+            <!-- Tarjeta de estado vacío para objetos perdidos -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNoLostObjects"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="24dp"
+                android:visibility="gone"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/fondo">
-
+                app:cardBackgroundColor="@color/white">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/circle_avatar_background_blue"
+                        android:backgroundTint="#E8F0FE"
+                        android:padding="6dp"
+                        android:src="@drawable/ic_objeto"
+                        app:tint="@color/azul_ur" />
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Audífonos"
-                            android:textColor="@color/azul_ur"
-                            android:textStyle="bold"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Casur - 302"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="16dp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="10:30"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gris_linea"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnAudifonosRoute"
-                            android:layout_width="130dp"
-                            android:layout_height="wrap_content"
-                            android:text="Cómo llegar"
-                            android:textAllCaps="false"
-                            app:cornerRadius="8dp"
-                            android:backgroundTint="@color/azul_ur"
-                            android:layout_marginEnd="16dp" />
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnAudifonosDetails"
-                            android:layout_width="130dp"
-                            android:layout_height="wrap_content"
-                            android:text="Detalles"
-                            android:textAllCaps="false"
-                            app:cornerRadius="8dp"
-                            android:backgroundTint="@color/azul_ur" />
-                    </LinearLayout>
+                        android:layout_marginStart="12dp"
+                        android:text="No hay reportes de objetos perdidos hoy."
+                        android:textColor="@color/texto_secundario"
+                        android:textSize="14sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Celular Card -->
-            <com.google.android.material.card.MaterialCardView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDashboardLostObjects"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/fondo">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Celular"
-                            android:textColor="@color/azul_ur"
-                            android:textStyle="bold"
-                            android:textSize="16sp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Casur - 405"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="14sp"
-                            android:layout_marginEnd="16dp" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="13:20"
-                            android:textColor="@color/texto_secundario"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gris_linea"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnCelularRoute"
-                            android:layout_width="130dp"
-                            android:layout_height="wrap_content"
-                            android:text="Cómo llegar"
-                            android:textAllCaps="false"
-                            app:cornerRadius="8dp"
-                            android:backgroundTint="@color/azul_ur"
-                            android:layout_marginEnd="16dp" />
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnCelularDetails"
-                            android:layout_width="130dp"
-                            android:layout_height="wrap_content"
-                            android:text="Detalles"
-                            android:textAllCaps="false"
-                            app:cornerRadius="8dp"
-                            android:backgroundTint="@color/azul_ur" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                android:nestedScrollingEnabled="false" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnAddObject"

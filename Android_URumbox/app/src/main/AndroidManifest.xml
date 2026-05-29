@@ -41,6 +41,8 @@
         <activity android:name=".useractivity.PermisosActivity" android:exported="false" />
         <activity android:name=".useractivity.CambiarContrasenaActivity" android:exported="false" />
         <activity android:name=".useractivity.ComentarioActivity" android:exported="false" />
+        <activity android:name=".useractivity.GestionUsuariosActivity" android:exported="false" />
+        <activity android:name=".useractivity.VerComentariosActivity" android:exported="false" />
         <activity android:name=".useractivity.ContactanosActivity" android:exported="false" />
         <activity android:name=".useractivity.VersionActivity" android:exported="false" />
         <activity android:name=".emergencyactivity.EmergenciasActivity" android:exported="false" />
@@ -55,6 +57,8 @@
         <activity android:name=".accessactivity.AccessRequestConsultActivity" android:exported="false" />
         <activity android:name=".accessactivity.AccessQrActivity" android:exported="false" />
         <activity android:name=".accessactivity.QrScannerActivity" android:exported="false" />
+        <activity android:name=".accessactivity.AdminSolicitudesActivity" android:exported="false" />
+        <activity android:name=".vigilante.VigilanteMainActivity" android:exported="false" />
 
         <!-- UN SOLO provider con authority fileprovider -->
         <provider

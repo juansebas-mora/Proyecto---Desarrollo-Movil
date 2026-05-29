@@ -34,43 +34,72 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/fondo">
 
-            <!-- Barra de búsqueda -->
+            <!-- Fila búsqueda + botón nueva notificación -->
             <LinearLayout
-                android:id="@+id/searchContainer"
+                android:id="@+id/searchRow"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/bg_search_bar"
-                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:gravity="center_vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/scrollFiltros">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="8dp"
-                    android:alpha="0.5"
-                    android:src="@drawable/ic_search" />
-
-                <EditText
-                    android:id="@+id/etBuscar"
+                <!-- Barra de búsqueda -->
+                <LinearLayout
+                    android:id="@+id/searchContainer"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="Buscar notificacion, tema o aviso..."
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:textColor="@color/primario"
-                    android:textColorHint="@color/texto_secundario"
-                    android:textSize="14sp" />
+                    android:background="@drawable/bg_search_bar"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:alpha="0.5"
+                        android:src="@drawable/ic_search" />
+
+                    <EditText
+                        android:id="@+id/etBuscar"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="Buscar notificacion, tema o aviso..."
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:textColor="@color/primario"
+                        android:textColorHint="@color/texto_secundario"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Botón nueva notificación -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNueva"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text=""
+                    android:contentDescription="Nueva notificación"
+                    app:backgroundTint="@color/secundario"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_add"
+                    app:iconTint="@color/white"
+                    app:iconSize="22dp"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp" />
+
             </LinearLayout>
 
             <!-- Filtros de pestañas -->
@@ -84,7 +113,7 @@
                 android:scrollbars="none"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/searchContainer"
+                app:layout_constraintTop_toBottomOf="@id/searchRow"
                 app:layout_constraintBottom_toTopOf="@+id/rvNotificaciones">
 
                 <LinearLayout
@@ -158,22 +187,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scrollFiltros"/>
-
-        <!-- FAB flotante sobre el contenido -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabNueva"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="Nueva notificación"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/secundario"
-            app:elevation="6dp"
-            app:fabSize="normal"
-            app:tint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
