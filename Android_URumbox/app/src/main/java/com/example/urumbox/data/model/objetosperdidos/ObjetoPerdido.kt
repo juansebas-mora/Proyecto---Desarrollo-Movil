@@ -47,15 +47,24 @@ data class ObjetoPerdido(
     companion object {
         // Convierte un documento de Firestore a ObjetoPerdido
         fun fromDocument(doc: DocumentSnapshot): ObjetoPerdido {
+            val estadoStr = doc.getString("estado")
+            val estadoEnum = try {
+                if (estadoStr != null) {
+                    EstadoObjeto.valueOf(estadoStr.uppercase(java.util.Locale.ROOT))
+                } else {
+                    EstadoObjeto.PERDIDO
+                }
+            } catch (e: IllegalArgumentException) {
+                EstadoObjeto.PERDIDO
+            }
+
             return ObjetoPerdido(
                 id                 = doc.id.hashCode(),
                 nombre             = doc.getString("nombre") ?: "",
                 ubicacion          = doc.getString("ubicacion") ?: "",
                 descripcion        = doc.getString("descripcion") ?: "",
                 fecha              = doc.getDate("fecha") ?: Date(),
-                estado             = EstadoObjeto.valueOf(
-                    doc.getString("estado") ?: "PERDIDO"
-                ),
+                estado             = estadoEnum,
                 categoria          = doc.getString("categoria") ?: "",
                 fotoUri            = doc.getString("fotoUri"),
                 latitud            = doc.getDouble("latitud")  ?: 0.0,

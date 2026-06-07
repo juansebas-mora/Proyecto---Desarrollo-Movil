@@ -71,7 +71,9 @@
         android:hint="Buscar ubicación"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:textSize="14sp"
+        android:textColor="@color/texto_principal"
+        android:textColorHint="@color/texto_secundario"
+        android:textSize="16sp"
         android:transitionName="search_bar_transition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,6 +97,7 @@
             android:layout_margin="20dp"
             android:text="Según tu búsqueda:"
             android:textColor="@color/texto_principal"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
