@@ -15,6 +15,9 @@
         <item name="colorPrimaryContainer">@color/bg_dark_blue_soft</item>
         <item name="colorOnPrimaryContainer">@color/primario</item>
 
+        <!-- Forzar color de texto de EditText a texto_principal para evitar problemas de contraste -->
+        <item name="editTextColor">@color/texto_principal</item>
+        <item name="android:editTextColor">@color/texto_principal</item>
     </style>
 
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

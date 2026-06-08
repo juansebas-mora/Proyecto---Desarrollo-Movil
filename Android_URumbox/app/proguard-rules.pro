@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Reglas para evitar la ofuscación y remoción de modelos de Firebase
+-keep class com.example.urumbox.data.model.** { *; }
+-keepclassmembers class com.example.urumbox.data.model.** { *; }

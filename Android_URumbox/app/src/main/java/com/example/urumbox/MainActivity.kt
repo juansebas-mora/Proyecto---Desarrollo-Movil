@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         enableEdgeToEdge()
-        androidx.core.view.WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
+        androidx.core.view.WindowCompat.getInsetsController(window, window.decorView)?.isAppearanceLightStatusBars = false
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
