@@ -38,6 +38,7 @@ import com.example.urumbox.databinding.ActivityAccessQrBinding
 import com.example.urumbox.databinding.ActivityAccessRequestBinding
 import com.example.urumbox.databinding.ActivityAccessRequestConsultBinding
 import com.example.urumbox.databinding.ActivityQrScannerBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
@@ -67,6 +68,17 @@ class AccessMainActivity : AppCompatActivity() {
         viewModel.loadUserInfo()
         viewModel.userName.observe(this) { name -> binding.tvUserName.text = name }
         viewModel.userEmail.observe(this) { email -> binding.tvUserEmail.text = email }
+        viewModel.userRole.observe(this) { role -> binding.tvRoleBadge.text = role }
+        viewModel.userPhotoUrl.observe(this) { url ->
+            if (!url.isNullOrEmpty()) {
+                Glide.with(this)
+                    .load(url)
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_persona)
+                    .error(R.drawable.ic_persona)
+                    .into(binding.ivUserAvatar)
+            }
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

@@ -42,6 +42,12 @@ class AccessMainViewModel : ViewModel() {
     private val _userEmail = MutableLiveData<String>()
     val userEmail: LiveData<String> = _userEmail
 
+    private val _userRole = MutableLiveData<String>()
+    val userRole: LiveData<String> = _userRole
+
+    private val _userPhotoUrl = MutableLiveData<String>()
+    val userPhotoUrl: LiveData<String> = _userPhotoUrl
+
     private val _uiEvent = MutableLiveData<AccessMainEvent?>()
     val uiEvent: LiveData<AccessMainEvent?> = _uiEvent
 
@@ -57,6 +63,8 @@ class AccessMainViewModel : ViewModel() {
                     ?: ""
                 _userName.value = nombreCompleto
                 _userEmail.value = correo
+                _userRole.value = doc.getString("rol") ?: ""
+                _userPhotoUrl.value = doc.getString("fotoPerfil") ?: ""
             }
     }
 
