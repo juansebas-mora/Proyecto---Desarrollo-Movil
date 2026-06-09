@@ -59,7 +59,7 @@ class DashboardLostObjectsAdapter(
             } else {
                 binding.tvEstado.text = "Encontrado"
                 binding.tvEstado.setBackgroundResource(R.drawable.badge_encontrado)
-                binding.tvEstado.setTextColor(ContextCompat.getColor(context, R.color.badge_encontrado_text))
+                binding.tvEstado.setTextColor(ContextCompat.getColor(context, R.color.blanco))
             }
 
             // Configurar "Cómo llegar" dinámicamente según la ubicación

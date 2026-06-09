@@ -13,35 +13,15 @@
         android:orientation="vertical">
 
         <!-- Header -->
-        <LinearLayout
+        <com.example.urumbox.TopbarView
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@color/azul_ur"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
-            <ImageButton
-                android:id="@+id/btnVolver"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_arrow_back"
-                android:background="@drawable/circle_button_bg"
-                android:contentDescription="Volver"
-                android:layout_marginEnd="12dp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Reportar Objeto"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/blanco"/>
-
-        </LinearLayout>
+            app:topbarTitle="Reportar Objeto"
+            app:showBackButton="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <!-- Contenido del formulario -->
         <LinearLayout
@@ -272,13 +252,15 @@
             <!-- Botón publicar -->
             <Button
                 android:id="@+id/btnPublicarReporte"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="52dp"
                 android:text="Publicar Reporte"
+                android:textColor="@color/blanco"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:backgroundTint="@color/azul_ur"
                 android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
                 style="@style/Widget.Material3.Button"/>
 
         </LinearLayout>

@@ -121,9 +121,9 @@ class ReportarObjetoFragment : Fragment() {
     }
 
     private fun configurarBotones() {
-        binding.btnVolver.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
+//        binding.btnVolver.setOnClickListener {
+//            parentFragmentManager.popBackStack()
+//        }
 
         // ── NUEVO: abre el mapa al tocar la sección de ubicación ─────────────
         binding.btnSeleccionarMapa.setOnClickListener {

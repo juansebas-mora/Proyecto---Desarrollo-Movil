@@ -123,9 +123,9 @@ class DetalleObjetoFragment : Fragment() {
             "Reportante"
 
         // Botón volver
-        binding.btnVolver.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
+//        binding.btnVolver.setOnClickListener {
+//            parentFragmentManager.popBackStack()
+//        }
 
         // Botón contactar
         binding.btnContactar.setOnClickListener {
