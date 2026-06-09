@@ -2,6 +2,8 @@ package com.example.urumbox.useractivity
 
 import android.app.Dialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.urumbox.R
 import com.example.urumbox.databinding.ActivityGestionUsuariosBinding
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
 
 class GestionUsuariosActivity : AppCompatActivity() {
@@ -25,6 +28,8 @@ class GestionUsuariosActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGestionUsuariosBinding
     private val db = FirebaseFirestore.getInstance()
     private lateinit var adapter: UsuarioAdapter
+    private val listaCompleta: MutableList<UsuarioItem> = mutableListOf()
+    private val listaFiltrada: MutableList<UsuarioItem> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +58,14 @@ class GestionUsuariosActivity : AppCompatActivity() {
         binding.recyclerUsuarios.adapter = adapter
 
         cargarUsuarios()
+
+        binding.etBuscarUsuario.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                filtrarUsuarios(s.toString().trim())
+            }
+        })
     }
 
     private fun cargarUsuarios() {
@@ -67,11 +80,32 @@ class GestionUsuariosActivity : AppCompatActivity() {
                     val foto = doc.getString("fotoPerfil")
                     UsuarioItem(uid, nombre, correo, rol, estado, foto)
                 }
-                adapter.updateItems(lista)
+                listaCompleta.clear()
+                listaCompleta.addAll(lista)
+                listaFiltrada.clear()
+                listaFiltrada.addAll(lista)
+                adapter.actualizarLista(listaFiltrada)
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Error al cargar usuarios", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun filtrarUsuarios(query: String) {
+        listaFiltrada.clear()
+        if (query.isEmpty()) {
+            listaFiltrada.addAll(listaCompleta)
+        } else {
+            val queryLower = query.lowercase()
+            listaCompleta.forEach { usuario ->
+                if (usuario.nombreCompleto.lowercase().contains(queryLower) ||
+                    usuario.correo.lowercase().contains(queryLower) ||
+                    usuario.rol.lowercase().contains(queryLower)) {
+                    listaFiltrada.add(usuario)
+                }
+            }
+        }
+        adapter.actualizarLista(listaFiltrada)
     }
 
     private fun mostrarMenuOpciones(usuario: UsuarioItem) {
