@@ -8,6 +8,10 @@
         <!-- Color de la barra de estado -->
         <item name="android:statusBarColor">@color/primario</item>
         <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Forzar color de texto de EditText a texto_principal para evitar problemas de contraste -->
+        <item name="editTextColor">@color/texto_principal</item>
+        <item name="android:editTextColor">@color/texto_principal</item>
     </style>
 
     <style name="Widget.App.Button" parent="Widget.Material3.Button">
