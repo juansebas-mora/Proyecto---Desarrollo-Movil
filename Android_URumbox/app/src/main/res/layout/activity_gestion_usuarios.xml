@@ -16,6 +16,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutBusqueda"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxStrokeColor="@color/azul_ur"
+        app:boxBackgroundColor="@color/blanco"
+        app:startIconDrawable="@drawable/ic_search"
+        app:startIconTint="@color/texto_secundario"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etBuscarUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Buscar usuario por nombre o correo"
+            android:textColorHint="#909090"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerUsuarios"
         android:layout_width="0dp"
@@ -23,7 +57,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintTop_toBottomOf="@id/layoutBusqueda"
         app:layout_constraintBottom_toTopOf="@id/navbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

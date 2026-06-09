@@ -74,4 +74,10 @@ class UsuarioAdapter(
         items.addAll(newItems)
         notifyDataSetChanged()
     }
+
+    fun actualizarLista(nuevaLista: List<UsuarioItem>) {
+        items.clear()
+        items.addAll(nuevaLista)
+        notifyDataSetChanged()
+    }
 }

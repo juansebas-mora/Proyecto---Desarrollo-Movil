@@ -64,8 +64,9 @@
                             android:layout_height="100dp"
                             android:background="@drawable/bg_avatar"
                             android:contentDescription="Avatar"
-                            android:padding="18dp"
-                            android:scaleType="centerInside"
+                            android:scaleType="centerCrop"
+                            android:adjustViewBounds="false"
+                            android:clipToOutline="true"
                             android:src="@drawable/ic_persona"
                              />
                     </FrameLayout>

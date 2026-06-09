@@ -14,6 +14,7 @@ import android.provider.Settings
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.Window
 import android.widget.Button
 import android.widget.FrameLayout
@@ -499,7 +500,18 @@ class PerfilActivity : AppCompatActivity() {
                 binding.tvRol.text = rol
                 val fotoUrl = doc.getString("fotoPerfil")
                 if (!fotoUrl.isNullOrEmpty()) {
-                    Glide.with(this).load(fotoUrl).circleCrop().into(binding.imgAvatar)
+                    binding.imgAvatar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            binding.imgAvatar.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                            Glide.with(this@PerfilActivity)
+                                .load(fotoUrl)
+                                .circleCrop()
+                                .placeholder(R.drawable.bg_avatar)
+                                .error(R.drawable.bg_avatar)
+                                .override(binding.imgAvatar.width, binding.imgAvatar.height)
+                                .into(binding.imgAvatar)
+                        }
+                    })
                 }
                 // Aplicar visibilidad de ítems del menú según el rol
                 aplicarPermisosPorRol(rol)
@@ -603,8 +615,19 @@ class PerfilActivity : AppCompatActivity() {
                     db.collection("usuarios").document(uid)
                         .update("fotoPerfil", downloadUri.toString())
                         .addOnSuccessListener {
-                            Glide.with(this).load(downloadUri).circleCrop().into(binding.imgAvatar)
-                            Toast.makeText(this, "Foto actualizada", Toast.LENGTH_SHORT).show()
+                            binding.imgAvatar.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                                override fun onGlobalLayout() {
+                                    binding.imgAvatar.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                                    Glide.with(this@PerfilActivity)
+                                        .load(downloadUri)
+                                        .circleCrop()
+                                        .placeholder(R.drawable.bg_avatar)
+                                        .error(R.drawable.bg_avatar)
+                                        .override(binding.imgAvatar.width, binding.imgAvatar.height)
+                                        .into(binding.imgAvatar)
+                                }
+                            })
+                            Toast.makeText(this@PerfilActivity, "Foto actualizada", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
                             Toast.makeText(this, "Error al guardar URL de foto", Toast.LENGTH_SHORT).show()
