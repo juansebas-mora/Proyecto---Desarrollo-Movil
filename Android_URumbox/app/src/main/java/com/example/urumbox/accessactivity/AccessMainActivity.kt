@@ -67,6 +67,7 @@ class AccessMainActivity : AppCompatActivity() {
         viewModel.loadUserInfo()
         viewModel.userName.observe(this) { name -> binding.tvUserName.text = name }
         viewModel.userEmail.observe(this) { email -> binding.tvUserEmail.text = email }
+        viewModel.userRole.observe(this) { role -> binding.tvRoleBadge.text = role }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

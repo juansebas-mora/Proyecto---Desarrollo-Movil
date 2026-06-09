@@ -14,10 +14,10 @@
     <!-- Back Button -->
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:background="@drawable/topbar_button_background"
+        android:background="@drawable/back_button_bg"
         android:contentDescription="Volver"
         android:src="@drawable/ic_arrow_back"
         android:visibility="gone"
