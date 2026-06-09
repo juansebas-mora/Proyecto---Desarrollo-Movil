@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
+                android:paddingVertical="8dp"
                 android:textSize="11sp"
                 android:textStyle="bold"/>
 
@@ -112,6 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="Ver detalles"
+            android:textColor="@color/blanco"
             android:textSize="13sp"
             android:paddingHorizontal="16dp"
             android:backgroundTint="@color/primario"

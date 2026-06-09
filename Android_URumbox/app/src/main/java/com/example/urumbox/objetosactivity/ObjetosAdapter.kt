@@ -55,7 +55,7 @@ class ObjetosAdapter(
             b.tvEstado.text = "Encontrado"
             b.tvEstado.setBackgroundResource(R.drawable.badge_encontrado)
             b.tvEstado.setTextColor(
-                ContextCompat.getColor(context, R.color.badge_encontrado_text)
+                ContextCompat.getColor(context, R.color.blanco)
             )
         }
 

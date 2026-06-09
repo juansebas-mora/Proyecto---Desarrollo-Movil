@@ -28,12 +28,15 @@
 
     <!-- Avatar -->
     <ImageView
+        android:id="@+id/imgAvatar"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:src="@drawable/ic_person"
         android:background="@drawable/bg_avatar"
-        android:padding="12dp"
-        android:layout_marginBottom="12dp"/>
+        android:contentDescription="Avatar"
+        android:padding="18dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_persona"
+        />
 
     <!-- Nombre -->
     <TextView
@@ -132,6 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Cerrar"
+        android:textColor="@color/blanco"
         android:textStyle="bold"
         android:backgroundTint="@color/azul_ur"
         style="@style/Widget.Material3.Button"/>

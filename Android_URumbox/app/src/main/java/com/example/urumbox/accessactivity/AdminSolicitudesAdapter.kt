@@ -47,7 +47,7 @@ class AdminSolicitudesAdapter(
             "aceptada" -> Triple(
                 "Aceptada",
                 ContextCompat.getColor(ctx, R.color.badge_encontrado_bg),
-                ContextCompat.getColor(ctx, R.color.badge_encontrado_text)
+                ContextCompat.getColor(ctx, R.color.blanco)
             )
             "denegada" -> Triple(
                 "Denegada",
