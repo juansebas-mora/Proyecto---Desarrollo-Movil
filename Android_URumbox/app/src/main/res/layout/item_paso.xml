@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
+    app:strokeColor="#1A000000"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvStepTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Paso 1"
+            android:textStyle="bold"
+            android:textColor="@color/azul_ur"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivStepIcon" />
+
+        <TextView
+            android:id="@+id/tvStepDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Descripción del paso"
+            android:textSize="15sp"
+            android:textColor="#888888"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStepTitle"
+            app:layout_constraintEnd_toStartOf="@+id/ivStepIcon" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnStepAction"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:text="Saltar aquí"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_button_rounded_10"
+            android:textColor="@color/blanco"
+            android:elevation="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStepDesc" />
+
+        <ImageView
+            android:id="@+id/ivStepIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_location_current"
+            android:background="@drawable/bg_status_badge"
+            android:padding="8dp"
+            android:elevation="4dp"
+            app:tint="@color/azul_ur"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

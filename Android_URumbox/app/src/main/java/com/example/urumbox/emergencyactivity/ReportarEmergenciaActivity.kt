@@ -1,232 +1,351 @@
 package com.example.urumbox.emergencyactivity
 
 import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.ContextCompat
+import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.example.urumbox.R
-import com.example.urumbox.mapasactivity.MapaActivity
-import com.google.firebase.auth.FirebaseAuth
+import com.example.urumbox.ui.objetosperdidos.MapaBottomSheet
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
 import java.io.File
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 class ReportarEmergenciaActivity : AppCompatActivity() {
 
-    private var categoriaSeleccionada = ""
-    private var gravedadSeleccionada = ""
-    private var fotoUri: Uri? = null
-    private var cameraUri: Uri? = null
-
     private val db = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
+    private val storage = FirebaseStorage.getInstance("gs://urumbox-1c6c1.firebasestorage.app")
 
-    private val galeriaLauncher = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri ->
-        uri?.let {
-            fotoUri = it
-            mostrarPreview(it)
-        }
-    }
+    private var categoriaSeleccionada: String = ""
+    private var gravedadSeleccionada: String = ""
+    private var fotoUri: Uri? = null
+    private var cameraImageUri: Uri? = null
+    private var latitudSeleccionada: Double = 0.0
+    private var longitudSeleccionada: Double = 0.0
+    private var ubicacionTexto: String = ""
+    private val CAMERA_PERMISSION_REQUEST = 1002
 
-    private val camaraLauncher = registerForActivityResult(
-        ActivityResultContracts.TakePicture()
-    ) { success ->
-        if (success) {
-            cameraUri?.let {
-                fotoUri = it
-                mostrarPreview(it)
+    private val idsCategorias = listOf(
+        R.id.btnIncendio, R.id.btnMedica, R.id.btnRobo, R.id.btnSismo, R.id.btnOtro
+    )
+    private val idsGravedad = listOf(
+        R.id.btnBaja, R.id.btnMedia, R.id.btnAlta
+    )
+
+    private val galeriaLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                fotoUri = result.data?.data
+                fotoUri?.let { mostrarPreviewFoto(it) }
             }
         }
-    }
 
-    private val permisoCamaraLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        if (granted) abrirCamara()
-        else Toast.makeText(this, "Permiso de cámara denegado", Toast.LENGTH_SHORT).show()
-    }
+    private val camaraLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                cameraImageUri?.let {
+                    fotoUri = it
+                    mostrarPreviewFoto(it)
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reportar_emergencia)
 
-        val btnIncendio = findViewById<AppCompatButton>(R.id.btnIncendio)
-        val btnMedica   = findViewById<AppCompatButton>(R.id.btnMedica)
-        val btnRobo     = findViewById<AppCompatButton>(R.id.btnRobo)
-        val btnSismo    = findViewById<AppCompatButton>(R.id.btnSismo)
-        val btnOtro     = findViewById<AppCompatButton>(R.id.btnOtro)
-        val botonesCategoria = listOf(btnIncendio, btnMedica, btnRobo, btnSismo, btnOtro)
+        findViewById<com.example.urumbox.TopbarView>(R.id.topBar)
+            .setOnBackClickListener { finish() }
 
-        val btnBaja  = findViewById<AppCompatButton>(R.id.btnBaja)
-        val btnMedia = findViewById<AppCompatButton>(R.id.btnMedia)
-        val btnAlta  = findViewById<AppCompatButton>(R.id.btnAlta)
-        val botonesGravedad = listOf(btnBaja, btnMedia, btnAlta)
+        configurarBotonesCategorias()
+        configurarBotonesGravedad()
+        configurarFoto()
+        configurarMapa()
 
-        val etDescripcion      = findViewById<EditText>(R.id.etDescripcion)
-        val btnSeleccionarMapa = findViewById<LinearLayout>(R.id.btnSeleccionarMapa)
-        val btnSubirFoto       = findViewById<LinearLayout>(R.id.btnSubirFoto)
-        val btnEnviarReporte   = findViewById<AppCompatButton>(R.id.btnEnviarReporte)
-        val imgPreview         = findViewById<ImageView>(R.id.imgFotoPreview)
-        val btnEliminarFoto    = findViewById<Button>(R.id.btnEliminarFoto)
-
-        btnIncendio.setOnClickListener { categoriaSeleccionada = "Incendio"; resaltarSeleccion(btnIncendio, botonesCategoria) }
-        btnMedica.setOnClickListener   { categoriaSeleccionada = "Médica";   resaltarSeleccion(btnMedica, botonesCategoria) }
-        btnRobo.setOnClickListener     { categoriaSeleccionada = "Robo";     resaltarSeleccion(btnRobo, botonesCategoria) }
-        btnSismo.setOnClickListener    { categoriaSeleccionada = "Sismo";    resaltarSeleccion(btnSismo, botonesCategoria) }
-        btnOtro.setOnClickListener     { categoriaSeleccionada = "Otro";     resaltarSeleccion(btnOtro, botonesCategoria) }
-
-        btnBaja.setOnClickListener  { gravedadSeleccionada = "Baja";  resaltarSeleccion(btnBaja, botonesGravedad) }
-        btnMedia.setOnClickListener { gravedadSeleccionada = "Media"; resaltarSeleccion(btnMedia, botonesGravedad) }
-        btnAlta.setOnClickListener  { gravedadSeleccionada = "Alta";  resaltarSeleccion(btnAlta, botonesGravedad) }
-
-        btnSeleccionarMapa.setOnClickListener {
-            val intent = Intent(this, MapaActivity::class.java)
-            intent.putExtra("id_ruta", "ruta_claustro_test")
-            startActivity(intent)
-        }
-
-        btnSubirFoto.setOnClickListener { mostrarDialogoFoto() }
-
-        btnEliminarFoto.setOnClickListener {
-            fotoUri = null
-            cameraUri = null
-            imgPreview.setImageURI(null)
-            imgPreview.visibility = View.GONE
-            btnEliminarFoto.visibility = View.GONE
-        }
-
-        btnEnviarReporte.setOnClickListener {
-            when {
-                categoriaSeleccionada.isEmpty() ->
-                    Toast.makeText(this, "Selecciona una categoría", Toast.LENGTH_SHORT).show()
-                gravedadSeleccionada.isEmpty() ->
-                    Toast.makeText(this, "Selecciona el nivel de gravedad", Toast.LENGTH_SHORT).show()
-                etDescripcion.text.toString().trim().isEmpty() ->
-                    Toast.makeText(this, "Escribe una descripción", Toast.LENGTH_SHORT).show()
-                else -> enviarReporte(etDescripcion.text.toString().trim())
-            }
+        findViewById<AppCompatButton>(R.id.btnEnviarReporte).setOnClickListener {
+            enviarReporte()
         }
     }
 
-    private fun enviarReporte(descripcion: String) {
-        val btnEnviarReporte = findViewById<AppCompatButton>(R.id.btnEnviarReporte)
-        btnEnviarReporte.isEnabled = false
-        btnEnviarReporte.text = "Enviando..."
-
-        val fecha = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
-        val usuarioId = auth.currentUser?.uid ?: "anonimo"
-
-        val reporte = hashMapOf(
-            "categoria" to categoriaSeleccionada,
-            "gravedad" to gravedadSeleccionada,
-            "descripcion" to descripcion,
-            "fecha" to fecha,
-            "usuarioId" to usuarioId,
-            "estado" to "pendiente"
+    private fun configurarBotonesCategorias() {
+        val mapa = mapOf(
+            R.id.btnIncendio to "Incendio",
+            R.id.btnMedica to "Médica",
+            R.id.btnRobo to "Robo",
+            R.id.btnSismo to "Sismo"
         )
-
-        db.collection("reportes")
-            .add(reporte)
-            .addOnSuccessListener {
-                mostrarDialogoExito()
+        mapa.forEach { (id, nombre) ->
+            findViewById<AppCompatButton>(id).setOnClickListener {
+                categoriaSeleccionada = nombre
+                marcarSeleccionado(idsCategorias, id)
             }
-            .addOnFailureListener { e ->
-                btnEnviarReporte.isEnabled = true
-                btnEnviarReporte.text = "Enviar Reporte"
-                Toast.makeText(this, "Error al enviar: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+        }
+        findViewById<AppCompatButton>(R.id.btnOtro).setOnClickListener {
+            mostrarDialogOtro()
+        }
     }
 
-    private fun mostrarDialogoFoto() {
+    private fun configurarBotonesGravedad() {
+        val mapa = mapOf(
+            R.id.btnBaja to "Baja",
+            R.id.btnMedia to "Media",
+            R.id.btnAlta to "Alta"
+        )
+        mapa.forEach { (id, nivel) ->
+            findViewById<AppCompatButton>(id).setOnClickListener {
+                gravedadSeleccionada = nivel
+                marcarSeleccionado(idsGravedad, id)
+            }
+        }
+    }
+
+    private fun marcarSeleccionado(grupo: List<Int>, seleccionado: Int) {
+        grupo.forEach { id ->
+            val btn = findViewById<AppCompatButton>(id)
+            if (id == seleccionado) {
+                btn.setBackgroundResource(R.drawable.rounded_button_background)
+                btn.setTextColor(android.graphics.Color.WHITE)
+            } else {
+                btn.setBackgroundResource(R.drawable.chip_unselected_bg)
+                btn.setTextColor(android.graphics.Color.parseColor("#1B3E63"))
+            }
+        }
+    }
+
+    private fun mostrarDialogOtro() {
+        val dialogView = layoutInflater.inflate(R.layout.categoria_otro, null)
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.setCancelable(true)
+
+        val etCategoriaOtro = dialogView.findViewById<EditText>(R.id.etCategoriaOtro)
+        val btnCancelar = dialogView.findViewById<Button>(R.id.btnCancelarOtro)
+        val btnConfirmar = dialogView.findViewById<Button>(R.id.btnConfirmarOtro)
+
+        btnCancelar.setOnClickListener { dialog.dismiss() }
+        btnConfirmar.setOnClickListener {
+            val texto = etCategoriaOtro.text.toString().trim()
+            if (texto.isNotEmpty()) {
+                categoriaSeleccionada = "Otro: $texto"
+                marcarSeleccionado(idsCategorias, R.id.btnOtro)
+                dialog.dismiss()
+            } else {
+                Toast.makeText(this, "Escribe el tipo de emergencia", Toast.LENGTH_SHORT).show()
+            }
+        }
+        dialog.show()
+    }
+
+    private fun configurarMapa() {
+        findViewById<LinearLayout>(R.id.btnSeleccionarMapa).setOnClickListener {
+            val mapaSheet = MapaBottomSheet()
+            mapaSheet.onUbicacionSeleccionada = { lat, lng, direccion ->
+                latitudSeleccionada = lat
+                longitudSeleccionada = lng
+                ubicacionTexto = direccion
+                val tvUbicacion = findViewById<TextView>(R.id.tvUbicacionSeleccionada)
+                tvUbicacion?.text = "📍 $direccion"
+                tvUbicacion?.visibility = View.VISIBLE
+            }
+            mapaSheet.show(supportFragmentManager, MapaBottomSheet.TAG)
+        }
+    }
+
+    private fun configurarFoto() {
+        findViewById<LinearLayout>(R.id.btnSubirFoto).setOnClickListener {
+            mostrarDialogFuente()
+        }
+        findViewById<Button>(R.id.btnEliminarFoto).setOnClickListener {
+            fotoUri = null
+            cameraImageUri = null
+            findViewById<ImageView>(R.id.imgFotoPreview).apply {
+                setImageURI(null)
+                visibility = View.GONE
+            }
+            it.visibility = View.GONE
+        }
+    }
+
+    private fun mostrarDialogFuente() {
         AlertDialog.Builder(this)
-            .setTitle("Agregar foto")
+            .setTitle("Foto de la emergencia")
             .setItems(arrayOf("📷 Tomar foto", "🖼️ Elegir de galería")) { _, which ->
                 when (which) {
-                    0 -> verificarPermisoCamara()
-                    1 -> galeriaLauncher.launch("image/*")
+                    0 -> abrirCamara()
+                    1 -> {
+                        val intent = Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                        )
+                        galeriaLauncher.launch(intent)
+                    }
                 }
             }
             .show()
     }
 
-    private fun verificarPermisoCamara() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            == PackageManager.PERMISSION_GRANTED) {
-            abrirCamara()
-        } else {
-            permisoCamaraLauncher.launch(Manifest.permission.CAMERA)
-        }
-    }
-
     private fun abrirCamara() {
-        try {
-            val archivoFoto = File(cacheDir, "foto_emergencia_${System.currentTimeMillis()}.jpg")
-            cameraUri = FileProvider.getUriForFile(
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
                 this,
-                "com.example.urumbox.fileprovider",
-                archivoFoto
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_REQUEST
             )
-            camaraLauncher.launch(cameraUri!!)
+            return
+        }
+
+        val photoFile = File(
+            getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            "emergencia_${System.currentTimeMillis()}.jpg"
+        )
+        cameraImageUri = FileProvider.getUriForFile(
+            this,
+            "${packageName}.fileprovider",
+            photoFile
+        )
+        cameraImageUri?.let { camaraLauncher.launch(it) }
+    }
+
+    private fun mostrarPreviewFoto(uri: Uri) {
+        val preview = findViewById<ImageView>(R.id.imgFotoPreview)
+        val btnEliminar = findViewById<Button>(R.id.btnEliminarFoto)
+        preview.setImageURI(uri)
+        preview.visibility = View.VISIBLE
+        btnEliminar.visibility = View.VISIBLE
+    }
+
+    private fun enviarReporte() {
+        val descripcion = findViewById<EditText>(R.id.etDescripcion).text.toString().trim()
+
+        if (categoriaSeleccionada.isEmpty()) {
+            Toast.makeText(this, "Selecciona una categoría", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (gravedadSeleccionada.isEmpty()) {
+            Toast.makeText(this, "Selecciona el nivel de gravedad", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (descripcion.isEmpty()) {
+            Toast.makeText(this, "Escribe una descripción", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val btnEnviar = findViewById<AppCompatButton>(R.id.btnEnviarReporte)
+        btnEnviar.isEnabled = false
+        btnEnviar.text = "Enviando…"
+
+        if (fotoUri != null) {
+            subirFotoYGuardar(fotoUri!!, descripcion, btnEnviar)
+        } else {
+            guardarEnFirestore("", descripcion, btnEnviar)
+        }
+    }
+
+    // ✅ CAMBIO: putStream en lugar de putFile — compatible con file:// y content://
+    private fun subirFotoYGuardar(uri: Uri, descripcion: String, btnEnviar: AppCompatButton) {
+        val nombreArchivo = "emergencias/${UUID.randomUUID()}.jpg"
+        val ref = storage.reference.child(nombreArchivo)
+
+        val inputStream = try {
+            contentResolver.openInputStream(uri)
         } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(this, e.javaClass.simpleName + ": " + e.message, Toast.LENGTH_LONG).show()
-        }
-    }
-
-    private fun mostrarPreview(uri: Uri) {
-        val imgPreview = findViewById<ImageView>(R.id.imgFotoPreview)
-        val btnEliminarFoto = findViewById<Button>(R.id.btnEliminarFoto)
-        imgPreview.setImageURI(uri)
-        imgPreview.visibility = View.VISIBLE
-        btnEliminarFoto.visibility = View.VISIBLE
-    }
-
-    private fun mostrarDialogoExito() {
-        val dialogView = LayoutInflater.from(this)
-            .inflate(R.layout.dialog_reporte_publicado, null)
-
-        val dialog = AlertDialog.Builder(this)
-            .setView(dialogView)
-            .setCancelable(false)
-            .create()
-
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
-        dialogView.findViewById<AppCompatButton>(R.id.btnCerrarDialog).setOnClickListener {
-            dialog.dismiss()
-            finish()
+            Toast.makeText(this, "No se pudo leer la foto: ${e.message}", Toast.LENGTH_LONG).show()
+            btnEnviar.isEnabled = true
+            btnEnviar.text = "Enviar Reporte"
+            return
         }
 
-        dialog.show()
-    }
+        if (inputStream == null) {
+            Toast.makeText(this, "La foto no está disponible", Toast.LENGTH_SHORT).show()
+            btnEnviar.isEnabled = true
+            btnEnviar.text = "Enviar Reporte"
+            return
+        }
 
-    private fun resaltarSeleccion(seleccionado: AppCompatButton, todos: List<AppCompatButton>) {
-        todos.forEach { btn ->
-            if (btn == seleccionado) {
-                btn.setBackgroundResource(R.drawable.rounded_button_background)
-                btn.setTextColor(resources.getColor(android.R.color.white, null))
-            } else {
-                btn.setBackgroundResource(R.drawable.chip_unselected_bg)
-                btn.setTextColor(resources.getColor(android.R.color.holo_blue_dark, null))
+        val metadata = StorageMetadata.Builder()
+            .setContentType("image/jpeg")
+            .build()
+
+        ref.putStream(inputStream, metadata)
+            .addOnSuccessListener {
+                inputStream.close()
+                ref.downloadUrl
+                    .addOnSuccessListener { urlDescarga ->
+                        guardarEnFirestore(urlDescarga.toString(), descripcion, btnEnviar)
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error obteniendo URL: ${e.message}", Toast.LENGTH_LONG).show()
+                        btnEnviar.isEnabled = true
+                        btnEnviar.text = "Enviar Reporte"
+                    }
             }
+            .addOnFailureListener { e ->
+                inputStream.close()
+                Toast.makeText(this, "Error subiendo foto: ${e.message}", Toast.LENGTH_LONG).show()
+                btnEnviar.isEnabled = true
+                btnEnviar.text = "Enviar Reporte"
+            }
+    }
+
+    private fun guardarEnFirestore(urlFoto: String, descripcion: String, btnEnviar: AppCompatButton) {
+        val ahora = Date()
+        val fechaFormateada = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(ahora)
+
+        val reporte = hashMapOf(
+            "categoria"   to categoriaSeleccionada,
+            "gravedad"    to gravedadSeleccionada,
+            "descripcion" to descripcion,
+            "fecha"       to fechaFormateada,
+            "timestamp"   to Timestamp(ahora),
+            "latitud"     to latitudSeleccionada,
+            "longitud"    to longitudSeleccionada,
+            "ubicacion"   to ubicacionTexto,
+            "fotoUrl"     to urlFoto
+        )
+
+        db.collection("reportes")
+            .add(reporte)
+            .addOnSuccessListener {
+                Toast.makeText(this, "✅ Reporte enviado", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                btnEnviar.isEnabled = true
+                btnEnviar.text = "Enviar Reporte"
+            }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CAMERA_PERMISSION_REQUEST &&
+            grantResults.isNotEmpty() &&
+            grantResults[0] == PackageManager.PERMISSION_GRANTED
+        ) {
+            abrirCamara()
         }
     }
 }

@@ -509,7 +509,7 @@ class AccessRequestConsultActivity : AppCompatActivity() {
             "aceptada" -> Triple(
                 "Aceptada",
                 ContextCompat.getColor(this, R.color.badge_encontrado_bg),
-                ContextCompat.getColor(this, R.color.badge_encontrado_text)
+                ContextCompat.getColor(this, R.color.blanco)
             )
             "denegada" -> Triple(
                 "Denegada",

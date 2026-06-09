@@ -32,7 +32,9 @@
         android:layout_height="48dp"
         android:text="Administrador"
         android:textStyle="bold"
+        android:textColor="@color/blanco"
         android:backgroundTint="@color/azul_ur"
+        android:stateListAnimator="@null"
         style="@style/Widget.Material3.Button"/>
 
     <Button
@@ -41,7 +43,9 @@
         android:layout_height="48dp"
         android:text="Usuario UR"
         android:textStyle="bold"
+        android:textColor="@color/blanco"
         android:backgroundTint="@color/azul_ur"
+        android:stateListAnimator="@null"
         android:layout_marginTop="8dp"
         style="@style/Widget.Material3.Button"/>
 
@@ -51,7 +55,9 @@
         android:layout_height="48dp"
         android:text="Vigilante"
         android:textStyle="bold"
+        android:textColor="@color/blanco"
         android:backgroundTint="@color/azul_ur"
+        android:stateListAnimator="@null"
         android:layout_marginTop="8dp"
         style="@style/Widget.Material3.Button"/>
 
@@ -62,7 +68,8 @@
         android:text="Cancelar"
         android:textStyle="bold"
         android:layout_marginTop="8dp"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        android:textColor="@color/azul_ur"/>
+        android:textColor="@color/azul_ur"
+        android:backgroundTint="@color/blanco"
+        style="@style/Widget.Material3.Button.OutlinedButton"/>
 
 </LinearLayout>

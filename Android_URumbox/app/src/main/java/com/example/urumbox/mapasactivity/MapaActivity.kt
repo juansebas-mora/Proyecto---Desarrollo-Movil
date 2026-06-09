@@ -18,6 +18,7 @@ class MapaActivity : AppCompatActivity() {
     private val viewModel: MapaViewModel by viewModels()
     private lateinit var binding: ActivityMapaBinding
     private var isShowingSteps = false
+    private lateinit var pasosAdapter: PasosAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +84,13 @@ class MapaActivity : AppCompatActivity() {
             toggleMapStepsView(!isShowingSteps)
         }
 
-        setupClickListeners()
+        // Configurar RecyclerView para el listado de pasos dinámicos
+        binding.rvPasos.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        pasosAdapter = PasosAdapter(emptyList(), 0) { position ->
+            NavegacionManager.establecerPasoIndex(position)
+            toggleMapStepsView(showSteps = false)
+        }
+        binding.rvPasos.adapter = pasosAdapter
     }
 
     private fun actualizarInterfazNavegacion() {
@@ -118,108 +125,7 @@ class MapaActivity : AppCompatActivity() {
         }
 
         // Sincronizar listado de pasos integrado
-        inicializarPasosUI()
-        actualizarInterfazPasos()
-    }
-
-    private fun inicializarPasosUI() {
-        val ruta = NavegacionManager.rutaActiva.value ?: return
-
-        val titulos = listOf(
-            binding.tvStep1Title,
-            binding.tvStep2Title,
-            binding.tvStep3Title,
-            binding.tvStep4Title,
-            binding.tvStep5Title
-        )
-        val descripciones = listOf(
-            binding.tvStep1Desc,
-            binding.tvStep2Desc,
-            binding.tvStep3Desc,
-            binding.tvStep4Desc,
-            binding.tvStep5Desc
-        )
-        val iconos = listOf(
-            binding.ivStep1Icon,
-            binding.ivStep2Icon,
-            binding.ivStep3Icon,
-            binding.ivStep4Icon,
-            binding.ivStep5Icon
-        )
-
-        for (i in 0 until 5) {
-            val paso = ruta.pasos.getOrNull(i)
-            val parentCard = titulos[i].parent?.parent as? View
-            if (paso != null) {
-                parentCard?.visibility = View.VISIBLE
-                titulos[i].text = paso.titulo
-                
-                if (paso.descripcion.isNullOrBlank()) {
-                    descripciones[i].visibility = View.GONE
-                } else {
-                    descripciones[i].visibility = View.VISIBLE
-                    descripciones[i].text = paso.descripcion
-                }
-                
-                iconos[i].setImageResource(getIconResource(paso.icono))
-            } else {
-                parentCard?.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun setupClickListeners() {
-        val botones = listOf(
-            binding.btnStep1,
-            binding.btnStep2,
-            binding.btnStep3,
-            binding.btnStep4,
-            binding.btnStep5
-        )
-
-        for (i in 0 until 5) {
-            botones[i].setOnClickListener {
-                NavegacionManager.establecerPasoIndex(i)
-                toggleMapStepsView(showSteps = false)
-            }
-        }
-    }
-
-    private fun actualizarInterfazPasos() {
-        val ruta = NavegacionManager.rutaActiva.value ?: return
-        val activeIndex = NavegacionManager.pasoActualIndex.value ?: 0
-
-        val botones = listOf(
-            binding.btnStep1,
-            binding.btnStep2,
-            binding.btnStep3,
-            binding.btnStep4,
-            binding.btnStep5
-        )
-
-        for (i in 0 until 5) {
-            val button = botones[i]
-            when {
-                i == activeIndex -> {
-                    button.text = if (i == 4) "Llegué" else "Estás aquí"
-                    button.setBackgroundResource(R.drawable.bg_button_light_blue_rounded_10)
-                    button.setTextColor(android.graphics.Color.parseColor("#8E8E93"))
-                    button.isEnabled = false
-                }
-                i < activeIndex -> {
-                    button.text = "Volver aquí"
-                    button.setBackgroundResource(R.drawable.bg_button_rounded_10)
-                    button.setTextColor(android.graphics.Color.WHITE)
-                    button.isEnabled = true
-                }
-                else -> {
-                    button.text = "Saltar aquí"
-                    button.setBackgroundResource(R.drawable.bg_button_rounded_10)
-                    button.setTextColor(android.graphics.Color.WHITE)
-                    button.isEnabled = true
-                }
-            }
-        }
+        pasosAdapter.updateData(ruta.pasos, index)
     }
 
     private fun getIconResource(iconoName: String): Int {
@@ -234,8 +140,8 @@ class MapaActivity : AppCompatActivity() {
         if (isShowingSteps == showSteps) return
         isShowingSteps = showSteps
 
-        val activeView = if (showSteps) binding.scrollViewPasos else binding.cardMap
-        val inactiveView = if (showSteps) binding.cardMap else binding.scrollViewPasos
+        val activeView = if (showSteps) binding.rvPasos else binding.cardMap
+        val inactiveView = if (showSteps) binding.cardMap else binding.rvPasos
 
         val duration = 300L
 
