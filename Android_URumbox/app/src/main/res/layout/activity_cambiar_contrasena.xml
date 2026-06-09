@@ -79,7 +79,10 @@
                         app:boxCornerRadiusTopEnd="10dp"
                         app:boxCornerRadiusBottomStart="10dp"
                         app:boxCornerRadiusBottomEnd="10dp"
-                        app:boxStrokeColor="@color/gris_linea"
+                        app:boxStrokeColor="@color/color_borde_campo"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/azul_ur"
                         app:boxBackgroundColor="@color/blanco"
                         app:endIconMode="password_toggle">
 
@@ -89,6 +92,8 @@
                             android:layout_height="wrap_content"
                             android:hint="••••••••••••"
                             android:inputType="textPassword"
+                            android:textColorHint="#909090"
+                            android:textColor="@color/texto_principal"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +117,10 @@
                         app:boxCornerRadiusTopEnd="10dp"
                         app:boxCornerRadiusBottomStart="10dp"
                         app:boxCornerRadiusBottomEnd="10dp"
-                        app:boxStrokeColor="@color/gris_linea"
+                        app:boxStrokeColor="@color/color_borde_campo"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/azul_ur"
                         app:boxBackgroundColor="@color/blanco"
                         app:endIconMode="password_toggle">
 
@@ -122,6 +130,8 @@
                             android:layout_height="wrap_content"
                             android:hint="••••••••••••"
                             android:inputType="textPassword"
+                            android:textColorHint="#909090"
+                            android:textColor="@color/texto_principal"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,7 +155,10 @@
                         app:boxCornerRadiusTopEnd="10dp"
                         app:boxCornerRadiusBottomStart="10dp"
                         app:boxCornerRadiusBottomEnd="10dp"
-                        app:boxStrokeColor="@color/gris_linea"
+                        app:boxStrokeColor="@color/color_borde_campo"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:hintTextColor="@color/azul_ur"
                         app:boxBackgroundColor="@color/blanco"
                         app:endIconMode="password_toggle">
 
@@ -155,6 +168,8 @@
                             android:layout_height="wrap_content"
                             android:hint="••••••••••••"
                             android:inputType="textPassword"
+                            android:textColorHint="#909090"
+                            android:textColor="@color/texto_principal"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 

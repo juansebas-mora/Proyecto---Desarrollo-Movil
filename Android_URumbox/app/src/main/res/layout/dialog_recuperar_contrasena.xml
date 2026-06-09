@@ -59,7 +59,9 @@
         android:layout_height="48dp"
         android:text="Entendido"
         android:textStyle="bold"
+        android:textColor="@color/blanco"
         android:backgroundTint="@color/azul_ur"
+        android:stateListAnimator="@null"
         style="@style/Widget.Material3.Button"/>
 
 </LinearLayout>

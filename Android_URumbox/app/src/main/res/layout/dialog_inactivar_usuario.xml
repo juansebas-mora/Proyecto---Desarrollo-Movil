@@ -42,7 +42,9 @@
         android:layout_height="48dp"
         android:text="Confirmar"
         android:textStyle="bold"
+        android:textColor="@color/blanco"
         android:backgroundTint="@color/rojo_ur"
+        android:stateListAnimator="@null"
         style="@style/Widget.Material3.Button"/>
 
     <Button
@@ -52,7 +54,8 @@
         android:text="Cancelar"
         android:textStyle="bold"
         android:layout_marginTop="8dp"
-        style="@style/Widget.Material3.Button.OutlinedButton"
-        android:textColor="@color/azul_ur"/>
+        android:textColor="@color/azul_ur"
+        android:backgroundTint="@color/blanco"
+        style="@style/Widget.Material3.Button.OutlinedButton"/>
 
 </LinearLayout>
