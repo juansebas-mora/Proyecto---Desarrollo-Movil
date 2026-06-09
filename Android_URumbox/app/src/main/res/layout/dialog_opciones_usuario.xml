@@ -148,6 +148,7 @@
         android:text="Cancelar"
         android:textStyle="bold"
         android:textColor="@color/azul_ur"
+        android:backgroundTint="@color/blanco"
         style="@style/Widget.Material3.Button.OutlinedButton"/>
 
 </LinearLayout>
