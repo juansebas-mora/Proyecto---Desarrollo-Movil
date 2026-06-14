@@ -10,11 +10,11 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:topbarTitle="mergencias"
-        app:showBackButton="true"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:showBackButton="true"
+        app:topbarTitle="Emergencias" />
 
     <ScrollView
         android:layout_width="match_parent"
